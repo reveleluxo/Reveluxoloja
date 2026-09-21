@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reveluxo — Moda Feminina</title>
+<meta name="description" content="Catálogo de moda feminina Reveluxo. Vestidos, blusas, calças e casacos. Peça pelo WhatsApp (85) 98583-6214." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Reveluxo — Moda Feminina" />
+<meta property="og:title" content="Reveluxo — Moda Feminina" />
+<meta property="og:description" content="Vestidos, blusas, calças e casacos. Peça pelo WhatsApp (85) 98583-6214 · @reveluxo" />
+<meta property="og:image" content="logo-reveluxo.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Reveluxo — Moda Feminina" />
+<meta name="twitter:description" content="Vestidos, blusas, calças e casacos. Peça pelo WhatsApp (85) 98583-6214 · @reveluxo" />
+<meta name="twitter:image" content="logo-reveluxo.png" />
+<link rel="icon" href="logo-reveluxo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #000000; }
+  * { box-sizing: border-box; }
+  a { color: #c9a44c; text-decoration: none; }
+  a:hover { color: #e3c684; }
+  input, textarea, select, button { font-family: inherit; color: inherit; }
+  input:focus, textarea:focus, select:focus { outline: 1px solid #c9a44c; outline-offset: 2px; }
+  ::placeholder { color: #b3ac9e; }
+  select option { background: #141416; color: #eae5da; }
+  img, input, textarea, select { max-width: 100%; }
+  @media (max-width: 860px) {
+    [data-grid="admin"], [data-grid="form"], [data-grid="detail"], [data-grid="two"] { grid-template-columns: minmax(0, 1fr) !important; }
+    [data-pad] { padding-left: 18px !important; padding-right: 18px !important; }
+    [data-panel] { padding: 24px 20px !important; }
+    [data-detail-pad] { padding: 28px 22px 32px !important; }
+    [data-detail-img] { min-height: 320px !important; }
+    [data-grid="cards"] { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 28px 14px !important; }
+    [data-nav] { gap: 16px !important; }
+    [data-cover] { width: 160px !important; }
+    [data-detail-wrap] { max-height: 94vh !important; }
+  }
+</style>
+</helmet>
+<div style="font-family: Jost, ui-sans-serif, system-ui, sans-serif; background: #000000; color: #eae5da; min-height: 100vh; font-weight: 300;">
+
+  <div style="background: #c9a44c; color: #000000; text-align: center; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding: 9px 16px;">Peças exclusivas · Entrega em todo o Brasil</div>
+
+  <div style="border-bottom: 1px solid #23211c;">
+    <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 40px 32px 0; text-align: center;">
+      <div onClick="{{ goHome }}" style="cursor: pointer; display: inline-block;">
+        <img src="logo-reveluxo.png" alt="Reveluxo — Moda Feminina" style="display: block; width: 100%; max-width: 460px; height: auto; margin: 0 auto;" />
+      </div>
+      <div style="margin-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px;">
+        <a href="https://wa.me/5585985836214" target="_blank" rel="noopener" style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #a49c8c;" style-hover="color: #e3c684;">(85) 98583-6214</a>
+        <span style="width: 3px; height: 3px; background: #c9a44c; display: block;"></span>
+        <a href="https://www.instagram.com/reveluxo/" target="_blank" rel="noopener" style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #a49c8c;" style-hover="color: #e3c684;">@reveluxo</a>
+      </div>
+
+      <sc-if value="{{ enableSearch }}" hint-placeholder-val="{{ true }}">
+        <div style="max-width: 340px; margin: 30px auto 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #2e2b24; padding-bottom: 8px;">
+          <span style="font-size: 12px; color: #b3ac9e;">⌕</span>
+          <input type="text" value="{{ search }}" onChange="{{ onSearch }}" placeholder="Buscar peças" style="flex: 1 1 auto; border: none; background: transparent; font-size: 13px; letter-spacing: 0.1em; padding: 2px 0; color: #eae5da;" />
+        </div>
+      </sc-if>
+
+      <div data-nav="1" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 34px; padding-bottom: 20px;">
+        <sc-for list="{{ catPills }}" as="pill" hint-placeholder-count="5">
+          <button onClick="{{ pill.onClick }}" style="{{ pill.style }}">{{ pill.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ true }}">
+    <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 64px 32px 96px;">
+
+      <div style="text-align: center; margin-bottom: 52px;">
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 34px; font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase; color: #f3efe6;">{{ shopTitle }}</div>
+        <div style="width: 44px; height: 1px; background: #c9a44c; margin: 20px auto 14px;"></div>
+        <div style="font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4cfc3;">{{ shopCount }}</div>
+      </div>
+
+      <sc-if value="{{ isEmptyResult }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align: center; padding: 80px 24px;">
+          <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 300; letter-spacing: 0.06em; margin-bottom: 10px;">Nenhuma peça encontrada</div>
+          <div style="font-size: 11px; letter-spacing: 0.16em; color: #d4cfc3; text-transform: uppercase;">Ajuste sua busca ou escolha outra coleção</div>
+        </div>
+      </sc-if>
+
+      <div data-grid="cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 52px 32px;">
+        <sc-for list="{{ gridItems }}" as="p" hint-placeholder-count="8">
+          <div onClick="{{ p.open }}" style="cursor: pointer;">
+            <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: repeating-linear-gradient(135deg, #0d0d0d 0 12px, #151515 12px 24px); display: flex; align-items: center; justify-content: center;">
+              <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}">
+                <div role="img" aria-label="{{ p.name }}" style="{{ p.imgStyle }}"></div>
+              </sc-if>
+              <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}">
+                <span style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: #55504a; letter-spacing: 0.1em;">foto da peça</span>
+              </sc-if>
+              <sc-if value="{{ p.isNew }}" hint-placeholder-val="{{ false }}">
+                <span style="position: absolute; top: 14px; left: 14px; background: #c9a44c; color: #000000; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; padding: 6px 11px;">Novo</span>
+              </sc-if>
+            </div>
+            <div style="padding: 20px 2px 0; display: flex; flex-direction: column; gap: 8px; text-align: center;">
+              <div style="font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: #a49c8c;">{{ p.catName }}</div>
+              <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 27px; font-weight: 500; letter-spacing: 0.04em; color: #ffffff; line-height: 1.2;">{{ p.name }}</div>
+              <sc-if value="{{ showPriceOnCard }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size: 15px; letter-spacing: 0.16em; color: #e3c684;">{{ p.priceLabel }}</div>
+              </sc-if>
+              <sc-if value="{{ showSizesOnCard }}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 4px;">
+                  <sc-for list="{{ p.sizes }}" as="s" hint-placeholder-count="3">
+                    <span style="font-size: 12px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; border: 1px solid #5a5347; padding: 4px 11px;">{{ s }}</span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+    <div data-pad="1" style="max-width: 420px; margin: 0 auto; padding: 88px 32px 120px;">
+      <div data-panel="1" style="border: 1px solid #23211c; background: #0a0a0a; padding: 48px 40px;">
+        <div style="text-align: center; margin-bottom: 34px;">
+          <div style="font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: #c9a44c; margin-bottom: 12px;">Área restrita</div>
+          <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: #f3efe6;">Administração</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 22px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Usuário</span>
+            <input type="text" value="{{ loginUser }}" onChange="{{ onLoginUser }}" onKeyDown="{{ onLoginKey }}" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 15px; letter-spacing: 0.06em; padding: 8px 0; color: #eae5da;" />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Senha</span>
+            <input type="password" value="{{ loginPass }}" onChange="{{ onLoginPass }}" onKeyDown="{{ onLoginKey }}" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 15px; letter-spacing: 0.06em; padding: 8px 0; color: #eae5da;" />
+          </div>
+          <div style="font-size: 11px; letter-spacing: 0.08em; color: #d08b7a; min-height: 16px;">{{ loginError }}</div>
+          <button onClick="{{ doLogin }}" style="background: #c9a44c; color: #000000; border: none; padding: 16px 24px; font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; cursor: pointer;" style-hover="background: #e3c684;">Entrar</button>
+          <button onClick="{{ goHome }}" style="background: transparent; border: none; padding: 4px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #b3ac9e; cursor: pointer;">Voltar à loja</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+    <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 56px 32px 96px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; margin-bottom: 40px; border-bottom: 1px solid #23211c; padding-bottom: 20px;">
+        <div>
+          <div style="font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: #c9a44c; margin-bottom: 8px;">Painel interno</div>
+          <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: #f3efe6;">Administração</div>
+        </div>
+        <button onClick="{{ doLogout }}" style="margin-left: auto; background: transparent; border: 1px solid #2e2b24; padding: 10px 20px; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer; color: #d4cfc3;">Sair</button>
+      </div>
+
+      <div data-grid="admin" style="display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; align-items: start;">
+
+        <div data-panel="1" style="background: #0a0a0a; border: 1px solid #23211c; padding: 40px;">
+          <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: 0.08em; margin-bottom: 6px; color: #f3efe6;">{{ formTitle }}</div>
+          <div style="font-size: 11px; letter-spacing: 0.1em; color: #d4cfc3; margin-bottom: 32px;">A peça entra na home com o selo Novo por 14 dias e fica na sua categoria.</div>
+
+          <div data-grid="form" style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px;">
+            <div data-cover="1" style="display: flex; flex-direction: column; gap: 10px;">
+              <label style="display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; cursor: pointer; background: repeating-linear-gradient(135deg, #0d0d0d 0 12px, #151515 12px 24px); border: 1px solid #23211c; position: relative;">
+                <sc-if value="{{ hasFormImg }}" hint-placeholder-val="{{ false }}">
+                  <div role="img" aria-label="prévia" style="{{ fImgStyle }}"></div>
+                </sc-if>
+                <sc-if value="{{ noFormImg }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: #b3ac9e; text-align: center; padding: 0 16px;">foto de capa (opcional)</span>
+                </sc-if>
+                <input type="file" accept="image/*" onChange="{{ onPickImage }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+              </label>
+              <label style="border: 1px solid #c9a44c; background: transparent; padding: 10px 16px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; color: #e3c684; text-align: center; position: relative;">
+                Tirar foto da capa
+                <input type="file" accept="image/*" capture="environment" onChange="{{ onPickImage }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+              </label>
+              <button onClick="{{ clearImage }}" style="border: 1px solid #2e2b24; background: transparent; padding: 10px 16px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; color: #d4cfc3;">Remover foto</button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Nome da peça</span>
+                <input type="text" value="{{ fName }}" onChange="{{ onName }}" placeholder="Vestido midi linho" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 16px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;" />
+              </div>
+
+              <div data-grid="two" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Categoria</span>
+                  <select value="{{ fCat }}" onChange="{{ onCat }}" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 15px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;">
+                    <sc-for list="{{ catOptions }}" as="c" hint-placeholder-count="4">
+                      <option value="{{ c.id }}">{{ c.name }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Preço (R$)</span>
+                  <input type="text" value="{{ fPrice }}" onChange="{{ onPrice }}" placeholder="189,90" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 16px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;" />
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Tamanhos disponíveis</span>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                  <sc-for list="{{ sizeOptions }}" as="s" hint-placeholder-count="5">
+                    <button onClick="{{ s.toggle }}" style="{{ s.style }}">{{ s.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Cores, estoque e fotos</span>
+                <span style="font-size: 11px; letter-spacing: 0.06em; color: #b3ac9e;">Cada cor tem sua própria foto. Ao escolher a cor na loja, a foto correspondente é exibida.</span>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <sc-for list="{{ colorRows }}" as="row" hint-placeholder-count="2">
+                    <div style="display: flex; flex-direction: column; gap: 12px; border: 1px solid #23211c; padding: 14px;">
+                      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px;">
+                        <div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+                          <span style="font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: #d4cfc3;">Nome da cor</span>
+                          <input type="text" value="{{ row.name }}" onChange="{{ row.onName }}" placeholder="Roxo" style="width: 100%; border: 1px solid #3a3529; background: #0f0f0f; font-size: 15px; letter-spacing: 0.04em; padding: 10px 12px; color: #ffffff;" />
+                        </div>
+                        <div style="width: 96px; flex: 0 0 auto; display: flex; flex-direction: column; gap: 6px;">
+                          <span style="font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: #d4cfc3;">Estoque</span>
+                          <input type="text" value="{{ row.qty }}" onChange="{{ row.onQty }}" placeholder="0" style="width: 100%; border: 1px solid #3a3529; background: #0f0f0f; font-size: 15px; letter-spacing: 0.04em; padding: 10px 12px; color: #ffffff; text-align: center;" />
+                        </div>
+                        <button onClick="{{ row.remove }}" style="flex: 0 0 auto; background: transparent; border: 1px solid #2e2b24; padding: 11px 14px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; color: #d4cfc3;">Remover cor</button>
+                      </div>
+                      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                        <sc-for list="{{ row.photos }}" as="ph" hint-placeholder-count="2">
+                          <div draggable="{{ true }}" onDragStart="{{ ph.onDragStart }}" onDragOver="{{ ph.onDragOver }}" onDrop="{{ ph.onDrop }}" title="Arraste para reordenar" style="position: relative; width: 56px; height: 72px; overflow: hidden; flex: 0 0 auto; cursor: grab;">
+                            <div role="img" style="{{ ph.style }}"></div>
+                            <button onClick="{{ ph.remove }}" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; line-height: 1; background: rgba(0,0,0,0.82); border: none; color: #e3c684; font-size: 12px; cursor: pointer;">×</button>
+                          </div>
+                        </sc-for>
+                        <label title="Escolher fotos do celular" style="width: 56px; height: 72px; flex: 0 0 auto; position: relative; cursor: pointer; border: 1px dashed #5a5347; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                          <span style="font-size: 18px; color: #e3c684; line-height: 1;">+</span>
+                          <span style="font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: #b3ac9e;">Galeria</span>
+                          <input type="file" accept="image/*" multiple="{{ true }}" onChange="{{ row.onPick }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+                        </label>
+                        <label title="Tirar foto agora" style="width: 56px; height: 72px; flex: 0 0 auto; position: relative; cursor: pointer; border: 1px solid #c9a44c; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+                          <span style="font-size: 16px; color: #e3c684; line-height: 1;">◉</span>
+                          <span style="font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: #e3c684;">Câmera</span>
+                          <input type="file" accept="image/*" capture="environment" onChange="{{ row.onPick }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+                        </label>
+                        <span style="font-size: 11px; letter-spacing: 0.06em; color: #b3ac9e;">{{ row.photoCount }} · arraste para reordenar (a primeira é a capa)</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <button onClick="{{ addColorRow }}" style="align-self: flex-start; background: transparent; border: 1px solid #c9a44c; padding: 10px 20px; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; cursor: pointer; color: #e3c684;">+ Adicionar cor</button>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Descrição</span>
+                <textarea value="{{ fDesc }}" onChange="{{ onDesc }}" rows="4" placeholder="Tecido, caimento, composição, cuidados." style="border: 1px solid #23211c; background: transparent; padding: 14px 16px; font-size: 14px; letter-spacing: 0.03em; line-height: 1.6; resize: vertical; color: #eae5da;"></textarea>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <button onClick="{{ saveProduct }}" style="background: #c9a44c; color: #000000; border: none; padding: 16px 32px; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer;" style-hover="background: #e3c684;">{{ saveLabel }}</button>
+                <button onClick="{{ resetForm }}" style="background: transparent; border: 1px solid #2e2b24; padding: 16px 26px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; color: #d4cfc3;">Limpar</button>
+                <span style="font-size: 11px; letter-spacing: 0.08em; color: #c9a44c; margin-left: auto;">{{ toast }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="height: 1px; background: #23211c; margin: 40px 0 28px;"></div>
+
+          <div style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3; margin-bottom: 18px;">Peças cadastradas · {{ prodCount }}</div>
+          <div style="display: flex; flex-direction: column;">
+            <sc-for list="{{ adminProducts }}" as="p" hint-placeholder-count="3">
+              <div style="display: flex; align-items: center; gap: 18px; border-top: 1px solid #1c1a16; padding: 14px 0;">
+                <div style="width: 48px; height: 64px; overflow: hidden; flex: 0 0 auto; background: repeating-linear-gradient(135deg, #0d0d0d 0 8px, #151515 8px 16px);">
+                  <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}">
+                    <div role="img" aria-label="{{ p.name }}" style="{{ p.imgStyle }}"></div>
+                  </sc-if>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px; min-width: 0;">
+                  <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; letter-spacing: 0.04em; color: #f3efe6;">{{ p.name }}</span>
+                  <span style="font-size: 10px; letter-spacing: 0.14em; color: #d4cfc3; text-transform: uppercase;">{{ p.meta }}</span>
+                  <span style="font-size: 11px; letter-spacing: 0.06em; color: #e3c684;">Estoque: {{ p.stockLine }}</span>
+                </div>
+                <div style="margin-left: auto; display: flex; gap: 10px; flex: 0 0 auto;">
+                  <button onClick="{{ p.edit }}" style="background: transparent; border: 1px solid #2e2b24; padding: 8px 16px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; color: #eae5da;">Editar</button>
+                  <button onClick="{{ p.remove }}" style="background: transparent; border: 1px solid #2e2b24; padding: 8px 16px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; color: #d4cfc3;">Excluir</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 32px;">
+          <div data-panel="1" style="background: #0a0a0a; border: 1px solid #23211c; padding: 40px;">
+            <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; letter-spacing: 0.08em; margin-bottom: 24px; color: #f3efe6;">Categorias</div>
+            <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+              <input type="text" value="{{ newCat }}" onChange="{{ onNewCat }}" placeholder="Nova categoria" style="flex: 1 1 auto; min-width: 0; border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 15px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;" />
+              <button onClick="{{ addCategory }}" style="background: #c9a44c; color: #000000; border: none; padding: 10px 18px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; flex: 0 0 auto;">Criar</button>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <sc-for list="{{ adminCats }}" as="c" hint-placeholder-count="4">
+                <div style="display: flex; align-items: center; gap: 12px; border-top: 1px solid #1c1a16; padding: 12px 0;">
+                  <span style="font-size: 14px; letter-spacing: 0.06em;">{{ c.name }}</span>
+                  <span style="font-size: 10px; letter-spacing: 0.14em; color: #b3ac9e; text-transform: uppercase;">{{ c.count }}</span>
+                  <button onClick="{{ c.remove }}" style="margin-left: auto; background: transparent; border: none; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; color: #d4cfc3;">Excluir</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div data-panel="1" style="background: #0a0a0a; border: 1px solid #23211c; padding: 40px; display: flex; flex-direction: column; gap: 18px;">
+            <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; letter-spacing: 0.08em; color: #f3efe6;">Exportar catálogo</div>
+            <div style="font-size: 11px; line-height: 1.7; letter-spacing: 0.04em; color: #b3ac9e;">Um único PDF A4 em 300 dpi com todas as peças: foto de capa inteira, nome, preço e tamanhos. Pronto para enviar às clientes.</div>
+            <button onClick="{{ exportPdf }}" style="align-self: flex-start; background: #c9a44c; color: #000000; border: none; padding: 14px 26px; font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;">Exportar catálogo em PDF</button>
+            <span style="font-size: 11px; letter-spacing: 0.06em; color: #e3c684; min-height: 16px;">{{ exportStatus }}</span>
+          </div>
+
+          <div data-panel="1" style="background: #0a0a0a; border: 1px solid #23211c; padding: 40px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; letter-spacing: 0.08em; color: #f3efe6;">Supabase</div>
+            <div style="font-size: 11px; line-height: 1.7; letter-spacing: 0.04em; color: #b3ac9e;">Sincroniza o catálogo entre os dispositivos. Enquanto estiver em branco, tudo fica salvo apenas neste navegador.</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Project URL</span>
+              <input type="text" value="{{ sbUrl }}" onChange="{{ onSbUrl }}" placeholder="https://xxxx.supabase.co" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 15px; letter-spacing: 0.02em; padding: 8px 0; color: #ffffff;" />
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Anon key</span>
+              <input type="text" value="{{ sbKey }}" onChange="{{ onSbKey }}" placeholder="eyJhbGciOi..." style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 15px; letter-spacing: 0.02em; padding: 8px 0; color: #ffffff;" />
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Tabela</span>
+              <input type="text" value="{{ sbTable }}" onChange="{{ onSbTable }}" placeholder="catalogo" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 15px; letter-spacing: 0.02em; padding: 8px 0; color: #ffffff;" />
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+              <button onClick="{{ sbPush }}" style="background: #c9a44c; color: #000000; border: none; padding: 13px 22px; font-size: 9px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; cursor: pointer;">Enviar catálogo</button>
+              <button onClick="{{ sbPull }}" style="background: transparent; border: 1px solid #5a5347; color: #ffffff; padding: 13px 22px; font-size: 9px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; cursor: pointer;">Baixar catálogo</button>
+            </div>
+            <span style="font-size: 11px; letter-spacing: 0.06em; color: #e3c684; min-height: 16px;">{{ sbStatus }}</span>
+          </div>
+
+          <div data-panel="1" style="background: #0a0a0a; border: 1px solid #23211c; padding: 40px; display: flex; flex-direction: column; gap: 24px;">
+            <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 400; letter-spacing: 0.08em; color: #f3efe6;">Dados da loja</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">WhatsApp</span>
+              <input type="text" value="{{ whats }}" onChange="{{ onWhats }}" placeholder="55 11 91234-5678" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 16px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;" />
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Endereço</span>
+              <input type="text" value="{{ addr }}" onChange="{{ onAddr }}" placeholder="Rua, número — Cidade/UF" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 16px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;" />
+            </div>
+            <div data-grid="two" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px;">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Usuário</span>
+                <input type="text" value="{{ credUser }}" onChange="{{ onCredUser }}" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 16px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;" />
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Senha</span>
+                <input type="text" value="{{ credPass }}" onChange="{{ onCredPass }}" style="border: none; border-bottom: 1px solid #2e2b24; background: transparent; font-size: 16px; letter-spacing: 0.04em; padding: 8px 0; color: #eae5da;" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="border-top: 1px solid #23211c; background: #000000;">
+    <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 72px 32px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 48px;">
+      <div>
+        <img src="logo-reveluxo.png" alt="Reveluxo — Moda Feminina" style="display: block; width: 100%; max-width: 240px; height: auto;" />
+        <div style="font-size: 12px; line-height: 1.9; letter-spacing: 0.06em; margin-top: 18px; color: #d4cfc3;">Peças de autoria limitada, produzidas em pequena escala.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: #c9a44c; margin-bottom: 6px;">Atendimento</div>
+        <div style="font-size: 13px; letter-spacing: 0.06em;">{{ addr }}</div>
+        <a href="https://wa.me/5585985836214" target="_blank" rel="noopener" style="font-size: 13px; letter-spacing: 0.06em; color: #eae5da;" style-hover="color: #e3c684;">(85) 98583-6214</a>
+        <a href="https://www.instagram.com/reveluxo/" target="_blank" rel="noopener" style="font-size: 13px; letter-spacing: 0.06em; color: #eae5da;" style-hover="color: #e3c684;">@reveluxo</a>
+        <div style="font-size: 12px; letter-spacing: 0.06em; color: #b3ac9e;">Seg a sex, 10h às 19h</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: #c9a44c; margin-bottom: 6px;">Coleções</div>
+        <sc-for list="{{ footerCats }}" as="c" hint-placeholder-count="4">
+          <button onClick="{{ c.onClick }}" style="background: transparent; border: none; padding: 0; text-align: left; font-size: 13px; letter-spacing: 0.06em; color: #d4cfc3; cursor: pointer;">{{ c.name }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 20px 32px 40px; border-top: 1px solid #1a1814; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+      <span style="font-size: 10px; letter-spacing: 0.16em; color: #55504a;">© Reveluxo · Todos os direitos reservados</span>
+      <button onClick="{{ goAdmin }}" style="margin-left: auto; background: transparent; border: none; padding: 0; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #45413a; cursor: pointer;" style-hover="color: #c9a44c;">Administração</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ isZoomed }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 80; background: rgba(0,0,0,0.95); display: flex; flex-direction: column; padding: 32px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <sc-if value="{{ hasPrevNext }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ prevPhoto }}" style="background: transparent; border: 1px solid #5a5347; color: #ffffff; width: 38px; height: 38px; font-size: 16px; cursor: pointer;">‹</button>
+          <button onClick="{{ nextPhoto }}" style="background: transparent; border: 1px solid #5a5347; color: #ffffff; width: 38px; height: 38px; font-size: 16px; cursor: pointer;">›</button>
+        </sc-if>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 10px;">
+          <button onClick="{{ closeZoom }}" style="background: transparent; border: 1px solid #5a5347; color: #e3c684; padding: 10px 16px; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; cursor: pointer;">Fechar</button>
+        </div>
+      </div>
+      <div onClick="{{ closeZoom }}" role="img" aria-label="{{ detailName }}" style="{{ zoomStyle }}"></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDetail }}" style="position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,0.82); display: flex; align-items: center; justify-content: center; padding: 24px;">
+      <div onClick="{{ stop }}" data-grid="detail" data-detail-wrap="1" style="background: #0a0a0a; border: 1px solid #23211c; max-width: 960px; width: 100%; max-height: 90vh; overflow: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);">
+        <div style="display: flex; flex-direction: column;">
+        <div data-detail-img="1" style="position: relative; flex: 1 1 auto; background: repeating-linear-gradient(135deg, #0d0d0d 0 12px, #151515 12px 24px); min-height: 440px; display: flex; align-items: center; justify-content: center;">
+          <sc-if value="{{ detailHasImg }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ openZoom }}" role="img" aria-label="{{ detailName }}" style="{{ detailImgStyle }}"></div>
+            <button onClick="{{ openZoom }}" style="position: absolute; right: 12px; bottom: 12px; background: rgba(0,0,0,0.74); border: 1px solid #5a5347; color: #e3c684; padding: 8px 14px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer;">Ver maior</button>
+          </sc-if>
+          <sc-if value="{{ hasPrevNext }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ prevPhoto }}" aria-label="Foto anterior" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; background: rgba(0,0,0,0.74); border: 1px solid #5a5347; color: #ffffff; font-size: 16px; line-height: 1; cursor: pointer;">‹</button>
+            <button onClick="{{ nextPhoto }}" aria-label="Próxima foto" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; background: rgba(0,0,0,0.74); border: 1px solid #5a5347; color: #ffffff; font-size: 16px; line-height: 1; cursor: pointer;">›</button>
+          </sc-if>
+          <sc-if value="{{ detailNoImg }}" hint-placeholder-val="{{ true }}">
+            <span style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: #55504a; letter-spacing: 0.1em;">foto da peça</span>
+          </sc-if>
+          <sc-if value="{{ detailIsNew }}" hint-placeholder-val="{{ false }}">
+            <span style="position: absolute; top: 16px; left: 16px; background: #c9a44c; color: #000000; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; padding: 6px 11px;">Novo</span>
+          </sc-if>
+        </div>
+        <sc-if value="{{ detailHasThumbs }}" hint-placeholder-val="{{ false }}">
+          <div style="flex: 0 0 auto; display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; border-top: 1px solid #23211c;">
+            <sc-for list="{{ detailThumbs }}" as="t" hint-placeholder-count="3">
+              <div onClick="{{ t.pick }}" style="width: 48px; height: 62px; flex: 0 0 auto; overflow: hidden;">
+                <div role="img" style="{{ t.style }}"></div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        </div>
+        <div data-detail-pad="1" style="padding: 44px 44px 40px; display: flex; flex-direction: column; gap: 18px;">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; color: #ffffff;">{{ detailCat }}</span>
+            <button onClick="{{ closeDetail }}" style="margin-left: auto; background: transparent; border: none; font-size: 18px; line-height: 1; cursor: pointer; color: #d4cfc3;">×</button>
+          </div>
+          <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 34px; font-weight: 300; letter-spacing: 0.06em; line-height: 1.15; color: #f3efe6;">{{ detailName }}</div>
+          <div style="font-size: 15px; letter-spacing: 0.18em; color: #c9a44c;">{{ detailPrice }}</div>
+          <div style="width: 32px; height: 1px; background: #2e2b24;"></div>
+          <div style="font-size: 13px; line-height: 1.8; letter-spacing: 0.03em; color: #a9a294; text-wrap: pretty;">{{ detailDesc }}</div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Tamanho</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <sc-for list="{{ detailSizes }}" as="s" hint-placeholder-count="4">
+                <button onClick="{{ s.pick }}" style="{{ s.style }}">{{ s.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ detailHasStock }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #e3c684;">{{ detailStock }}</span>
+          </sc-if>
+
+          <sc-if value="{{ detailHasColors }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #d4cfc3;">Cor</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <sc-for list="{{ detailColors }}" as="c" hint-placeholder-count="3">
+                  <button onClick="{{ c.pick }}" style="{{ c.style }}">{{ c.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 10px;">
+            <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #e3c684;">{{ pickHint }}</span>
+            <span style="font-size: 10px; line-height: 1.7; letter-spacing: 0.06em; color: #b3ac9e;">Toque para selecionar ou desmarcar. Ao clicar em Comprar você será direcionada ao WhatsApp da loja.</span>
+            <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+              <a href="{{ buyHref }}" target="_blank" rel="noopener" style="background: #c9a44c; color: #000000; padding: 15px 38px; font-size: 12px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;" style-hover="background: #e3c684; color: #000000;">Comprar</a>
+              <button onClick="{{ shareProduct }}" style="background: transparent; border: 1px solid #5a5347; padding: 14px 26px; font-size: 12px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: #ffffff; cursor: pointer;">{{ shareLabel }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">
+const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
+const KEY = 'catalogo_roupas_v6';
+const NEW_MS = 14 * 24 * 60 * 60 * 1000;
+const NOW = Date.now();
+
+const SEED_CATS = [
+  { id: 'c1', name: 'Vestidos' },
+  { id: 'c2', name: 'Blusas' },
+  { id: 'c3', name: 'Calças' },
+  { id: 'c4', name: 'Casacos' }
+];
+const SEED_PRODS = [
+  { id: 'p1', name: 'Vestido midi linho', cat: 'c1', price: '289,90', sizes: ['P', 'M', 'G'], colors: [{ name: 'Areia', qty: 32 }, { name: 'Preto', qty: 18 }], desc: 'Linho lavado com caimento fluido, alças ajustáveis e bolsos laterais embutidos. Lavar à mão.', img: '', created: NOW - 2 * 24 * 3600 * 1000 },
+  { id: 'p2', name: 'Vestido chemise', cat: 'c1', price: '349,00', sizes: ['M', 'G', 'GG'], colors: [{ name: 'Verde oliva', qty: 14 }, { name: 'Off-white', qty: 9 }], desc: 'Modelagem chemise com cinto removível e botões forrados. Viscose com toque seco.', img: '', created: NOW - 40 * 24 * 3600 * 1000 },
+  { id: 'p3', name: 'Blusa cropped canelada', cat: 'c2', price: '119,90', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Preto', qty: 50 }, { name: 'Branco', qty: 40 }, { name: 'Terracota', qty: 12 }], desc: 'Malha canelada de algodão com gola redonda e manga curta. Alta elasticidade.', img: '', created: NOW - 6 * 24 * 3600 * 1000 },
+  { id: 'p4', name: 'Camisa oversized', cat: 'c2', price: '199,00', sizes: ['M', 'G', 'GG', 'XG'], colors: ['Branco', 'Azul claro'], desc: 'Algodão tramado com ombro caído e punho duplo. Veste ampla.', img: '', created: NOW - 60 * 24 * 3600 * 1000 },
+  { id: 'p5', name: 'Calça wide leg alfaiataria', cat: 'c3', price: '259,90', sizes: ['P', 'M', 'G', 'GG', 'XG'], colors: ['Preto', 'Caramelo'], desc: 'Cintura alta, pregas frontais e barra reta. Tecido com leve elastano.', img: '', created: NOW - 90 * 24 * 3600 * 1000 },
+  { id: 'p6', name: 'Casaco trench areia', cat: 'c4', price: '489,00', sizes: ['M', 'G', 'GG'], colors: ['Areia'], desc: 'Gabardine encorpada, transpasse duplo e cinto na cintura. Forro interno.', img: '', created: NOW - 120 * 24 * 3600 * 1000 },
+  { id: 'p7', name: 'Vestido longo seda', cat: 'c1', price: '629,00', sizes: ['P', 'M', 'G'], colors: [{ name: 'Champagne', qty: 8 }, { name: 'Preto', qty: 11 }], desc: 'Seda pura com decote em V, fenda lateral e forro interno. Caimento fluido para eventos à noite.', img: '', created: NOW - 4 * 24 * 3600 * 1000 },
+  { id: 'p8', name: 'Vestido tubinho crepe', cat: 'c1', price: '319,90', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Marinho', qty: 22 }, { name: 'Vinho', qty: 15 }], desc: 'Crepe encorpado com manga curta e zíper invisível nas costas. Comprimento na altura do joelho.', img: '', created: NOW - 75 * 24 * 3600 * 1000 },
+  { id: 'p9', name: 'Blusa de tricô gola alta', cat: 'c2', price: '239,00', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Cru', qty: 30 }, { name: 'Camel', qty: 17 }, { name: 'Grafite', qty: 24 }], desc: 'Tricô de algodão com gola alta e punhos canelados. Peça de meia estação.', img: '', created: NOW - 9 * 24 * 3600 * 1000 },
+  { id: 'p10', name: 'Regata de seda', cat: 'c2', price: '179,90', sizes: ['P', 'M', 'G'], colors: [{ name: 'Marfim', qty: 26 }, { name: 'Preto', qty: 19 }], desc: 'Alça fina ajustável e barra reta. Combina com alfaiataria ou jeans.', img: '', created: NOW - 52 * 24 * 3600 * 1000 },
+  { id: 'p11', name: 'Calça reta jeans escuro', cat: 'c3', price: '289,00', sizes: ['P', 'M', 'G', 'GG', 'XG'], colors: [{ name: 'Azul escuro', qty: 44 }, { name: 'Preto', qty: 28 }], desc: 'Denim rígido de cintura alta, cinco bolsos e barra a fio. Modelagem reta.', img: '', created: NOW - 11 * 24 * 3600 * 1000 },
+  { id: 'p12', name: 'Calça pantalona malha', cat: 'c3', price: '199,90', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Preto', qty: 36 }, { name: 'Chumbo', qty: 21 }], desc: 'Malha canelada com cós elástico e caimento pantalona. Conforto para o dia todo.', img: '', created: NOW - 68 * 24 * 3600 * 1000 },
+  { id: 'p13', name: 'Casaco de lã batida', cat: 'c4', price: '749,00', sizes: ['M', 'G', 'GG'], colors: [{ name: 'Camel', qty: 7 }, { name: 'Preto', qty: 10 }], desc: 'Lã batida com gola alfaiataria, dois botões e bolsos embutidos. Forro em cetim.', img: '', created: NOW - 5 * 24 * 3600 * 1000 },
+  { id: 'p14', name: 'Blazer alfaiataria', cat: 'c4', price: '539,00', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Off-white', qty: 13 }, { name: 'Marinho', qty: 16 }], desc: 'Ombro estruturado, abotoamento simples e barra reta. Tecido com leve elastano.', img: '', created: NOW - 95 * 24 * 3600 * 1000 }
+];
+
+SEED_PRODS.forEach(p => {
+  p.colors = p.colors.map((c, i) => Object.assign({}, c, { imgs: ['fotos/' + p.id + '-' + i + '.png'] }));
+  p.img = p.colors[0].imgs[0];
+});
+
+class Component extends DCLogic {
+  state = {
+    view: 'shop', activeCat: 'all', search: '', detailId: null,
+    cats: SEED_CATS, prods: SEED_PRODS,
+    fId: null, fName: '', fCat: 'c1', fPrice: '', fDesc: '', fSizes: [], fImg: '',
+    fColorRows: [{ name: '', qty: '', imgs: [] }],
+    newCat: '', toast: '',
+    whats: '55 85 98583-6214', addr: 'Fortaleza, Brazil 60325820',
+    credUser: 'admin', credPass: 'capivara2026',
+    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbStatus: '',
+    authed: false, loginUser: '', loginPass: '', loginError: '',
+    pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar'
+  };
+
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const s = JSON.parse(raw);
+        if (s && Array.isArray(s.cats) && Array.isArray(s.prods)) {
+          const merged = s.prods.concat(SEED_PRODS.filter(sp => !s.prods.some(p => p.id === sp.id)));
+          const cats = s.cats.concat(SEED_CATS.filter(sc => !s.cats.some(c => c.id === sc.id)));
+          this.setState({
+            cats: cats,
+            prods: merged.map(p => {
+              const m = Object.assign({ colors: [], created: 0 }, p);
+              m.colors = this.normColors(m.colors);
+              if (m.colors.every(c => c.qty === null)) {
+                const seed = SEED_PRODS.find(x => x.id === m.id);
+                if (seed) m.colors = this.normColors(seed.colors);
+              }
+              return m;
+            }),
+            fCat: (cats[0] || {}).id || '',
+            whats: s.whats || this.state.whats,
+            addr: 'Fortaleza, Brazil 60325820',
+            credUser: s.credUser || this.state.credUser,
+            credPass: s.credPass || this.state.credPass,
+            sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo'
+          }, this.persist);
+          return;
+        }
+      }
+    } catch (e) {}
+    this.persist();
+  }
+
+  persist = () => {
+    const s = this.state;
+    try { localStorage.setItem(KEY, JSON.stringify({ cats: s.cats, prods: s.prods, whats: s.whats, addr: s.addr, credUser: s.credUser, credPass: s.credPass, sbUrl: s.sbUrl, sbKey: s.sbKey, sbTable: s.sbTable })); } catch (e) {}
+  };
+
+  sbHeaders() {
+    return {
+      apikey: this.state.sbKey,
+      Authorization: 'Bearer ' + this.state.sbKey,
+      'Content-Type': 'application/json',
+      Prefer: 'resolution=merge-duplicates'
+    };
+  }
+
+  sbEndpoint() {
+    const base = String(this.state.sbUrl || '').replace(/\/+$/, '');
+    return base + '/rest/v1/' + (this.state.sbTable || 'catalogo');
+  }
+
+  sbPush = async () => {
+    if (!this.state.sbUrl || !this.state.sbKey) { this.setState({ sbStatus: 'Preencha URL e anon key.' }); return; }
+    this.setState({ sbStatus: 'Enviando…' });
+    const s = this.state;
+    const payload = {
+      id: 1,
+      data: { cats: s.cats, prods: s.prods, whats: s.whats, addr: s.addr },
+      updated_at: new Date().toISOString()
+    };
+    try {
+      const r = await fetch(this.sbEndpoint(), { method: 'POST', headers: this.sbHeaders(), body: JSON.stringify(payload) });
+      this.setState({ sbStatus: r.ok ? 'Catálogo enviado ao Supabase.' : 'Erro ' + r.status + ' ao enviar.' });
+    } catch (e) {
+      this.setState({ sbStatus: 'Falha de conexão com o Supabase.' });
+    }
+  };
+
+  sbPull = async () => {
+    if (!this.state.sbUrl || !this.state.sbKey) { this.setState({ sbStatus: 'Preencha URL e anon key.' }); return; }
+    this.setState({ sbStatus: 'Baixando…' });
+    try {
+      const r = await fetch(this.sbEndpoint() + '?id=eq.1&select=data', { headers: this.sbHeaders() });
+      const rows = await r.json();
+      const data = rows && rows[0] && rows[0].data;
+      if (!data || !Array.isArray(data.prods)) { this.setState({ sbStatus: 'Nenhum catálogo salvo no Supabase.' }); return; }
+      this.setState({
+        cats: data.cats || this.state.cats,
+        prods: data.prods.map(p => Object.assign({ colors: [], created: 0 }, p, { colors: this.normColors(p.colors) })),
+        whats: data.whats || this.state.whats,
+        addr: data.addr || this.state.addr,
+        sbStatus: 'Catálogo atualizado a partir do Supabase.'
+      }, this.persist);
+    } catch (e) {
+      this.setState({ sbStatus: 'Falha de conexão com o Supabase.' });
+    }
+  };
+
+  flash(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2600);
+  }
+
+  money(v) {
+    const n = String(v || '').replace(/[^\d,.]/g, '');
+    return 'R$ ' + (n || '0,00');
+  }
+
+  catName(id) {
+    const c = this.state.cats.find(x => x.id === id);
+    return c ? c.name : 'Sem categoria';
+  }
+
+  isNew(p) { return !!p.created && (Date.now() - p.created) < NEW_MS; }
+
+  bg(src) {
+    return {
+      width: '100%', height: '100%',
+      backgroundImage: 'url("' + String(src || '').replace(/"/g, '%22') + '")',
+      backgroundSize: 'cover', backgroundPosition: 'center'
+    };
+  }
+
+  normColors(list) {
+    return (list || []).map(c => {
+      if (typeof c === 'string') return { name: c, qty: null, imgs: [] };
+      const imgs = Array.isArray(c.imgs) ? c.imgs.filter(Boolean) : (c.img ? [c.img] : []);
+      return { name: c.name, qty: (c.qty === 0 || c.qty) ? c.qty : null, imgs };
+    });
+  }
+
+  colorsToText(list) {
+    return this.normColors(list).map(c => (c.qty === null ? c.name : c.name + ': ' + c.qty)).join(', ');
+  }
+
+  stockTotal(p) {
+    const cs = this.normColors(p.colors).filter(c => c.qty !== null);
+    if (!cs.length) return null;
+    return cs.reduce((a, c) => a + c.qty, 0);
+  }
+
+  doLogin = () => {
+    const { loginUser, loginPass, credUser, credPass } = this.state;
+    if (loginUser.trim() === credUser && loginPass === credPass) {
+      this.setState({ authed: true, view: 'admin', loginUser: '', loginPass: '', loginError: '' });
+    } else {
+      this.setState({ loginError: 'Usuário ou senha incorretos.' });
+    }
+  };
+
+  saveProduct = () => {
+    const { fName, fCat, fPrice, fDesc, fSizes, fImg, fId, fColorRows } = this.state;
+    if (!fName.trim()) { this.flash('Informe o nome da peça.'); return; }
+    if (!fCat) { this.flash('Crie uma categoria primeiro.'); return; }
+    const colors = fColorRows
+      .filter(r => r.name.trim())
+      .map(r => {
+        const q = parseInt(String(r.qty).replace(/\D/g, ''), 10);
+        return { name: r.name.trim(), qty: isNaN(q) ? null : q, imgs: (r.imgs || []).filter(Boolean) };
+      });
+    const cover = fImg || ((colors.find(c => c.imgs.length) || { imgs: [] }).imgs[0]) || '';
+    const old = fId ? this.state.prods.find(p => p.id === fId) : null;
+    const item = {
+      id: fId || 'p' + Date.now(), name: fName.trim(), cat: fCat, price: fPrice.trim(),
+      sizes: fSizes.slice(), colors, desc: fDesc.trim(), img: cover,
+      created: old ? old.created : Date.now()
+    };
+    const prods = fId ? this.state.prods.map(p => (p.id === fId ? item : p)) : [item].concat(this.state.prods);
+    this.setState({ prods, fId: null, fName: '', fPrice: '', fDesc: '', fSizes: [], fImg: '', fColorRows: [{ name: '', qty: '', imgs: [] }] }, () => {
+      this.persist();
+      this.flash(fId ? 'Peça atualizada.' : 'Peça publicada com selo Novo.');
+    });
+  };
+
+  resetForm = () => this.setState({ fId: null, fName: '', fPrice: '', fDesc: '', fSizes: [], fImg: '', fColorRows: [{ name: '', qty: '', imgs: [] }], toast: '' });
+
+  updateRow(i, patch) {
+    this.setState(s => ({ fColorRows: s.fColorRows.map((r, idx) => (idx === i ? Object.assign({}, r, patch) : r)) }));
+  }
+
+  pickRowImage(i, e) {
+    const files = Array.prototype.slice.call(e.target.files || []);
+    if (!files.length) return;
+    files.forEach(file => {
+      const r = new FileReader();
+      r.onload = () => this.setState(s => ({
+        fColorRows: s.fColorRows.map((row, idx) => (idx === i ? Object.assign({}, row, { imgs: (row.imgs || []).concat([String(r.result)]) }) : row))
+      }));
+      r.readAsDataURL(file);
+    });
+    e.target.value = '';
+  }
+
+  moveRowImage(i, from, to) {
+    if (from === to || from === null || to === null) return;
+    this.setState(s => ({
+      fColorRows: s.fColorRows.map((row, idx) => {
+        if (idx !== i) return row;
+        const imgs = (row.imgs || []).slice();
+        const [moved] = imgs.splice(from, 1);
+        imgs.splice(to, 0, moved);
+        return Object.assign({}, row, { imgs });
+      })
+    }));
+  }
+
+  removeRowImage(i, j) {
+    this.setState(s => ({
+      fColorRows: s.fColorRows.map((row, idx) => (idx === i ? Object.assign({}, row, { imgs: (row.imgs || []).filter((_, k) => k !== j) }) : row))
+    }));
+  }
+
+  onPickImage = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = () => this.setState({ fImg: String(r.result) });
+    r.readAsDataURL(file);
+  };
+
+  addCategory = () => {
+    const name = this.state.newCat.trim();
+    if (!name) return;
+    const cat = { id: 'c' + Date.now(), name };
+    this.setState(s => ({ cats: s.cats.concat([cat]), newCat: '', fCat: s.fCat || cat.id }), () => {
+      this.persist();
+      this.flash('Categoria criada.');
+    });
+  };
+
+  loadImg(src) {
+    return new Promise(res => {
+      if (!src) { res(null); return; }
+      const im = new Image();
+      im.crossOrigin = 'anonymous';
+      im.onload = () => res(im);
+      im.onerror = () => res(null);
+      im.src = src;
+    });
+  }
+
+  drawFitted(ctx, im, x, y, w, h) {
+    const r = Math.min(w / im.naturalWidth, h / im.naturalHeight);
+    const dw = im.naturalWidth * r, dh = im.naturalHeight * r;
+    ctx.drawImage(im, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+  }
+
+  async buildPages() {
+    const list = this.state.prods.slice().sort((a, b) => (b.created || 0) - (a.created || 0));
+    if (!list.length) return [];
+
+    const W = 2480, H = 3508, PAD = 150, COLS = 2, ROWS = 3;
+    const gap = 110;
+    const cellW = (W - PAD * 2 - gap * (COLS - 1)) / COLS;
+    const imgH = 1120, cellH = imgH + 260;
+    const logoW = 900;
+    const logoH = 260;
+    const headerH = 120 + logoH + 120;
+    const perPage = COLS * ROWS;
+    const pages = Math.ceil(list.length / perPage);
+    const logo = await this.loadImg('logo-reveluxo.png');
+    const out = [];
+
+    for (let pg = 0; pg < pages; pg++) {
+      const cv = document.createElement('canvas');
+      cv.width = W; cv.height = H;
+      const x = cv.getContext('2d');
+      x.fillStyle = '#000000'; x.fillRect(0, 0, W, H);
+
+      if (logo) {
+        const r = Math.min(logoW / logo.naturalWidth, logoH / logo.naturalHeight);
+        const lw = logo.naturalWidth * r, lh = logo.naturalHeight * r;
+        x.drawImage(logo, (W - lw) / 2, 120 + (logoH - lh) / 2, lw, lh);
+      } else {
+        x.fillStyle = '#c9a44c'; x.font = '300 130px Georgia, serif'; x.textAlign = 'center';
+        x.fillText('REVELUXO', W / 2, 120 + logoH / 2);
+      }
+      x.textAlign = 'center';
+      x.fillStyle = '#a49c8c'; x.font = '400 40px Helvetica, Arial, sans-serif';
+      x.fillText('(85) 98583-6214   •   @reveluxo', W / 2, 120 + logoH + 72);
+      x.strokeStyle = '#2e2b24'; x.lineWidth = 3;
+      x.beginPath(); x.moveTo(PAD, headerH); x.lineTo(W - PAD, headerH); x.stroke();
+
+      const slice = list.slice(pg * perPage, (pg + 1) * perPage);
+      for (let i = 0; i < slice.length; i++) {
+        const p = slice[i];
+        const cx = PAD + (i % COLS) * (cellW + gap);
+        const cy = headerH + 110 + Math.floor(i / COLS) * (cellH + gap);
+
+        x.fillStyle = '#0d0d0d'; x.fillRect(cx, cy, cellW, imgH);
+        const im = await this.loadImg(p.img || (this.normColors(p.colors)[0] || { imgs: [] }).imgs[0]);
+        if (im) this.drawFitted(x, im, cx, cy, cellW, imgH);
+        x.strokeStyle = '#23211c'; x.lineWidth = 2; x.strokeRect(cx, cy, cellW, imgH);
+
+        if (this.isNew(p)) {
+          x.fillStyle = '#c9a44c'; x.fillRect(cx + 24, cy + 24, 150, 56);
+          x.fillStyle = '#000000'; x.font = '600 28px Helvetica, Arial, sans-serif'; x.textAlign = 'left';
+          x.fillText('NOVO', cx + 52, cy + 61);
+        }
+
+        x.textAlign = 'center';
+        x.fillStyle = '#ffffff'; x.font = '500 66px Georgia, serif';
+        let name = p.name;
+        while (x.measureText(name).width > cellW - 20 && name.length > 4) name = name.slice(0, -2);
+        if (name !== p.name) name += '…';
+        x.fillText(name, cx + cellW / 2, cy + imgH + 90);
+
+        x.fillStyle = '#e3c684'; x.font = '400 52px Helvetica, Arial, sans-serif';
+        x.fillText(this.money(p.price), cx + cellW / 2, cy + imgH + 158);
+
+        const sizes = (p.sizes || []).join('  ·  ');
+        if (sizes) {
+          x.fillStyle = '#a49c8c'; x.font = '400 38px Helvetica, Arial, sans-serif';
+          x.fillText(sizes, cx + cellW / 2, cy + imgH + 215);
+        }
+      }
+
+      x.textAlign = 'center';
+      x.fillStyle = '#55504a'; x.font = '400 36px Helvetica, Arial, sans-serif';
+      x.fillText('Reveluxo · Moda Feminina   —   página ' + (pg + 1) + ' de ' + pages, W / 2, H - 90);
+
+      out.push(cv);
+    }
+    return out;
+  }
+
+  exportCatalog = async () => {
+    this.setState({ exportStatus: 'Gerando imagens…' });
+    const pages = await this.buildPages();
+    if (!pages.length) { this.setState({ exportStatus: 'Nenhuma peça cadastrada.' }); return; }
+    for (let i = 0; i < pages.length; i++) {
+      const blob = await new Promise(r => pages[i].toBlob(r, 'image/png'));
+      this.download(blob, 'catalogo-reveluxo-' + (i + 1) + '.png');
+      await new Promise(r => setTimeout(r, 400));
+    }
+    this.setState({ exportStatus: pages.length + (pages.length === 1 ? ' imagem gerada.' : ' imagens geradas.') });
+  };
+
+  download(blob, name) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
+
+  exportPdf = async () => {
+    this.setState({ exportStatus: 'Montando PDF…' });
+    const pages = await this.buildPages();
+    if (!pages.length) { this.setState({ exportStatus: 'Nenhuma peça cadastrada.' }); return; }
+
+    const PW = 595.28, PH = 841.89;
+    const parts = [];
+    const enc = new TextEncoder();
+    let objects = [];
+
+    const jpegs = [];
+    for (const cv of pages) {
+      const blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', 0.95));
+      jpegs.push(new Uint8Array(await blob.arrayBuffer()));
+    }
+
+    const n = pages.length;
+    const kidsIds = [];
+    let id = 3;
+    for (let i = 0; i < n; i++) { kidsIds.push(id); id += 3; }
+
+    objects[1] = enc.encode('<< /Type /Catalog /Pages 2 0 R >>');
+    objects[2] = enc.encode('<< /Type /Pages /Count ' + n + ' /Kids [' + kidsIds.map(k => k + ' 0 R').join(' ') + '] >>');
+
+    for (let i = 0; i < n; i++) {
+      const pid = kidsIds[i], cid = pid + 1, iid = pid + 2;
+      objects[pid] = enc.encode('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + PW + ' ' + PH + '] /Resources << /XObject << /Im0 ' + iid + ' 0 R >> >> /Contents ' + cid + ' 0 R >>');
+      const content = 'q ' + PW + ' 0 0 ' + PH + ' 0 0 cm /Im0 Do Q';
+      objects[cid] = enc.encode('<< /Length ' + content.length + ' >>\nstream\n' + content + '\nendstream');
+      const head = enc.encode('<< /Type /XObject /Subtype /Image /Width ' + pages[i].width + ' /Height ' + pages[i].height + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + jpegs[i].length + ' >>\nstream\n');
+      const tail = enc.encode('\nendstream');
+      const merged = new Uint8Array(head.length + jpegs[i].length + tail.length);
+      merged.set(head, 0); merged.set(jpegs[i], head.length); merged.set(tail, head.length + jpegs[i].length);
+      objects[iid] = merged;
+    }
+
+    const chunks = [enc.encode('%PDF-1.4\n')];
+    let offset = chunks[0].length;
+    const offsets = [];
+    for (let i = 1; i < objects.length; i++) {
+      if (!objects[i]) continue;
+      offsets[i] = offset;
+      const a = enc.encode(i + ' 0 obj\n');
+      const b = objects[i];
+      const c = enc.encode('\nendobj\n');
+      chunks.push(a, b, c);
+      offset += a.length + b.length + c.length;
+    }
+    const maxId = objects.length;
+    let xref = 'xref\n0 ' + maxId + '\n0000000000 65535 f \n';
+    for (let i = 1; i < maxId; i++) {
+      xref += (offsets[i] || 0).toString().padStart(10, '0') + ' 00000 n \n';
+    }
+    xref += 'trailer\n<< /Size ' + maxId + ' /Root 1 0 R >>\nstartxref\n' + offset + '\n%%EOF';
+    chunks.push(enc.encode(xref));
+
+    this.download(new Blob(chunks, { type: 'application/pdf' }), 'catalogo-reveluxo.pdf');
+    this.setState({ exportStatus: 'PDF com ' + n + (n === 1 ? ' página gerado.' : ' páginas gerado.') });
+  };
+
+  shareProduct = () => {
+    const p = this.state.prods.find(x => x.id === this.state.detailId);
+    if (!p) return;
+    const text = 'Reveluxo — Moda Feminina\n' + p.name + ' — ' + this.money(p.price) + (p.desc ? '\n' + p.desc : '');
+    const url = (typeof location !== 'undefined' ? location.href.split('#')[0] : '') + '#produto-' + p.id;
+    if (navigator.share) { navigator.share({ title: 'Reveluxo — ' + p.name, text, url }).catch(() => {}); return; }
+    const payload = text + '\n' + url;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(payload).then(() => {
+        this.setState({ shareLabel: 'Link copiado' });
+        clearTimeout(this._s);
+        this._s = setTimeout(() => this.setState({ shareLabel: 'Compartilhar' }), 2400);
+      }).catch(() => {});
+    } else {
+      window.open('https://wa.me/?text=' + encodeURIComponent(payload), '_blank');
+    }
+  };
+
+  renderVals() {
+    const st = this.state;
+    const showSizesOnCard = this.props.showSizesOnCard ?? true;
+    const showPriceOnCard = this.props.showPriceOnCard ?? true;
+    const enableSearch = this.props.enableSearch ?? true;
+
+    const q = st.search.trim().toLowerCase();
+    const matches = p => !q || p.name.toLowerCase().includes(q) || (p.desc || '').toLowerCase().includes(q);
+
+    const filtered = st.prods
+      .filter(p => (st.activeCat === 'all' || p.cat === st.activeCat) && matches(p))
+      .slice()
+      .sort((a, b) => (b.created || 0) - (a.created || 0));
+
+    const gridItems = filtered.map(p => ({
+      name: p.name, sizes: p.sizes, imgStyle: Object.assign(this.bg(p.img), { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }),
+      hasImg: !!p.img, noImg: !p.img,
+      isNew: this.isNew(p),
+      catName: this.catName(p.cat),
+      sizeLine: (p.sizes || []).join(' · '),
+      priceLabel: this.money(p.price),
+      open: () => this.setState({ detailId: p.id, pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar' })
+    }));
+
+    const navBase = 'background:transparent;border:none;padding:0 0 6px;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;cursor:pointer;';
+    const navOn = navBase + 'color:#c9a44c;border-bottom:1px solid #c9a44c;';
+    const navOff = navBase + 'color:#8a8377;border-bottom:1px solid transparent;';
+    const catPills = [{ id: 'all', name: 'Todas as peças' }].concat(st.cats).map(c => ({
+      label: c.name,
+      style: st.activeCat === c.id ? navOn : navOff,
+      onClick: () => this.setState({ view: 'shop', activeCat: c.id })
+    }));
+
+    const chipBase = 'padding:11px 22px;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;';
+    const chipOn = chipBase + 'background:#c9a44c;border:1px solid #c9a44c;color:#000000;';
+    const chipOff = chipBase + 'background:transparent;border:1px solid #5a5347;color:#ffffff;';
+    const pickBase = 'padding:7px 14px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;';
+    const pickOn = pickBase + 'background:#c9a44c;border:1px solid #c9a44c;color:#000000;font-weight:500;';
+    const pickOff = pickBase + 'background:transparent;border:1px solid #5a5347;color:#ffffff;';
+
+    const sizeOptions = SIZES.map(s => ({
+      label: s,
+      style: st.fSizes.includes(s) ? chipOn : chipOff,
+      toggle: () => this.setState(prev => ({ fSizes: prev.fSizes.includes(s) ? prev.fSizes.filter(x => x !== s) : prev.fSizes.concat([s]) }))
+    }));
+
+    const adminProducts = st.prods.map(p => ({
+      name: p.name, imgStyle: this.bg(p.img), hasImg: !!p.img,
+      meta: this.catName(p.cat) + ' · ' + this.money(p.price) + ' · ' + (p.sizes.length ? p.sizes.join(' ') : 'sem tamanhos') + (this.stockTotal(p) === null ? '' : ' · ' + this.stockTotal(p) + ' em estoque') + (this.isNew(p) ? ' · Novo' : ''),
+      stockLine: this.colorsToText(p.colors) || 'sem cores cadastradas',
+      edit: () => {
+        const rows = this.normColors(p.colors).map(c => ({ name: c.name, qty: c.qty === null ? '' : String(c.qty), imgs: c.imgs.slice() }));
+        this.setState({ fId: p.id, fName: p.name, fCat: p.cat, fPrice: p.price, fDesc: p.desc, fSizes: p.sizes.slice(), fColorRows: rows.length ? rows : [{ name: '', qty: '', imgs: [] }], fImg: p.img, toast: 'Editando "' + p.name + '"' });
+      },
+      remove: () => this.setState(s => ({ prods: s.prods.filter(x => x.id !== p.id), fId: s.fId === p.id ? null : s.fId }), this.persist)
+    }));
+
+    const adminCats = st.cats.map(c => {
+      const n = st.prods.filter(p => p.cat === c.id).length;
+      return {
+        name: c.name,
+        count: n + (n === 1 ? ' peça' : ' peças'),
+        remove: () => {
+          if (n > 0) { this.flash('Mova ou exclua as ' + n + ' peças antes.'); return; }
+          this.setState(s => ({ cats: s.cats.filter(x => x.id !== c.id), fCat: s.fCat === c.id ? (s.cats.filter(x => x.id !== c.id)[0] || {}).id || '' : s.fCat }), this.persist);
+        }
+      };
+    });
+
+    const d = st.prods.find(p => p.id === st.detailId);
+    const detailSizes = (d ? d.sizes || [] : []).map(s => ({
+      label: s,
+      style: st.pickSize === s ? pickOn : pickOff,
+      pick: () => this.setState({ pickSize: st.pickSize === s ? '' : s })
+    }));
+    const detailColors = (d ? this.normColors(d.colors) : []).map(c => ({
+      label: c.name,
+      style: st.pickColor === c.name ? pickOn : pickOff,
+      pick: () => this.setState({ pickColor: st.pickColor === c.name ? '' : c.name, pickPhoto: 0 })
+    }));
+    const dStock = d ? this.stockTotal(d) : null;
+    const dPicked = d ? this.normColors(d.colors).find(c => c.name === st.pickColor) : null;
+    const allImgs = d ? this.normColors(d.colors).reduce((a, c) => a.concat(c.imgs), []) : [];
+    const baseGallery = (d && d.img) ? [d.img].concat(allImgs.filter(x => x !== d.img)) : allImgs;
+    const dGallery = (dPicked && dPicked.imgs.length)
+      ? dPicked.imgs
+      : baseGallery;
+    const dIdx = Math.min(st.pickPhoto || 0, Math.max(dGallery.length - 1, 0));
+    const dImg = dGallery[dIdx] || '';
+    const detailThumbs = dGallery.map((src, i) => ({
+      style: Object.assign(this.bg(src), {
+        cursor: 'pointer',
+        border: i === dIdx ? '1px solid #c9a44c' : '1px solid #2e2b24',
+        opacity: i === dIdx ? 1 : 0.6
+      }),
+      pick: () => this.setState({ pickPhoto: i })
+    }));
+
+    const phone = String(st.whats || '').replace(/\D/g, '');
+    const pageUrl = typeof location !== 'undefined' ? location.href.split('#')[0] : '';
+    const buyMsg = d
+      ? 'Olá! Tenho interesse nesta peça: ' + d.name +
+        '\nPreço: ' + this.money(d.price) +
+        (st.pickSize ? '\nTamanho: ' + st.pickSize : '') +
+        (st.pickColor ? '\nCor: ' + st.pickColor : '')
+      : '';
+
+    const total = filtered.length;
+
+    return {
+      isShop: st.view === 'shop',
+      isLogin: st.view === 'login',
+      isAdmin: st.view === 'admin' && st.authed,
+      goHome: () => this.setState({ view: 'shop', activeCat: 'all' }),
+      goAdmin: () => this.setState({ view: st.authed ? 'admin' : 'login', detailId: null, loginError: '' }, () => {
+        try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
+      }),
+      doLogin: this.doLogin,
+      doLogout: () => this.setState({ authed: false, view: 'shop' }),
+      loginUser: st.loginUser, loginPass: st.loginPass, loginError: st.loginError,
+      onLoginUser: e => this.setState({ loginUser: e.target.value }),
+      onLoginPass: e => this.setState({ loginPass: e.target.value }),
+      onLoginKey: e => { if (e.key === 'Enter') this.doLogin(); },
+
+      enableSearch, showSizesOnCard, showPriceOnCard,
+      search: st.search,
+      onSearch: e => this.setState({ search: e.target.value }),
+
+      catPills,
+      footerCats: st.cats.map(c => ({ name: c.name, onClick: () => this.setState({ view: 'shop', activeCat: c.id }) })),
+      shopTitle: st.activeCat === 'all' ? 'Coleção' : this.catName(st.activeCat),
+      shopCount: total + (total === 1 ? ' peça' : ' peças'),
+      gridItems,
+      isEmptyResult: total === 0,
+
+      formTitle: st.fId ? 'Editar peça' : 'Nova peça',
+      saveLabel: st.fId ? 'Salvar alterações' : 'Publicar peça',
+      fName: st.fName, fPrice: st.fPrice, fDesc: st.fDesc, fCat: st.fCat, fImg: st.fImg,
+      hasFormImg: !!st.fImg, noFormImg: !st.fImg, fImgStyle: this.bg(st.fImg),
+      onName: e => this.setState({ fName: e.target.value }),
+      onPrice: e => this.setState({ fPrice: e.target.value }),
+      onDesc: e => this.setState({ fDesc: e.target.value }),
+      onCat: e => this.setState({ fCat: e.target.value }),
+      colorRows: st.fColorRows.map((r, i) => ({
+        name: r.name, qty: r.qty,
+        photos: (r.imgs || []).map((src, j) => ({
+          style: this.bg(src),
+          remove: () => this.removeRowImage(i, j),
+          onDragStart: e => { this._drag = { row: i, idx: j }; e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', String(j)); } catch (err) {} },
+          onDragOver: e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; },
+          onDrop: e => {
+            e.preventDefault();
+            if (this._drag && this._drag.row === i) this.moveRowImage(i, this._drag.idx, j);
+            this._drag = null;
+          }
+        })),
+        photoCount: (r.imgs || []).length ? (r.imgs.length + (r.imgs.length === 1 ? ' foto' : ' fotos')) : 'sem fotos',
+        onName: e => this.updateRow(i, { name: e.target.value }),
+        onQty: e => this.updateRow(i, { qty: e.target.value }),
+        onPick: e => this.pickRowImage(i, e),
+        remove: () => this.setState(s => {
+          const next = s.fColorRows.filter((_, idx) => idx !== i);
+          return { fColorRows: next.length ? next : [{ name: '', qty: '', imgs: [] }] };
+        })
+      })),
+      addColorRow: () => this.setState(s => ({ fColorRows: s.fColorRows.concat([{ name: '', qty: '', imgs: [] }]) })),
+      onPickImage: this.onPickImage,
+      clearImage: () => this.setState({ fImg: '' }),
+      catOptions: st.cats,
+      sizeOptions,
+      saveProduct: this.saveProduct,
+      resetForm: this.resetForm,
+      toast: st.toast,
+
+      prodCount: st.prods.length + (st.prods.length === 1 ? ' item' : ' itens'),
+      adminProducts, adminCats,
+      newCat: st.newCat,
+      onNewCat: e => this.setState({ newCat: e.target.value }),
+      addCategory: this.addCategory,
+
+      whats: st.whats, addr: st.addr, credUser: st.credUser, credPass: st.credPass,
+      sbUrl: st.sbUrl, sbKey: st.sbKey, sbTable: st.sbTable, sbStatus: st.sbStatus,
+      onSbUrl: e => this.setState({ sbUrl: e.target.value }, this.persist),
+      onSbKey: e => this.setState({ sbKey: e.target.value }, this.persist),
+      onSbTable: e => this.setState({ sbTable: e.target.value }, this.persist),
+      sbPush: this.sbPush, sbPull: this.sbPull,
+      exportCatalog: this.exportCatalog,
+      exportPdf: this.exportPdf,
+      exportStatus: st.exportStatus || '',
+      onWhats: e => this.setState({ whats: e.target.value }, this.persist),
+      onAddr: e => this.setState({ addr: e.target.value }, this.persist),
+      onCredUser: e => this.setState({ credUser: e.target.value }, this.persist),
+      onCredPass: e => this.setState({ credPass: e.target.value }, this.persist),
+
+      hasDetail: !!d,
+      detailName: d ? d.name : '',
+      detailPrice: d ? this.money(d.price) : '',
+      detailDesc: d ? (d.desc || 'Sem descrição cadastrada.') : '',
+      detailCat: d ? this.catName(d.cat) : '',
+      detailImgStyle: Object.assign(this.bg(dImg), { backgroundSize: 'contain', backgroundRepeat: 'no-repeat', cursor: 'zoom-in' }),
+      openZoom: () => this.setState({ zoom: true, zoomLevel: 1 }),
+      closeZoom: () => this.setState({ zoom: false }),
+      isZoomed: !!st.zoom && !!dImg,
+      zoomStyle: Object.assign(this.bg(dImg), {
+        backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+        cursor: 'zoom-out', flex: '1 1 auto', minHeight: 0, marginTop: '16px', height: 'auto'
+      }),
+      hasPrevNext: dGallery.length > 1,
+      prevPhoto: e => { e.stopPropagation(); this.setState({ pickPhoto: (dIdx - 1 + dGallery.length) % dGallery.length }); },
+      nextPhoto: e => { e.stopPropagation(); this.setState({ pickPhoto: (dIdx + 1) % dGallery.length }); },
+      detailHasImg: !!(d && dImg),
+      detailNoImg: !!(d && !dImg),
+      detailIsNew: !!(d && this.isNew(d)),
+      pickHint: (st.pickSize ? 'Tamanho ' + st.pickSize : 'Nenhum tamanho selecionado') + ' · ' + (st.pickColor || 'Nenhuma cor selecionada'),
+      detailSizes, detailColors, detailThumbs,
+      detailHasThumbs: detailThumbs.length > 1,
+      detailHasColors: detailColors.length > 0,
+      detailStock: dStock === null ? '' : dStock + ' peças em estoque',
+      detailHasStock: dStock !== null,
+      buyHref: 'https://wa.me/' + phone + '?text=' + encodeURIComponent(buyMsg),
+      shareProduct: this.shareProduct,
+      shareLabel: st.shareLabel,
+      closeDetail: () => this.setState({ detailId: null }),
+      stop: e => e.stopPropagation()
+    };
+  }
+}
+</script>
+</body>
+</html>
