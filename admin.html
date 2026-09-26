@@ -598,10 +598,10 @@
               <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Banco de dados (Supabase)</h2>
               <p style="margin: 0; grid-column: 1 / -1; font: 500 13px/1.6 Manrope, sans-serif; color: #6b6358;">Sincroniza o catálogo entre aparelhos. Em branco, tudo fica salvo só neste aparelho.</p>
               <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Project URL
-                <input value="{{ sbUrl }}" onChange="{{ onSbUrl }}" placeholder="https://xxxx.supabase.co" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+                <input value="https://obwwglprcihyzhpodpdt.supabase.co" onChange="{{ onSbUrl }}" placeholder="https://xxxx.supabase.co" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
               </label>
               <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Anon key
-                <input value="{{ sbKey }}" onChange="{{ onSbKey }}" placeholder="eyJhbGciOi…" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+                <input value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE" onChange="{{ onSbKey }}" placeholder="eyJhbGciOi…" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
               </label>
               <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Tabela
                 <input value="{{ sbTable }}" onChange="{{ onSbTable }}" placeholder="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
@@ -837,7 +837,7 @@ class Component extends DCLogic {
     draft: null, errors: [], uploading: 0, confirm: null, toast: '', toastErr: false,
     newCat: '', editCat: null, editCatName: '',
     uForm: { name: '', username: '', password: '', role: 'editor' }, uErr: '', pwFor: null, pwNew: '', pwCur: '', pwNext: '',
-    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbStatus: '', exporting: false,
+    sbUrl: 'https://obwwglprcihyzhpodpdt.supabase.co', sbKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE', sbTable: 'catalogo', sbStatus: '', exporting: false,
     pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false
   };
 
@@ -862,7 +862,7 @@ class Component extends DCLogic {
       if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
       else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
       if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
-      this.setState({ sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo' });
+      this.setState({ sbUrl: 'https://obwwglprcihyzhpodpdt.supabase.co', sbKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE', sbTable: s.sbTable || 'catalogo' });
     }
     if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
     const rv = s ? (s.rv || 0) : 0;
