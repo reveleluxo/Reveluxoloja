@@ -597,15 +597,17 @@
             <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; align-items: end;">
               <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Banco de dados (Supabase)</h2>
               <p style="margin: 0; grid-column: 1 / -1; font: 500 13px/1.6 Manrope, sans-serif; color: #6b6358;">Sincroniza o catálogo entre aparelhos. Em branco, tudo fica salvo só neste aparelho.</p>
-              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Project URL
-                <input value="{{ sbUrl }}" onChange="{{ onSbUrl }}" placeholder="https://xxxx.supabase.co" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
-              </label>
-              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Anon key
-                <input value="{{ sbKey }}" onChange="{{ onSbKey }}" placeholder="eyJhbGciOi…" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
-              </label>
-              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Tabela
-                <input value="{{ sbTable }}" onChange="{{ onSbTable }}" placeholder="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
-              </label>
+             <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Project URL
+  <input value="https://obwwglprcihyzhpodpdt.supabase.co" x-change="{{ onSbUrl }}" placeholder="https://xxxx.supabase.co" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+</label>
+
+<label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Anon key
+  <input type="password" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE" x-change="{{ onSbKey }}" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+</label>
+
+<label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Tabela
+  <input value="catalogo" x-change="{{ onSbTable }}" placeholder="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+</label>
               <div style="grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                 <button onClick="{{ sbPush }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Enviar catálogo</button>
                 <button onClick="{{ sbPull }}" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Baixar catálogo</button>
