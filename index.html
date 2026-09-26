@@ -229,71 +229,89 @@
 </x-dc>
 
 <script type="text/x-dc" data-dc-script>
-(function initFirebase() {
-  const Target = typeof Component !== 'undefined' ? Component : (typeof window !== 'undefined' ? window.Component : null);
-  
-  if (!Target) {
-    return setTimeout(initFirebase, 50);
+class Component extends DCLogic {
+  getInitialState() {
+    const saved = localStorage.getItem('reveluxo_data');
+    if (saved) {
+      try { return JSON.parse(saved); } catch(e) {}
+    }
+    return {
+      view: 'shop',
+      search: '',
+      selectedCat: '',
+      fbProjectId: '',
+      fbApiKey: '',
+      fbCollection: 'catalogo',
+      fbStatus: '',
+      cats: [
+        { id: 'c1', name: 'Vestidos' },
+        { id: 'c2', name: 'Blusas' },
+        { id: 'c3', name: 'Calças' },
+        { id: 'c4', name: 'Casacos' }
+      ],
+      prods: [],
+      cfg: { storeName: 'Reveluxo', phone: '85985836214', ig: 'reveluxo' }
+    };
   }
 
-  Object.assign(Target.prototype, {
-    fbEndpoint() {
-      const proj = String(this.state.fbProjectId || '').trim();
-      const col = String(this.state.fbCollection || 'catalogo').trim();
-      return `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${this.state.fbApiKey}`;
-    },
+  persist() {
+    localStorage.setItem('reveluxo_data', JSON.stringify(this.state));
+  }
 
-    async fbPush() {
-      if (!this.state.fbProjectId || !this.state.fbApiKey) {
-        return this.setState({ fbStatus: 'Preencha o Project ID e a API Key.' });
-      }
-      this.setState({ fbStatus: 'Enviando…' });
-      const s = this.state;
-      const payload = {
-        fields: {
-          data: {
-            stringValue: JSON.stringify({ cats: s.cats, prods: s.prods, cfg: s.cfg })
-          },
-          updated_at: { stringValue: new Date().toISOString() }
-        }
-      };
-      try {
-        const r = await fetch(this.fbEndpoint(), {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        this.setState({ fbStatus: r.ok ? 'Catálogo enviado.' : 'Erro ' + r.status + ' ao enviar.' });
-      } catch (e) {
-        this.setState({ fbStatus: 'Falha de conexão com o Firebase.' });
-      }
-    },
+  fbEndpoint() {
+    const proj = String(this.state.fbProjectId || '').trim();
+    const col = String(this.state.fbCollection || 'catalogo').trim();
+    return `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${this.state.fbApiKey}`;
+  }
 
-    async fbPull() {
-      if (!this.state.fbProjectId || !this.state.fbApiKey) {
-        return this.setState({ fbStatus: 'Preencha o Project ID e a API Key.' });
-      }
-      this.setState({ fbStatus: 'Baixando…' });
-      try {
-        const r = await fetch(this.fbEndpoint());
-        const doc = await r.json();
-        const rawData = doc && doc.fields && doc.fields.data && doc.fields.data.stringValue;
-        const data = rawData ? JSON.parse(rawData) : null;
-        if (!data || !Array.isArray(data.prods)) {
-          return this.setState({ fbStatus: 'Nenhum catálogo salvo no Firebase.' });
-        }
-        this.setState({
-          cats: data.cats || this.state.cats,
-          prods: data.prods.map((p, i) => this.migrate(p, i)),
-          cfg: Object.assign({}, DEFAULT_CFG, data.cfg || {}),
-          fbStatus: 'Catálogo atualizado.'
-        }, this.persist);
-      } catch (e) {
-        this.setState({ fbStatus: 'Falha de conexão com o Firebase.' });
-      }
+  async fbPush() {
+    if (!this.state.fbProjectId || !this.state.fbApiKey) {
+      return this.setState({ fbStatus: 'Preencha o Project ID e a API Key.' });
     }
-  });
-})();
+    this.setState({ fbStatus: 'Enviando…' });
+    const s = this.state;
+    const payload = {
+      fields: {
+        data: { stringValue: JSON.stringify({ cats: s.cats, prods: s.prods, cfg: s.cfg }) },
+        updated_at: { stringValue: new Date().toISOString() }
+      }
+    };
+    try {
+      const r = await fetch(this.fbEndpoint(), {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      this.setState({ fbStatus: r.ok ? 'Catálogo enviado.' : 'Erro ' + r.status + ' ao enviar.' });
+    } catch (e) {
+      this.setState({ fbStatus: 'Falha de conexão com o Firebase.' });
+    }
+  }
+
+  async fbPull() {
+    if (!this.state.fbProjectId || !this.state.fbApiKey) {
+      return this.setState({ fbStatus: 'Preencha o Project ID e a API Key.' });
+    }
+    this.setState({ fbStatus: 'Baixando…' });
+    try {
+      const r = await fetch(this.fbEndpoint());
+      const doc = await r.json();
+      const rawData = doc && doc.fields && doc.fields.data && doc.fields.data.stringValue;
+      const data = rawData ? JSON.parse(rawData) : null;
+      if (!data || !Array.isArray(data.prods)) {
+        return this.setState({ fbStatus: 'Nenhum catálogo salvo no Firebase.' });
+      }
+      this.setState({
+        cats: data.cats || this.state.cats,
+        prods: data.prods,
+        cfg: data.cfg || this.state.cfg,
+        fbStatus: 'Catálogo atualizado.'
+      }, this.persist);
+    } catch (e) {
+      this.setState({ fbStatus: 'Falha de conexão com o Firebase.' });
+    }
+  }
+}
 </script>
 </body>
 </html>
