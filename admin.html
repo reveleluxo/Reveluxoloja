@@ -862,7 +862,10 @@ class Component extends DCLogic {
       if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
       else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
       if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
-      this.setState({ sbUrl: s.sbUrl || 'https://obwwglprcihyzhpodpdt.supabase.co', sbKey: s.sbKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE', sbTable: s.sbTable || 'catalogo' });
+      
+      let cleanSbUrl = s.sbUrl || 'https://obwwglprcihyzhpodpdt.supabase.co';
+      if (cleanSbUrl.includes('/rest/v1')) cleanSbUrl = cleanSbUrl.replace(/\/rest\/v1\/?$/, '');
+      this.setState({ sbUrl: cleanSbUrl, sbKey: s.sbKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE', sbTable: s.sbTable || 'catalogo' });
     }
     if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
     const rv = s ? (s.rv || 0) : 0;
@@ -1242,7 +1245,11 @@ class Component extends DCLogic {
 
 Object.assign(Component.prototype, {
   sbHeaders() { return { apikey: this.state.sbKey, Authorization: 'Bearer ' + this.state.sbKey, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates' }; },
-  sbEndpoint() { return String(this.state.sbUrl || 'https://obwwglprcihyzhpodpdt.supabase.co').replace(/\/+$/, '') + '/rest/v1/' + (this.state.sbTable || 'catalogo'); },
+  sbEndpoint() { 
+    let base = String(this.state.sbUrl || 'https://obwwglprcihyzhpodpdt.supabase.co').replace(/\/+$/, '');
+    if (base.endsWith('/rest/v1')) base = base.replace(/\/rest\/v1$/, '');
+    return base + '/rest/v1/' + (this.state.sbTable || 'catalogo'); 
+  },
   async sbPush() {
     if (!this.state.sbUrl || !this.state.sbKey) return this.setState({ sbStatus: 'Preencha URL e anon key.' });
     this.setState({ sbStatus: 'Enviando…' });
@@ -1723,7 +1730,7 @@ Object.assign(Component.prototype, {
           remove: () => this.setDraft(x => { const s2 = Object.assign({}, x.stock); delete s2[c.id]; return { colors: x.colors.filter(k => k.id !== c.id), stock: s2, images: x.images.map(m => (m.color === c.id ? Object.assign({}, m, { color: '' }) : m)) }; })
         })),
         addColor: () => this.setDraft(x => { const id = uid(); const row = {}; SIZES.concat(['U']).forEach(s => { row[s] = '0'; }); return { colors: x.colors.concat([{ id, name: '', hex: '#b9a58a' }]), stock: Object.assign({}, x.stock, { [id]: row }) }; }),
-        colorsHelp: hasColors ? 'Cada cor tem o próprio estoque. Marque nas fotos qual cor aparece nelas.' : 'Opcional. Sem cores, o estoque é controlled só por tamanho.',
+        colorsHelp: hasColors ? 'Cada cor tem o próprio estoque. Marque nas fotos qual cor aparece nelas.' : 'Opcional. Sem cores, o estoque é controlado só por tamanho.',
         sizeToggles: SIZES.map(s => ({ size: s, style: this.chip(d.sizesOn[s], 'min-width:52px;'), toggle: () => this.setDraft(x => ({ sizesOn: Object.assign({}, x.sizesOn, { [s]: !x.sizesOn[s] }) })) })),
         hasStockBlocks: true,
         stockBlocks: hasColors
