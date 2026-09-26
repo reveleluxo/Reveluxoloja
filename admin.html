@@ -153,7 +153,7 @@
       <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 20px 32px 40px; border-top: 1px solid #1a1814; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
         <span style="font-size: 10px; letter-spacing: 0.16em; color: #55504a;">© Reveluxo · Todos os direitos reservados</span>
         <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ installApp }}" style="display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid #5a5347; border-radius: 999px; padding: 8px 16px; font-size: 10px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #e3c684; cursor: pointer;" style-hover="border-color: #c9a44c;"><span style="font-size: 13px; line-height: 1;">↓</span>Instalar app</button>
+          <button onClick="{{ installApp }}" style="display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid #5a5347; border-radius: 9999px; padding: 8px 16px; font-size: 10px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #e3c684; cursor: pointer;" style-hover="border-color: #c9a44c;"><span style="font-size: 13px; line-height: 1;">↓</span>Instalar app</button>
         </sc-if>
         <button onClick="{{ goAdmin }}" style="margin-left: auto; background: transparent; border: none; padding: 0; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #45413a; cursor: pointer;" style-hover="color: #c9a44c;">Administração</button>
       </div>
@@ -595,21 +595,21 @@
             </div>
 
             <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; align-items: end;">
-              <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Banco de dados (Supabase)</h2>
-              <p style="margin: 0; grid-column: 1 / -1; font: 500 13px/1.6 Manrope, sans-serif; color: #6b6358;">Sincroniza o catálogo entre aparelhos. Em branco, tudo fica salvo só neste aparelho.</p>
-              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Project URL
-                <input value="{{ sbUrl }}" onChange="{{ onSbUrl }}" placeholder="https://xxxx.supabase.co" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Banco de dados (Firebase)</h2>
+              <p style="margin: 0; grid-column: 1 / -1; font: 500 13px/1.6 Manrope, sans-serif; color: #6b6358;">Sincroniza o catálogo entre aparelhos via Firestore Rest API. Em branco, tudo fica salvo só neste aparelho.</p>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Firebase Project ID
+                <input value="{{ fbProjectId }}" onChange="{{ onFbProjectId }}" placeholder="meu-projeto-1234" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
               </label>
-              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Anon key
-                <input value="{{ sbKey }}" onChange="{{ onSbKey }}" placeholder="eyJhbGciOi…" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Firebase API Key
+                <input value="{{ fbApiKey }}" onChange="{{ onFbApiKey }}" placeholder="AIzaSy…" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
               </label>
-              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Tabela
-                <input value="{{ sbTable }}" onChange="{{ onSbTable }}" placeholder="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Coleção
+                <input value="{{ fbCollection }}" onChange="{{ onFbCollection }}" placeholder="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
               </label>
               <div style="grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                <button onClick="{{ sbPush }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Enviar catálogo</button>
-                <button onClick="{{ sbPull }}" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Baixar catálogo</button>
-                <span style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;">{{ sbStatus }}</span>
+                <button onClick="{{ fbPush }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Enviar catálogo</button>
+                <button onClick="{{ fbPull }}" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Baixar catálogo</button>
+                <span style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;">{{ fbStatus }}</span>
               </div>
             </section>
 
@@ -754,8 +754,7 @@
   </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
-const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
 const KEY = 'catalogo_roupas_v6';
 const DAY = 864e5;
 const PATH = (typeof location !== 'undefined' ? decodeURIComponent(location.pathname) : '');
@@ -838,7 +837,7 @@ class Component extends DCLogic {
     draft: null, errors: [], uploading: 0, confirm: null, toast: '', toastErr: false,
     newCat: '', editCat: null, editCatName: '',
     uForm: { name: '', username: '', password: '', role: 'editor' }, uErr: '', pwFor: null, pwNew: '', pwCur: '', pwNext: '',
-    sbUrl: 'https://obwwglprcihyzhpodpdt.supabase.co', sbKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE', sbTable: 'catalogo', sbStatus: '', exporting: false,
+    fbProjectId: '', fbApiKey: '', fbCollection: 'catalogo', fbStatus: '', exporting: false,
     pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false
   };
 
@@ -863,10 +862,7 @@ class Component extends DCLogic {
       if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
       else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
       if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
-      
-      let cleanSbUrl = s.sbUrl || 'https://obwwglprcihyzhpodpdt.supabase.co';
-      if (cleanSbUrl.includes('/rest/v1')) cleanSbUrl = cleanSbUrl.replace(/\/rest\/v1\/?$/, '');
-      this.setState({ sbUrl: cleanSbUrl, sbKey: s.sbKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9id3dnbHByY2loeXpocG9kcGR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MzI3MTUsImV4cCI6MjEwNjAwODcxNX0.Vbj9trTttZv3F2-AKIrx5RQ4AUaoyGs79w-XGZPXSTE', sbTable: s.sbTable || 'catalogo' });
+      this.setState({ fbProjectId: s.fbProjectId || '', fbApiKey: s.fbApiKey || '', fbCollection: s.fbCollection || 'catalogo' });
     }
     if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
     const rv = s ? (s.rv || 0) : 0;
@@ -1004,8 +1000,8 @@ class Component extends DCLogic {
   persist = () => {
     const s = this.state;
     try {
-      localStorage.setItem(KEY, JSON.stringify({ v: 7, rv: 5, cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg, sbUrl: s.sbUrl, sbKey: s.sbKey, sbTable: s.sbTable }));
-    } catch (e) { this.flash('Armazenamento do aparelho cheio. Remova fotos antigas ou use o Supabase.', true); }
+      localStorage.setItem(KEY, JSON.stringify({ v: 7, rv: 5, cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg, fbProjectId: s.fbProjectId, fbApiKey: s.fbApiKey, fbCollection: s.fbCollection }));
+    } catch (e) { this.flash('Armazenamento do aparelho cheio. Remova fotos antigas ou use o Firebase.', true); }
   };
 
   flash(msg, err) {
@@ -1106,9 +1102,9 @@ class Component extends DCLogic {
 
   renderVals() {
     const st = this.state, cfg = st.cfg;
-    const showSizesOnCard = true;
-    const showPriceOnCard = true;
-    const enableSearch = true;
+    const showSizesOnCard = this.props.showSizesOnCard ?? true;
+    const showPriceOnCard = this.props.showPriceOnCard ?? true;
+    const enableSearch = this.props.enableSearch ?? true;
     const logoSrc = cfg.logo || 'logo-reveluxo.png';
     const ig = String(cfg.instagram || '').replace(/^@/, '');
 
@@ -1245,31 +1241,37 @@ class Component extends DCLogic {
 }
 
 Object.assign(Component.prototype, {
-  sbHeaders() { return { apikey: this.state.sbKey, Authorization: 'Bearer ' + this.state.sbKey, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates' }; },
-  sbEndpoint() { 
-    let base = String(this.state.sbUrl || 'https://obwwglprcihyzhpodpdt.supabase.co').replace(/\/+$/, '');
-    if (base.endsWith('/rest/v1')) base = base.replace(/\/rest\/v1$/, '');
-    return base + '/rest/v1/' + (this.state.sbTable || 'catalogo'); 
+  fbEndpoint() {
+    const proj = String(this.state.fbProjectId || '').trim();
+    const col = String(this.state.fbCollection || 'catalogo').trim();
+    return 'https://firestore.googleapis.com/v1/projects/' + proj + '/databases/(default)/documents/' + col + '/loja?key=' + this.state.fbApiKey;
   },
-  async sbPush() {
-    if (!this.state.sbUrl || !this.state.sbKey) return this.setState({ sbStatus: 'Preencha URL e anon key.' });
-    this.setState({ sbStatus: 'Enviando…' });
+  async fbPush() {
+    if (!this.state.fbProjectId || !this.state.fbApiKey) return this.setState({ fbStatus: 'Preencha o Project ID e a API Key.' });
+    this.setState({ fbStatus: 'Enviando…' });
     const s = this.state;
+    const payload = {
+      fields: {
+        data: { stringValue: JSON.stringify({ cats: s.cats, prods: s.prods, cfg: s.cfg }) },
+        updated_at: { stringValue: new Date().toISOString() }
+      }
+    };
     try {
-      const r = await fetch(this.sbEndpoint(), { method: 'POST', headers: this.sbHeaders(), body: JSON.stringify({ id: 1, data: { cats: s.cats, prods: s.prods, cfg: s.cfg }, updated_at: new Date().toISOString() }) });
-      this.setState({ sbStatus: r.ok ? 'Catálogo enviado.' : 'Erro ' + r.status + ' ao enviar.' });
-    } catch (e) { this.setState({ sbStatus: 'Falha de conexão com o Supabase.' }); }
+      const r = await fetch(this.fbEndpoint(), { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      this.setState({ fbStatus: r.ok ? 'Catálogo enviado.' : 'Erro ' + r.status + ' ao enviar.' });
+    } catch (e) { this.setState({ fbStatus: 'Falha de conexão com o Firebase.' }); }
   },
-  async sbPull() {
-    if (!this.state.sbUrl || !this.state.sbKey) return this.setState({ sbStatus: 'Preencha URL e anon key.' });
-    this.setState({ sbStatus: 'Baixando…' });
+  async fbPull() {
+    if (!this.state.fbProjectId || !this.state.fbApiKey) return this.setState({ fbStatus: 'Preencha o Project ID e a API Key.' });
+    this.setState({ fbStatus: 'Baixando…' });
     try {
-      const r = await fetch(this.sbEndpoint() + '?id=eq.1&select=data', { headers: this.sbHeaders() });
-      const rows = await r.json();
-      const data = rows && rows[0] && rows[0].data;
-      if (!data || !Array.isArray(data.prods)) return this.setState({ sbStatus: 'Nenhum catálogo salvo no Supabase.' });
-      this.setState({ cats: data.cats || this.state.cats, prods: data.prods.map((p, i) => this.migrate(p, i)), cfg: Object.assign({}, DEFAULT_CFG, data.cfg || {}), sbStatus: 'Catálogo atualizado.' }, this.persist);
-    } catch (e) { this.setState({ sbStatus: 'Falha de conexão com o Supabase.' }); }
+      const r = await fetch(this.fbEndpoint());
+      const doc = await r.json();
+      const rawData = doc && doc.fields && doc.fields.data && doc.fields.data.stringValue;
+      const data = rawData ? JSON.parse(rawData) : null;
+      if (!data || !Array.isArray(data.prods)) return this.setState({ fbStatus: 'Nenhum catálogo salvo no Firebase.' });
+      this.setState({ cats: data.cats || this.state.cats, prods: data.prods.map((p, i) => this.migrate(p, i)), cfg: Object.assign({}, DEFAULT_CFG, data.cfg || {}), fbStatus: 'Catálogo atualizado.' }, this.persist);
+    } catch (e) { this.setState({ fbStatus: 'Falha de conexão com o Firebase.' }); }
   },
 
   loadImg(src) {
@@ -1850,11 +1852,11 @@ Object.assign(Component.prototype, {
           const next = Object.assign({}, cd, { storeName: cd.storeName.trim(), whats: w, instagram: String(cd.instagram || '').replace(/^@/, '').trim() });
           this.setState({ cfg: next }, () => { this.persist(); this.flash('Configurações salvas.'); });
         },
-        sbUrl: st.sbUrl, sbKey: st.sbKey, sbTable: st.sbTable, sbStatus: st.sbStatus,
-        onSbUrl: e => this.setState({ sbUrl: e.target.value }, this.persist),
-        onSbKey: e => this.setState({ sbKey: e.target.value }, this.persist),
-        onSbTable: e => this.setState({ sbTable: e.target.value }, this.persist),
-        sbPush: () => this.sbPush(), sbPull: () => this.sbPull(),
+        fbProjectId: st.fbProjectId, fbApiKey: st.fbApiKey, fbCollection: st.fbCollection, fbStatus: st.fbStatus,
+        onFbProjectId: e => this.setState({ fbProjectId: e.target.value }, this.persist),
+        onFbApiKey: e => this.setState({ fbApiKey: e.target.value }, this.persist),
+        onFbCollection: e => this.setState({ fbCollection: e.target.value }, this.persist),
+        fbPush: () => this.fbPush(), fbPull: () => this.fbPull(),
         pwCur: st.pwCur, pwNext: st.pwNext, onPwCur: e => this.setState({ pwCur: e.target.value }), onPwNext: e => this.setState({ pwNext: e.target.value }),
         changePw: () => {
           if (st.pwNext.length < 8) return this.flash('A nova senha precisa ter pelo menos 8 caracteres.', true);
