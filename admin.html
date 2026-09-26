@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Painel — Reveluxo</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="description" content="Catálogo de moda feminina Reveluxo. Peça pelo WhatsApp (85) 98583-6214." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Reveluxo — Moda Feminina" />
+<meta property="og:title" content="Reveluxo — Moda Feminina" />
+<meta property="og:description" content="Vestidos, blusas, calças e casacos. Peça pelo WhatsApp (85) 98583-6214 · @reveluxo" />
+<meta property="og:image" content="logo-reveluxo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="logo-reveluxo.png" />
+<link rel="icon" href="icon-192.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#000000" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-title" content="Reveluxo" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #000000; }
+  * { box-sizing: border-box; }
+  a { color: #c9a44c; text-decoration: none; }
+  a:hover { color: #e3c684; }
+  input, textarea, select, button { font-family: inherit; color: inherit; }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #b08a3e; outline-offset: 2px; }
+  ::placeholder { color: #9a9286; }
+  img, input, textarea, select { max-width: 100%; }
+  [data-admnav]::-webkit-scrollbar { display: none; }
+  @media (max-width: 860px) {
+    [data-grid="detail"] { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; padding-bottom: 48px !important; }
+    [data-pad] { padding-left: 18px !important; padding-right: 18px !important; }
+    [data-detail-pad] { max-width: none !important; padding-top: 0 !important; }
+    [data-detail-img] { aspect-ratio: 4 / 5 !important; border-radius: 16px !important; }
+    [data-detail-title] { font-size: 40px !important; }
+    [data-grid="cards"] { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 28px 14px !important; }
+    [data-nav] { gap: 16px !important; }
+  }
+  @media (max-width: 760px) {
+    [data-admnav] { order: 3; flex: 1 1 100% !important; padding-bottom: 8px; }
+    [data-admtitle] { font-size: 36px !important; }
+  }
+</style>
+</helmet>
+<div style="font-family: Jost, ui-sans-serif, system-ui, sans-serif; background: #000000; color: #eae5da; min-height: 100vh; font-weight: 300;">
+
+  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ true }}">
+    <div style="background: #c9a44c; color: #000000; text-align: center; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding: 9px 16px;">Peças exclusivas · Entrega em todo o Brasil</div>
+    <div style="border-bottom: 1px solid #23211c;">
+      <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 40px 32px 0; text-align: center;">
+        <div onClick="{{ goHome }}" style="cursor: pointer; display: inline-block;">
+          <img src="logo-reveluxo.png" data-logo="1" alt="Reveluxo — Moda Feminina" style="display: block; width: 100%; max-width: 460px; height: auto; margin: 0 auto;" />
+        </div>
+        <div style="margin-top: 18px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px;">
+          <a href="{{ waHref }}" target="_blank" rel="noopener" style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #a49c8c;" style-hover="color: #e3c684;">{{ phoneLabel }}</a>
+          <span style="width: 3px; height: 3px; background: #c9a44c; display: block;"></span>
+          <a href="{{ igHref }}" target="_blank" rel="noopener" style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #a49c8c;" style-hover="color: #e3c684;">{{ igLabel }}</a>
+        </div>
+        <sc-if value="{{ enableSearch }}" hint-placeholder-val="{{ true }}">
+          <div style="max-width: 340px; margin: 30px auto 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #2e2b24; padding-bottom: 8px;">
+            <span style="font-size: 12px; color: #b3ac9e;">⌕</span>
+            <input type="text" value="{{ search }}" onChange="{{ onSearch }}" placeholder="Buscar peças" style="flex: 1 1 auto; border: none; background: transparent; font-size: 13px; letter-spacing: 0.1em; padding: 2px 0; color: #eae5da;" />
+          </div>
+        </sc-if>
+        <div data-nav="1" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 34px; padding-bottom: 20px;">
+          <sc-for list="{{ catPills }}" as="pill" hint-placeholder-count="5">
+            <button onClick="{{ pill.onClick }}" style="{{ pill.style }}">{{ pill.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 64px 32px 96px;">
+      <div style="text-align: center; margin-bottom: 52px;">
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 34px; font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase; color: #f3efe6;">{{ shopTitle }}</div>
+        <div style="width: 44px; height: 1px; background: #c9a44c; margin: 20px auto 14px;"></div>
+        <div style="font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: #d4cfc3;">{{ shopCount }}</div>
+      </div>
+      <sc-if value="{{ isEmptyResult }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align: center; padding: 80px 24px;">
+          <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 300; letter-spacing: 0.06em; margin-bottom: 10px;">Nenhuma peça encontrada</div>
+          <div style="font-size: 11px; letter-spacing: 0.16em; color: #d4cfc3; text-transform: uppercase;">Ajuste sua busca ou escolha outra coleção</div>
+        </div>
+      </sc-if>
+      <div data-grid="cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 52px 32px;">
+        <sc-for list="{{ gridItems }}" as="p" hint-placeholder-count="8">
+          <div onClick="{{ p.open }}" style="cursor: pointer;">
+            <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: repeating-linear-gradient(135deg, #0d0d0d 0 12px, #151515 12px 24px); display: flex; align-items: center; justify-content: center;">
+              <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}">
+                <div role="img" aria-label="{{ p.name }}" style="{{ p.imgStyle }}"></div>
+              </sc-if>
+              <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}">
+                <span style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: #55504a; letter-spacing: 0.1em;">foto da peça</span>
+              </sc-if>
+              <sc-if value="{{ p.isNew }}" hint-placeholder-val="{{ false }}">
+                <span style="position: absolute; top: 14px; left: 14px; background: #c9a44c; color: #000000; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; padding: 6px 11px;">Novo</span>
+              </sc-if>
+              <sc-if value="{{ p.soldOut }}" hint-placeholder-val="{{ false }}">
+                <span style="position: absolute; top: 14px; left: 14px; background: #1c1b19; color: #ffffff; font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; padding: 6px 11px;">Esgotado</span>
+              </sc-if>
+            </div>
+            <div style="padding: 20px 2px 0; display: flex; flex-direction: column; gap: 8px; text-align: center;">
+              <div style="font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: #a49c8c;">{{ p.catName }}</div>
+              <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 27px; font-weight: 500; letter-spacing: 0.04em; color: #ffffff; line-height: 1.2;">{{ p.name }}</div>
+              <sc-if value="{{ showPriceOnCard }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size: 15px; letter-spacing: 0.16em; color: #e3c684;">{{ p.priceLabel }}</div>
+              </sc-if>
+              <sc-if value="{{ showSizesOnCard }}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 4px;">
+                  <sc-for list="{{ p.sizes }}" as="s" hint-placeholder-count="3">
+                    <span style="font-size: 12px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; border: 1px solid #5a5347; padding: 4px 11px;">{{ s }}</span>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid #23211c; background: #000000;">
+      <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 72px 32px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 48px;">
+        <div>
+          <img src="logo-reveluxo.png" data-logo="1" alt="Reveluxo — Moda Feminina" style="display: block; width: 100%; max-width: 240px; height: auto;" />
+          <div style="font-size: 12px; line-height: 1.9; letter-spacing: 0.06em; margin-top: 18px; color: #d4cfc3;">{{ storeDesc }}</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: #c9a44c; margin-bottom: 6px;">Atendimento</div>
+          <div style="font-size: 13px; letter-spacing: 0.06em;">{{ addr }}</div>
+          <a href="{{ waHref }}" target="_blank" rel="noopener" style="font-size: 13px; letter-spacing: 0.06em; color: #eae5da;" style-hover="color: #e3c684;">{{ phoneLabel }}</a>
+          <a href="{{ igHref }}" target="_blank" rel="noopener" style="font-size: 13px; letter-spacing: 0.06em; color: #eae5da;" style-hover="color: #e3c684;">{{ igLabel }}</a>
+          <div style="font-size: 12px; letter-spacing: 0.06em; color: #b3ac9e;">Seg a sex, 10h às 19h</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: #c9a44c; margin-bottom: 6px;">Coleções</div>
+          <sc-for list="{{ footerCats }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.onClick }}" style="background: transparent; border: none; padding: 0; text-align: left; font-size: 13px; letter-spacing: 0.06em; color: #d4cfc3; cursor: pointer;">{{ c.name }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 20px 32px 40px; border-top: 1px solid #1a1814; display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+        <span style="font-size: 10px; letter-spacing: 0.16em; color: #55504a;">© Reveluxo · Todos os direitos reservados</span>
+        <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ installApp }}" style="display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid #5a5347; border-radius: 9999px; padding: 8px 16px; font-size: 10px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: #e3c684; cursor: pointer;" style-hover="border-color: #c9a44c;"><span style="font-size: 13px; line-height: 1;">↓</span>Instalar app</button>
+        </sc-if>
+        <button onClick="{{ goAdmin }}" style="margin-left: auto; background: transparent; border: none; padding: 0; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #45413a; cursor: pointer;" style-hover="color: #c9a44c;">Administração</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+    <div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #f4f1eb; color: #1b1814; font-family: Manrope, system-ui, sans-serif;">
+      <div style="flex: 1 1 380px; min-height: 240px; background: #000; display: grid; place-items: center; padding: 32px;">
+        <img src="logo-reveluxo.png" data-logo="1" alt="Reveluxo — Moda Feminina" style="width: min(80%, 520px);" />
+      </div>
+      <form onSubmit="{{ doLogin }}" style="flex: 1 1 380px; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 48px clamp(24px, 6vw, 96px); max-width: 560px;">
+        <div style="font: 700 11px Manrope, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #8a6a2c;">Área da loja</div>
+        <h1 style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Entrar no painel</h1>
+        <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Usuário
+          <input type="text" autocomplete="username" autocapitalize="none" spellcheck="false" value="{{ loginUser }}" onChange="{{ onLoginUser }}" style="height: 48px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Senha
+          <input type="password" autocomplete="current-password" value="{{ loginPass }}" onChange="{{ onLoginPass }}" style="height: 48px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+        </label>
+        <sc-if value="{{ hasLoginErr }}" hint-placeholder-val="{{ false }}"><div role="alert" style="font: 600 13px Manrope, sans-serif; color: #a2342a;">{{ loginError }}</div></sc-if>
+        <button type="submit" style="height: 52px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer;">Entrar</button>
+        <button type="button" onClick="{{ goHome }}" style="align-self: flex-start; background: transparent; border: 0; padding: 0; font: 600 12px Manrope, sans-serif; color: #6b6358; cursor: pointer;">← Voltar ao catálogo</button>
+      </form>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+    <div style="min-height: 100vh; background: #f4f1eb; color: #1b1814; font-family: Manrope, system-ui, sans-serif; font-weight: 500;">
+      <header style="background: #0c0b0a; color: #f3ede3; position: sticky; top: 0; z-index: 20;">
+        <div style="display: flex; align-items: center; gap: 16px; padding: 0 clamp(12px, 3vw, 32px); min-height: 60px; flex-wrap: wrap; max-width: 1280px; margin: 0 auto;">
+          <img src="logo-reveluxo.png" data-logo="1" alt="Reveluxo" style="height: 34px;" />
+          <nav data-admnav="1" style="display: flex; gap: 4px; flex: 1 1 auto; overflow-x: auto; scrollbar-width: none;">
+            <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+              <button onClick="{{ n.go }}" style="{{ n.style }}">{{ n.label }}</button>
+            </sc-for>
+          </nav>
+          <div style="display: flex; gap: 6px; align-items: center; margin-left: auto;">
+            <button onClick="{{ goHome }}" style="height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(243,237,227,.25); background: transparent; color: #f3ede3; font: 600 13px Manrope, sans-serif; cursor: pointer;">Ver catálogo</button>
+            <button onClick="{{ doLogout }}" style="height: 40px; padding: 0 14px; border: 0; background: transparent; color: #a79e90; font: 600 13px Manrope, sans-serif; cursor: pointer;">Sair</button>
+          </div>
+        </div>
+      </header>
+
+      <main style="max-width: 1280px; margin: 0 auto; padding: 32px clamp(14px, 3vw, 32px) 96px;">
+
+        <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 28px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;">
+              <div>
+                <div style="font: 700 11px Manrope, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #8a6a2c;">Painel</div>
+                <h1 data-admtitle="1" style="margin: 6px 0 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Olá, {{ userName }}</h1>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onClick="{{ exportPdf }}" style="height: 52px; padding: 0 22px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer;">{{ pdfLabel }}</button>
+                <button onClick="{{ newProduct }}" style="height: 52px; padding: 0 26px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer;">+ Nova peça</button>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+              <sc-for list="{{ stats }}" as="s" hint-placeholder-count="5">
+                <button onClick="{{ s.go }}" style="text-align: left; background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; padding: 20px; cursor: pointer; display: flex; flex-direction: column; gap: 8px;">
+                  <span style="font: 600 12px Manrope, sans-serif; color: #6b6358;">{{ s.label }}</span>
+                  <span style="font: 600 44px/1 'Cormorant Garamond', serif; color: #1b1814;">{{ s.value }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ hasDemo }}" hint-placeholder-val="{{ false }}">
+              <div style="background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; padding: 20px; display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <p style="margin: 0; font: 500 14px/1.6 Manrope, sans-serif; color: #4a443c; max-width: 60ch;">O catálogo está com {{ demoCount }} peças de exemplo. Cadastre as suas e remova os exemplos quando quiser.</p>
+                <button onClick="{{ removeDemo }}" style="height: 44px; padding: 0 18px; border: 1px solid #1b1814; border-radius: 999px; background: transparent; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Remover exemplos</button>
+              </div>
+            </sc-if>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #6b6358;">Últimas peças</h2>
+              <sc-for list="{{ recent }}" as="r" hint-placeholder-count="3">
+                <button onClick="{{ r.edit }}" style="display: flex; align-items: center; gap: 14px; text-align: left; background: #fff; border: 1px solid #e6e0d5; border-radius: 14px; padding: 10px 14px; cursor: pointer;">
+                  <span style="width: 44px; height: 56px; border-radius: 8px; overflow: hidden; background: repeating-linear-gradient(135deg, #ece6db 0 8px, #e3dccf 8px 16px); flex: 0 0 auto; display: block;"><span style="{{ r.thumb }}"></span></span>
+                  <span style="flex: 1 1 auto; font: 600 14px Manrope, sans-serif; color: #1b1814;">{{ r.name }}</span>
+                  <span style="font: 600 12px Manrope, sans-serif; color: #6b6358;">{{ r.statusLabel }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isProducts }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;">
+              <h1 data-admtitle="1" style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Peças</h1>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onClick="{{ exportPdf }}" style="height: 48px; padding: 0 22px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer;">{{ pdfLabel }}</button>
+                <button onClick="{{ newProduct }}" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer;">+ Nova peça</button>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <input type="search" value="{{ f.q }}" onChange="{{ onF.q }}" placeholder="Buscar pelo nome" aria-label="Buscar pelo nome" style="flex: 1 1 220px; height: 44px; border: 1px solid #ddd6ca; border-radius: 999px; padding: 0 18px; font: 500 14px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              <select value="{{ f.cat }}" onChange="{{ onF.cat }}" aria-label="Categoria" style="flex: 0 1 190px; height: 44px; border: 1px solid #ddd6ca; border-radius: 999px; padding: 0 14px; font: 500 14px Manrope, sans-serif; background: #fff; color: #1b1814;">
+                <option value="">Todas as categorias</option>
+                <sc-for list="{{ catOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+              </select>
+              <select value="{{ f.status }}" onChange="{{ onF.status }}" aria-label="Status" style="flex: 0 1 160px; height: 44px; border: 1px solid #ddd6ca; border-radius: 999px; padding: 0 14px; font: 500 14px Manrope, sans-serif; background: #fff; color: #1b1814;">
+                <option value="">Todos os status</option><option value="published">Publicado</option><option value="draft">Rascunho</option><option value="hidden">Oculto</option>
+              </select>
+              <select value="{{ f.stock }}" onChange="{{ onF.stock }}" aria-label="Estoque" style="flex: 0 1 150px; height: 44px; border: 1px solid #ddd6ca; border-radius: 999px; padding: 0 14px; font: 500 14px Manrope, sans-serif; background: #fff; color: #1b1814;">
+                <option value="">Todo estoque</option><option value="in">Com estoque</option><option value="out">Esgotados</option>
+              </select>
+              <select value="{{ f.novo }}" onChange="{{ onF.novo }}" aria-label="Novidade" style="flex: 0 1 170px; height: 44px; border: 1px solid #ddd6ca; border-radius: 999px; padding: 0 14px; font: 500 14px Manrope, sans-serif; background: #fff; color: #1b1814;">
+                <option value="">Novidade: todas</option><option value="yes">Com etiqueta NOVO</option><option value="no">Sem etiqueta</option>
+              </select>
+            </div>
+            <div style="font: 500 12.5px Manrope, sans-serif; color: #6b6358;">{{ rowsLabel }}</div>
+            <sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}"><div style="padding: 48px 20px; text-align: center; background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; font: 500 14px Manrope, sans-serif; color: #6b6358;">Nenhuma peça encontrada com esses filtros.</div></sc-if>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+                <div style="display: flex; align-items: center; gap: 14px 18px; flex-wrap: wrap; background: #fff; border: 1px solid #e6e0d5; border-radius: 16px; padding: 12px 14px;">
+                  <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <button onClick="{{ r.up }}" disabled="{{ r.first }}" aria-label="Subir na ordem" style="width: 30px; height: 26px; border: 0; background: transparent; cursor: pointer; color: #6b6358; font-size: 13px;">▲</button>
+                    <button onClick="{{ r.down }}" disabled="{{ r.last }}" aria-label="Descer na ordem" style="width: 30px; height: 26px; border: 0; background: transparent; cursor: pointer; color: #6b6358; font-size: 13px;">▼</button>
+                  </div>
+                  <div onClick="{{ r.edit }}" style="width: 52px; height: 66px; border-radius: 10px; overflow: hidden; background: repeating-linear-gradient(135deg, #ece6db 0 8px, #e3dccf 8px 16px); flex: 0 0 auto; cursor: pointer;"><div style="{{ r.thumb }}"></div></div>
+                  <div style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+                    <span style="font: 700 15px Manrope, sans-serif;">{{ r.name }}</span>
+                    <span style="font: 500 12.5px Manrope, sans-serif; color: #6b6358;">{{ r.meta }}</span>
+                  </div>
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center; flex: 0 1 auto;">
+                    <span style="{{ r.stStyle }}">{{ r.statusLabel }}</span>
+                    <sc-if value="{{ r.isNew }}" hint-placeholder-val="{{ false }}"><span style="height: 26px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; background: #efe3c8; color: #6e521c; font: 700 11px Manrope, sans-serif;">NOVO até {{ r.newUntil }}</span></sc-if>
+                    <span style="{{ r.skStyle }}">{{ r.stock }}</span>
+                  </div>
+                  <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                    <button onClick="{{ r.edit }}" style="height: 38px; padding: 0 12px; border: 1px solid #ddd6ca; border-radius: 999px; background: #fff; color: #1b1814; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">Editar</button>
+                    <button onClick="{{ r.toggle }}" style="height: 38px; padding: 0 12px; border: 1px solid #ddd6ca; border-radius: 999px; background: #fff; color: #1b1814; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">{{ r.toggleLabel }}</button>
+                    <button onClick="{{ r.dup }}" style="height: 38px; padding: 0 12px; border: 1px solid #ddd6ca; border-radius: 999px; background: #fff; color: #1b1814; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">Duplicar</button>
+                    <button onClick="{{ r.del }}" style="height: 38px; padding: 0 12px; border: 1px solid #efd3cf; border-radius: 999px; background: #fff; color: #a2342a; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">Excluir</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isEditor }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 22px; max-width: 880px; margin: 0 auto;">
+            <div>
+              <button onClick="{{ cancelEdit }}" style="height: 36px; border: 0; background: transparent; padding: 0; color: #6b6358; font: 600 13px Manrope, sans-serif; cursor: pointer;">← Peças</button>
+              <h1 data-admtitle="1" style="margin: 4px 0 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">{{ editorTitle }}</h1>
+            </div>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+              <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">1 · Fotos</h2>
+              <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <sc-for list="{{ photos }}" as="ph" hint-placeholder-count="0">
+                  <div style="width: 132px; display: flex; flex-direction: column; gap: 6px;">
+                    <div style="{{ ph.frame }}">
+                      <div role="img" aria-label="{{ ph.alt }}" style="{{ ph.img }}"></div>
+                      <sc-if value="{{ ph.primary }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: 6px; left: 6px; background: #1b1814; color: #f4f1eb; font: 700 10px Manrope, sans-serif; letter-spacing: .1em; padding: 4px 8px; border-radius: 999px;">CAPA</span></sc-if>
+                    </div>
+                    <sc-if value="{{ hasColors }}" hint-placeholder-val="{{ false }}">
+                      <select value="{{ ph.color }}" onChange="{{ ph.onColor }}" aria-label="Cor desta foto" style="height: 32px; border: 1px solid #ddd6ca; border-radius: 8px; font: 600 12px Manrope, sans-serif; background: #fff; color: #1b1814; padding: 0 6px;">
+                        <option value="">Foto sem cor</option>
+                        <sc-for list="{{ colorOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+                      </select>
+                    </sc-if>
+                    <div style="display: flex; gap: 4px;">
+                      <button onClick="{{ ph.left }}" aria-label="Mover para a esquerda" style="flex: 1; height: 32px; border: 1px solid #ddd6ca; border-radius: 8px; background: #fff; cursor: pointer; color: #1b1814;">←</button>
+                      <button onClick="{{ ph.setPrimary }}" aria-label="Definir como capa" style="flex: 1; height: 32px; border: 1px solid #ddd6ca; border-radius: 8px; background: #fff; cursor: pointer; color: #1b1814;">★</button>
+                      <button onClick="{{ ph.right }}" aria-label="Mover para a direita" style="flex: 1; height: 32px; border: 1px solid #ddd6ca; border-radius: 8px; background: #fff; cursor: pointer; color: #1b1814;">→</button>
+                      <button onClick="{{ ph.remove }}" aria-label="Excluir foto" style="flex: 1; height: 32px; border: 1px solid #efd3cf; border-radius: 8px; background: #fff; cursor: pointer; color: #a2342a;">✕</button>
+                    </div>
+                  </div>
+                </sc-for>
+                <label style="width: 132px; height: 170px; border-radius: 12px; border: 1.5px dashed #c9bfae; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; color: #6b6358; font: 600 12.5px Manrope, sans-serif; text-align: center; padding: 8px; position: relative;">
+                  <span style="font-size: 26px; line-height: 1;">+</span>{{ uploadLabel }}
+                  <input type="file" accept="image/*" multiple="{{ true }}" onChange="{{ onFiles }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+                </label>
+                <label style="width: 132px; height: 170px; border-radius: 12px; border: 1.5px solid #1b1814; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; color: #1b1814; font: 600 12.5px Manrope, sans-serif; text-align: center; padding: 8px; position: relative;">
+                  <span style="font-size: 22px; line-height: 1;">◉</span>Tirar foto
+                  <input type="file" accept="image/*" capture="environment" onChange="{{ onFiles }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+                </label>
+              </div>
+              <p style="margin: 0; font: 500 12.5px Manrope, sans-serif; color: #6b6358;">JPG, PNG ou WEBP até 12 MB. As fotos são ajustadas sem deformar. A foto marcada com ★ é a capa; sem capa marcada, a primeira é usada.</p>
+            </section>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+              <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">2 · Informações</h2>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c; grid-column: 1 / -1;">Nome da peça *
+                <input value="{{ draft.name }}" onChange="{{ onD.name }}" placeholder="Ex.: Vestido Serena" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Categoria *
+                <select value="{{ draft.cat }}" onChange="{{ onD.cat }}" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 12px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;">
+                  <option value="">Selecione</option>
+                  <sc-for list="{{ catOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+                </select>
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Preço (R$) *
+                <input value="{{ draft.priceText }}" onChange="{{ onD.priceText }}" inputMode="decimal" placeholder="189,90" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c; grid-column: 1 / -1;">Descrição
+                <textarea value="{{ draft.desc }}" onChange="{{ onD.desc }}" rows="4" placeholder="Tecido, caimento, detalhes da peça" style="border: 1px solid #ddd6ca; border-radius: 12px; padding: 12px 14px; font: 500 15px/1.5 Manrope, sans-serif; background: #fff; color: #1b1814; resize: vertical;"></textarea>
+              </label>
+            </section>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+              <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">3 · Cores, tamanhos e estoque</h2>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <span style="font: 600 12px Manrope, sans-serif; color: #4a443c;">Cores da peça</span>
+                <sc-for list="{{ colorRows }}" as="c" hint-placeholder-count="0">
+                  <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                    <input type="color" value="{{ c.hex }}" onChange="{{ c.onHex }}" aria-label="Tom da cor" style="width: 48px; height: 46px; padding: 3px; border: 1px solid #ddd6ca; border-radius: 12px; background: #fff;" />
+                    <input value="{{ c.name }}" onChange="{{ c.onName }}" placeholder="Nome da cor, ex.: Rosé" aria-label="Nome da cor" style="flex: 1 1 200px; height: 46px; padding: 0 14px; border: 1px solid #ddd6ca; border-radius: 12px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+                    <button onClick="{{ c.remove }}" style="height: 40px; padding: 0 14px; border: 1px solid #efd3cf; border-radius: 999px; background: #fff; color: #a2342a; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">Remover</button>
+                  </div>
+                </sc-for>
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                  <button onClick="{{ addColor }}" style="height: 40px; padding: 0 16px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px Manrope, sans-serif; cursor: pointer;">+ Adicionar cor</button>
+                  <span style="font: 500 12.5px Manrope, sans-serif; color: #6b6358;">{{ colorsHelp }}</span>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <span style="font: 600 12px Manrope, sans-serif; color: #4a443c;">Tamanhos que existem para esta peça (opcional — sem marcar, a peça é de tamanho único)</span>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <sc-for list="{{ sizeToggles }}" as="z" hint-placeholder-count="5">
+                    <button onClick="{{ z.toggle }}" style="{{ z.style }}">{{ z.size }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <sc-if value="{{ hasStockBlocks }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <span style="font: 600 12px Manrope, sans-serif; color: #4a443c;">Quantidade disponível</span>
+                  <sc-for list="{{ stockBlocks }}" as="b" hint-placeholder-count="1">
+                    <div style="border: 1px solid #e6e0d5; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: #faf8f4;">
+                      <sc-if value="{{ b.hasColor }}" hint-placeholder-val="{{ false }}">
+                        <div style="display: flex; align-items: center; gap: 8px; font: 700 13px Manrope, sans-serif;"><span style="{{ b.dot }}"></span>{{ b.name }}</div>
+                      </sc-if>
+                      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px;">
+                        <sc-for list="{{ b.cells }}" as="q" hint-placeholder-count="3">
+                          <label style="display: flex; align-items: center; gap: 8px; font: 700 13px Manrope, sans-serif; color: #1b1814;">{{ q.size }}
+                            <input type="number" min="0" step="1" value="{{ q.qty }}" onChange="{{ q.onQty }}" aria-label="{{ q.aria }}" style="width: 100%; height: 38px; padding: 0 8px; border: 1px solid #ddd6ca; border-radius: 12px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+                          </label>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <div style="font: 600 13px Manrope, sans-serif; color: #4a443c;">{{ stockSummary }}</div>
+            </section>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+              <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">4 · Etiqueta NOVO</h2>
+              <div style="display: flex; gap: 8px;">
+                <sc-for list="{{ novoYesNo }}" as="o" hint-placeholder-count="2">
+                  <button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button>
+                </sc-for>
+              </div>
+              <sc-if value="{{ draftIsNew }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <sc-for list="{{ durations }}" as="o" hint-placeholder-count="6">
+                      <button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ isCustomNovo }}" hint-placeholder-val="{{ false }}">
+                    <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c; max-width: 240px;">Exibir como NOVO até
+                      <input type="date" value="{{ draft.newUntil }}" onChange="{{ onD.newUntil }}" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 12px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+                    </label>
+                  </sc-if>
+                  <div style="font: 600 13.5px Manrope, sans-serif; color: #6e521c; background: #f6eedc; border-radius: 12px; padding: 12px 14px;">{{ novoSummary }}</div>
+                </div>
+              </sc-if>
+            </section>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+              <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">5 · Publicação</h2>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <sc-for list="{{ statusOpts }}" as="o" hint-placeholder-count="3">
+                  <button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button>
+                </sc-for>
+              </div>
+              <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
+                <ul role="alert" style="margin: 0; padding: 12px 14px 12px 32px; background: #fbeeec; border-radius: 12px; color: #a2342a; font: 600 13.5px/1.7 Manrope, sans-serif;">
+                  <sc-for list="{{ errors }}" as="e" hint-placeholder-count="1"><li>{{ e }}</li></sc-for>
+                </ul>
+              </sc-if>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onClick="{{ saveDraft }}" style="height: 50px; padding: 0 22px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px Manrope, sans-serif; letter-spacing: .1em; text-transform: uppercase; cursor: pointer;">Salvar</button>
+                <button onClick="{{ publish }}" style="height: 50px; padding: 0 26px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; letter-spacing: .1em; text-transform: uppercase; cursor: pointer;">Publicar</button>
+                <button onClick="{{ cancelEdit }}" style="height: 50px; padding: 0 18px; border: 0; background: transparent; color: #6b6358; font: 600 13px Manrope, sans-serif; cursor: pointer;">Cancelar</button>
+              </div>
+            </section>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCategories }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 820px;">
+            <h1 data-admtitle="1" style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Categorias</h1>
+            <form onSubmit="{{ addCat }}" style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <input value="{{ newCat }}" onChange="{{ onNewCat }}" placeholder="Nova categoria, ex.: Moda Fitness" aria-label="Nome da nova categoria" style="flex: 1 1 240px; height: 48px; border: 1px solid #ddd6ca; border-radius: 999px; padding: 0 18px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              <button type="submit" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; cursor: pointer;">Adicionar</button>
+            </form>
+            <p style="margin: 0; font: 500 13px Manrope, sans-serif; color: #6b6358;">A ordem abaixo é a ordem do menu no catálogo. Categorias inativas somem do catálogo junto com suas peças.</p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <sc-for list="{{ catRows }}" as="c" hint-placeholder-count="4">
+                <div style="{{ c.rowStyle }}">
+                  <div style="display: flex; flex-direction: column;">
+                    <button onClick="{{ c.up }}" disabled="{{ c.first }}" aria-label="Subir" style="width: 30px; height: 24px; border: 0; background: transparent; cursor: pointer; color: #6b6358; font-size: 12px;">▲</button>
+                    <button onClick="{{ c.down }}" disabled="{{ c.last }}" aria-label="Descer" style="width: 30px; height: 24px; border: 0; background: transparent; cursor: pointer; color: #6b6358; font-size: 12px;">▼</button>
+                  </div>
+                  <div style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                    <sc-if value="{{ c.editing }}" hint-placeholder-val="{{ false }}">
+                      <input value="{{ editCatName }}" onChange="{{ onEditCatName }}" onKeyDown="{{ c.key }}" aria-label="Nome da categoria" style="height: 40px; border: 1px solid #ddd6ca; border-radius: 10px; padding: 0 12px; font: 600 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+                    </sc-if>
+                    <sc-if value="{{ c.notEditing }}" hint-placeholder-val="{{ true }}"><span style="font: 700 15px Manrope, sans-serif;">{{ c.name }}</span></sc-if>
+                    <span style="font: 500 12px Manrope, sans-serif; color: #6b6358;">{{ c.count }}</span>
+                  </div>
+                  <button onClick="{{ c.toggle }}" style="{{ c.tStyle }}">{{ c.activeLabel }}</button>
+                  <button onClick="{{ c.edit }}" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #ddd6ca; background: #fff; color: #1b1814; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">{{ c.editLabel }}</button>
+                  <button onClick="{{ c.del }}" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #efd3cf; background: #fff; color: #a2342a; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">Excluir</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isUsers }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 880px;">
+            <div>
+              <h1 data-admtitle="1" style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Usuários</h1>
+              <p style="margin: 8px 0 0; font: 500 14px/1.6 Manrope, sans-serif; color: #6b6358; max-width: 62ch;">Crie acessos para quem ajuda a cadastrar as peças. Cada pessoa entra no painel com o próprio usuário e senha.</p>
+            </div>
+            <form onSubmit="{{ addUser }}" style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; align-items: end;">
+              <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Novo usuário</h2>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Nome
+                <input value="{{ uForm.name }}" onChange="{{ onU.name }}" placeholder="Ex.: Júlia" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Usuário (para entrar)
+                <input value="{{ uForm.username }}" onChange="{{ onU.username }}" placeholder="ex.: julia" autocapitalize="none" spellcheck="false" autocomplete="off" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Senha (mín. 8)
+                <input type="password" value="{{ uForm.password }}" onChange="{{ onU.password }}" autocomplete="new-password" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px;">
+                <span style="font: 600 12px Manrope, sans-serif; color: #4a443c;">Perfil de acesso</span>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <sc-for list="{{ roleOpts }}" as="o" hint-placeholder-count="2">
+                    <button type="button" onClick="{{ o.pick }}" style="{{ o.style }}">
+                      <span style="font-weight: 700;">{{ o.label }}</span><span style="font-weight: 500; font-size: 12px; opacity: .8;">{{ o.desc }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+              <sc-if value="{{ hasUErr }}" hint-placeholder-val="{{ false }}"><div role="alert" style="grid-column: 1 / -1; font: 600 13px Manrope, sans-serif; color: #a2342a;">{{ uErr }}</div></sc-if>
+              <div style="grid-column: 1 / -1;">
+                <button type="submit" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; cursor: pointer;">Criar acesso</button>
+              </div>
+            </form>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <sc-for list="{{ userRows }}" as="u" hint-placeholder-count="1">
+                <div style="{{ u.rowStyle }}">
+                  <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <span style="width: 40px; height: 40px; border-radius: 999px; background: #1b1814; color: #f3ede3; display: grid; place-items: center; font: 600 18px 'Cormorant Garamond', serif; flex: 0 0 auto;">{{ u.initial }}</span>
+                    <div style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                      <span style="font: 700 15px Manrope, sans-serif;">{{ u.nameLabel }}</span>
+                      <span style="font: 500 12.5px Manrope, sans-serif; color: #6b6358;">@{{ u.username }} · {{ u.roleLabel }} · {{ u.statusLabel }}</span>
+                    </div>
+                    <sc-if value="{{ u.canManage }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                        <button onClick="{{ u.toggleRole }}" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #ddd6ca; background: #fff; color: #1b1814; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">{{ u.roleAction }}</button>
+                        <button onClick="{{ u.openPw }}" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #ddd6ca; background: #fff; color: #1b1814; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">Redefinir senha</button>
+                        <button onClick="{{ u.toggleActive }}" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #ddd6ca; background: #fff; color: #1b1814; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">{{ u.activeAction }}</button>
+                        <button onClick="{{ u.del }}" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #efd3cf; background: #fff; color: #a2342a; font: 600 12.5px Manrope, sans-serif; cursor: pointer;">Excluir</button>
+                      </div>
+                    </sc-if>
+                  </div>
+                  <sc-if value="{{ u.pwOpen }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                      <input type="password" value="{{ pwNew }}" onChange="{{ onPwNew }}" placeholder="Nova senha (mín. 8)" autocomplete="new-password" aria-label="Nova senha" style="flex: 1 1 220px; height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+                      <button onClick="{{ u.savePw }}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Salvar senha</button>
+                      <button onClick="{{ closePw }}" style="height: 44px; padding: 0 12px; border: 0; background: transparent; color: #6b6358; font: 600 13px Manrope, sans-serif; cursor: pointer;">Cancelar</button>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 880px;">
+            <h1 data-admtitle="1" style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Configurações</h1>
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+              <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Loja</h2>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Nome da loja
+                <input value="{{ cfgD.storeName }}" onChange="{{ onC.storeName }}" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">WhatsApp da loja
+                <input value="{{ cfgD.whats }}" onChange="{{ onC.whats }}" inputMode="tel" placeholder="(85) 98583-6214" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Instagram
+                <input value="{{ cfgD.instagram }}" onChange="{{ onC.instagram }}" placeholder="@sualoja" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Endereço
+                <input value="{{ cfgD.addr }}" onChange="{{ onC.addr }}" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c; grid-column: 1 / -1;">Descrição da loja (aparece no rodapé do catálogo)
+                <textarea value="{{ cfgD.storeDesc }}" onChange="{{ onC.storeDesc }}" rows="3" style="border: 1px solid #ddd6ca; border-radius: 12px; padding: 12px 14px; font: 500 15px/1.5 Manrope, sans-serif; background: #fff; color: #1b1814; resize: vertical;"></textarea>
+              </label>
+              <div style="grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <div style="width: 220px; height: 84px; background: #000; border-radius: 12px; display: grid; place-items: center; overflow: hidden;"><div role="img" aria-label="Logo atual" style="{{ cfgLogoStyle }}"></div></div>
+                <label style="height: 42px; padding: 0 18px; border: 1px solid #1b1814; border-radius: 999px; display: inline-flex; align-items: center; font: 700 12px Manrope, sans-serif; cursor: pointer; position: relative;">Trocar logo
+                  <input type="file" accept="image/png,image/webp,image/jpeg" onChange="{{ onLogo }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+                </label>
+                <span style="font: 500 12px Manrope, sans-serif; color: #6b6358;">Use PNG com fundo transparente.</span>
+              </div>
+            </section>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+              <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Catálogo</h2>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font: 600 12px Manrope, sans-serif; color: #4a443c;">Botão das peças esgotadas</span>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <sc-for list="{{ soldOpts }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <span style="font: 600 12px Manrope, sans-serif; color: #4a443c;">Ordem das peças no catálogo</span>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for>
+                </div>
+              </div>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Mensagem de contato (WhatsApp)
+                <textarea value="{{ cfgD.contactMsg }}" onChange="{{ onC.contactMsg }}" rows="4" style="border: 1px solid #ddd6ca; border-radius: 12px; padding: 12px 14px; font: 500 15px/1.5 Manrope, sans-serif; background: #fff; color: #1b1814; resize: vertical;"></textarea>
+                <span style="font: 500 12px Manrope, sans-serif; color: #6b6358;">Use [NOME DA PEÇA], [COR], [TAMANHO] e [VALOR]. Eles são trocados automaticamente.</span>
+              </label>
+            </section>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button onClick="{{ saveSettings }}" style="height: 50px; padding: 0 26px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; letter-spacing: .1em; text-transform: uppercase; cursor: pointer;">Salvar configurações</button>
+            </div>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; align-items: end;">
+              <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Banco de dados (Supabase)</h2>
+              <p style="margin: 0; grid-column: 1 / -1; font: 500 13px/1.6 Manrope, sans-serif; color: #6b6358;">Sincroniza o catálogo entre aparelhos. Em branco, tudo fica salvo só neste aparelho.</p>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Project URL
+                <input value="{{ sbUrl }}" onChange="{{ onSbUrl }}" placeholder="https://xxxx.supabase.co" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Anon key
+                <input value="{{ sbKey }}" onChange="{{ onSbKey }}" placeholder="eyJhbGciOi…" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Tabela
+                <input value="{{ sbTable }}" onChange="{{ onSbTable }}" placeholder="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <div style="grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <button onClick="{{ sbPush }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Enviar catálogo</button>
+                <button onClick="{{ sbPull }}" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Baixar catálogo</button>
+                <span style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;">{{ sbStatus }}</span>
+              </div>
+            </section>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; align-items: end;">
+              <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Conta · @{{ userLogin }}</h2>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Senha atual
+                <input type="password" value="{{ pwCur }}" onChange="{{ onPwCur }}" autocomplete="current-password" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Nova senha (mín. 8)
+                <input type="password" value="{{ pwNext }}" onChange="{{ onPwNext }}" autocomplete="new-password" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <button onClick="{{ changePw }}" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Alterar senha</button>
+            </section>
+          </div>
+        </sc-if>
+      </main>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isZoomed }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeZoom }}" style="position: fixed; inset: 0; z-index: 80; background: rgba(0,0,0,0.95); display: flex; flex-direction: column; padding: 32px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <sc-if value="{{ hasPrevNext }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ prevPhoto }}" style="background: transparent; border: 1px solid #5a5347; color: #ffffff; width: 38px; height: 38px; font-size: 16px; cursor: pointer;">‹</button>
+          <button onClick="{{ nextPhoto }}" style="background: transparent; border: 1px solid #5a5347; color: #ffffff; width: 38px; height: 38px; font-size: 16px; cursor: pointer;">›</button>
+        </sc-if>
+        <button onClick="{{ closeZoom }}" style="margin-left: auto; background: transparent; border: 1px solid #5a5347; color: #e3c684; padding: 10px 16px; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; cursor: pointer;">Fechar</button>
+      </div>
+      <div onClick="{{ closeZoom }}" role="img" aria-label="{{ detailName }}" style="{{ zoomStyle }}"></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 60; background: #000000; overflow-y: auto; -webkit-overflow-scrolling: touch;">
+      <div data-pad="1" style="position: sticky; top: 0; z-index: 2; background: #000000; display: flex; align-items: center; gap: 16px; padding: 18px 32px;">
+        <button onClick="{{ closeDetail }}" style="display: flex; align-items: center; gap: 12px; background: transparent; border: none; padding: 6px 0; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; cursor: pointer;">
+          <span style="font-size: 18px; line-height: 1; font-weight: 400;">‹</span><span>Vitrine</span>
+        </button>
+        <button onClick="{{ shareProduct }}" style="margin-left: auto; background: transparent; border: none; padding: 6px 0; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; cursor: pointer;">{{ shareLabel }}</button>
+      </div>
+      <div data-grid="detail" data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 8px 32px 64px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 80px; align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+          <div data-detail-img="1" style="position: relative; width: 100%; aspect-ratio: 9 / 10; border-radius: 20px; overflow: hidden; background: #f5f3ef; display: flex; align-items: center; justify-content: center;">
+            <sc-if value="{{ detailHasImg }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ openZoom }}" role="img" aria-label="{{ detailName }}" style="{{ detailImgStyle }}"></div>
+              <button onClick="{{ openZoom }}" style="position: absolute; right: 14px; bottom: 14px; background: rgba(0,0,0,0.72); border: none; border-radius: 9999px; color: #ffffff; padding: 9px 16px; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;">Ver maior</button>
+            </sc-if>
+            <sc-if value="{{ detailNoImg }}" hint-placeholder-val="{{ true }}">
+              <span style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; color: #8a8377; letter-spacing: 0.1em;">foto da peça</span>
+            </sc-if>
+            <sc-if value="{{ hasPrevNext }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ prevPhoto }}" aria-label="Foto anterior" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 9999px; background: rgba(0,0,0,0.6); border: none; color: #ffffff; font-size: 20px; line-height: 1; cursor: pointer;">‹</button>
+              <button onClick="{{ nextPhoto }}" aria-label="Próxima foto" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 9999px; background: rgba(0,0,0,0.6); border: none; color: #ffffff; font-size: 20px; line-height: 1; cursor: pointer;">›</button>
+            </sc-if>
+          </div>
+          <sc-if value="{{ detailHasThumbs }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <sc-for list="{{ detailThumbs }}" as="t" hint-placeholder-count="3">
+                <div onClick="{{ t.pick }}" style="width: 64px; height: 82px; flex: 0 0 auto;"><div role="img" style="{{ t.style }}"></div></div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div data-detail-pad="1" style="display: flex; flex-direction: column; gap: 22px; padding-top: 8px; max-width: 460px;">
+          <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+            <span style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #b3ac9e;">{{ detailCat }}</span>
+            <sc-if value="{{ detailIsNew }}" hint-placeholder-val="{{ false }}">
+              <span style="background: #c9a44c; color: #000000; border-radius: 9999px; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 6px 12px;">Novo</span>
+            </sc-if>
+            <sc-if value="{{ detailSoldOut }}" hint-placeholder-val="{{ false }}">
+              <span style="background: #1c1b19; color: #ffffff; border: 1px solid #3a3529; border-radius: 9999px; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 6px 12px;">Esgotado</span>
+            </sc-if>
+          </div>
+          <div data-detail-title="1" style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 58px; font-weight: 400; line-height: 1.05; color: #ffffff; text-wrap: balance;">{{ detailName }}</div>
+          <div style="font-size: 20px; font-weight: 500; color: #ffffff;">{{ detailPrice }}</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #d4cfc3; text-wrap: pretty;">{{ detailDesc }}</div>
+          <sc-if value="{{ detailHasColors }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #b3ac9e;">Cor: <span style="color: #ffffff; font-weight: 600;">{{ pickColorLabel }}</span></div>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <sc-for list="{{ detailColors }}" as="c" hint-placeholder-count="3">
+                  <button onClick="{{ c.pick }}" title="{{ c.label }}" aria-label="{{ c.label }}" style="{{ c.style }}"><span style="{{ c.dotStyle }}"></span></button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ detailHasSizes }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #b3ac9e;">Tamanho</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <sc-for list="{{ detailSizes }}" as="s" hint-placeholder-count="5">
+                  <button onClick="{{ s.pick }}" style="{{ s.style }}">{{ s.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 4px;">
+            <a href="{{ buyHref }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; background: #c9a44c; color: #000000; border-radius: 9999px; padding: 20px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;" style-hover="background: #e3c684; color: #000000;">{{ buyLabel }}</a>
+            <span style="font-size: 11px; line-height: 1.6; color: #8a8377; text-align: center;">Selecione cor e tamanho. Você será direcionada ao WhatsApp da loja.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showInstallHelp }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeInstall }}" style="position: fixed; inset: 0; z-index: 85; background: rgba(0,0,0,0.78); display: grid; place-items: center; padding: 20px;">
+      <div onClick="{{ stopProp }}" style="background: #0a0a0a; border: 1px solid #2e2b24; border-radius: 22px; padding: 30px 28px; max-width: 420px; width: 100%; display: flex; flex-direction: column; gap: 16px; color: #eae5da;">
+        <img src="icon-192.png" alt="" style="width: 64px; height: 64px; border-radius: 16px;" />
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; font-weight: 400; color: #ffffff;">Instalar o app Reveluxo</div>
+        <div style="font-size: 14px; line-height: 1.7; color: #d4cfc3;">{{ installIntro }}</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <sc-for list="{{ installSteps }}" as="s" hint-placeholder-count="2">
+            <div style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.6; color: #ffffff;">
+              <span style="flex: 0 0 auto; width: 26px; height: 26px; border-radius: 999px; background: #c9a44c; color: #000; display: grid; place-items: center; font-size: 12px; font-weight: 600;">{{ s.n }}</span>
+              <span>{{ s.text }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <button onClick="{{ closeInstall }}" style="align-self: flex-end; background: #c9a44c; color: #000; border: 0; border-radius: 999px; padding: 12px 22px; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;">Entendi</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasConfirm }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" style="position: fixed; inset: 0; z-index: 90; background: rgba(12,11,10,.5); display: grid; place-items: center; padding: 20px; font-family: Manrope, system-ui, sans-serif;">
+      <div style="background: #fff; color: #1b1814; border-radius: 22px; padding: 26px; max-width: 420px; width: 100%; display: flex; flex-direction: column; gap: 14px;">
+        <h2 style="margin: 0; font: 600 30px/1.1 'Cormorant Garamond', serif;">{{ confirm.title }}</h2>
+        <p style="margin: 0; font: 500 14.5px/1.6 Manrope, sans-serif; color: #4a443c;">{{ confirm.text }}</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; margin-top: 6px;">
+          <button onClick="{{ closeConfirm }}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; color: #6b6358; font: 600 13px Manrope, sans-serif; cursor: pointer;">Cancelar</button>
+          <sc-for list="{{ confirm.actions }}" as="ac" hint-placeholder-count="1">
+            <button onClick="{{ ac.run }}" style="{{ ac.style }}">{{ ac.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="{{ toastStyle }}">{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
+const KEY = 'catalogo_roupas_v6';
+const DAY = 864e5;
+const PATH = (typeof location !== 'undefined' ? decodeURIComponent(location.pathname) : '');
+const DEPLOY = /(^|\/)(index|admin)\.html$/i.test(PATH) || /\/$/.test(PATH);
+const IS_ADMIN_PAGE = /(^|\/)admin\.html$/i.test(PATH);
+const NOW = Date.now();
+const uid = () => Math.random().toString(36).slice(2, 10);
+const toDate = ms => { const d = new Date(ms); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const todayStr = () => toDate(Date.now());
+const fmtDate = s => { if (!s) return ''; const [y, m, d] = String(s).slice(0, 10).split('-'); return d + '/' + m + '/' + y; };
+const DEFAULT_CFG = {
+  storeName: 'Reveluxo', whats: '5585985836214', instagram: 'reveluxo', addr: 'Fortaleza, Brazil 60325820',
+  storeDesc: 'Revele o seu luxo. Peças escolhidas para mulheres que brilham em cada detalhe.', logo: '',
+  soldoutMode: 'consult', catalogSort: 'newest',
+  contactMsg: 'Olá! Tenho interesse nesta peça: [NOME DA PEÇA]\nCor: [COR]\nTamanho: [TAMANHO]\nValor: [VALOR]'
+};
+const SEED_CATS = [
+  { id: 'c1', name: 'Vestidos' }, { id: 'c2', name: 'Blusas' }, { id: 'c3', name: 'Calças' }, { id: 'c4', name: 'Casacos' }
+];
+const SEED_PRODS = [
+  { id: 'p1', name: 'Vestido midi linho', cat: 'c1', price: '289,90', sizes: ['P', 'M', 'G'], colors: [{ name: 'Areia', qty: 32 }, { name: 'Preto', qty: 18 }], desc: 'Linho lavado com caimento fluido, alças ajustáveis e bolsos laterais embutidos. Lavar à mão.', created: NOW - 2 * DAY },
+  { id: 'p2', name: 'Vestido chemise', cat: 'c1', price: '349,00', sizes: ['M', 'G', 'GG'], colors: [{ name: 'Verde oliva', qty: 14 }, { name: 'Off-white', qty: 9 }], desc: 'Modelagem chemise com cinto removível e botões forrados. Viscose com toque seco.', created: NOW - 40 * DAY },
+  { id: 'p3', name: 'Blusa cropped canelada', cat: 'c2', price: '119,90', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Preto', qty: 50 }, { name: 'Branco', qty: 40 }, { name: 'Terracota', qty: 12 }], desc: 'Malha canelada de algodão com gola redonda e manga curta. Alta elasticidade.', created: NOW - 6 * DAY },
+  { id: 'p4', name: 'Camisa oversized', cat: 'c2', price: '199,00', sizes: ['M', 'G', 'GG', 'XG'], colors: [{ name: 'Branco', qty: 12 }, { name: 'Azul claro', qty: 8 }], desc: 'Algodão tramado com ombro caído e punho duplo. Veste ampla.', created: NOW - 60 * DAY },
+  { id: 'p5', name: 'Calça wide leg alfaiataria', cat: 'c3', price: '259,90', sizes: ['P', 'M', 'G', 'GG', 'XG'], colors: [{ name: 'Preto', qty: 20 }, { name: 'Caramelo', qty: 10 }], desc: 'Cintura alta, pregas frontais e barra reta. Tecido com leve elastano.', created: NOW - 90 * DAY },
+  { id: 'p6', name: 'Casaco trench areia', cat: 'c4', price: '489,00', sizes: ['M', 'G', 'GG'], colors: [{ name: 'Areia', qty: 0 }], desc: 'Gabardine encorpada, transpasse duplo e cinto na cintura. Forro interno.', created: NOW - 120 * DAY },
+  { id: 'p7', name: 'Vestido longo seda', cat: 'c1', price: '629,00', sizes: ['P', 'M', 'G'], colors: [{ name: 'Champagne', qty: 8 }, { name: 'Preto', qty: 11 }], desc: 'Seda pura com decote em V, fenda lateral e forro interno. Caimento fluido para eventos à noite.', created: NOW - 4 * DAY },
+  { id: 'p8', name: 'Vestido tubinho crepe', cat: 'c1', price: '319,90', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Marinho', qty: 22 }, { name: 'Vinho', qty: 15 }], desc: 'Crepe encorpado com manga curta e zíper invisível nas costas. Comprimento na altura do joelho.', created: NOW - 75 * DAY },
+  { id: 'p9', name: 'Blusa de tricô gola alta', cat: 'c2', price: '239,00', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Cru', qty: 30 }, { name: 'Camel', qty: 17 }, { name: 'Grafite', qty: 24 }], desc: 'Tricô de algodão com gola alta e punhos canelados. Peça de meia estação.', created: NOW - 9 * DAY },
+  { id: 'p10', name: 'Regata de seda', cat: 'c2', price: '179,90', sizes: ['P', 'M', 'G'], colors: [{ name: 'Marfim', qty: 26 }, { name: 'Preto', qty: 19 }], desc: 'Alça fina ajustável e barra reta. Combina com alfaiataria ou jeans.', created: NOW - 52 * DAY },
+  { id: 'p11', name: 'Calça reta jeans escuro', cat: 'c3', price: '289,00', sizes: ['P', 'M', 'G', 'GG', 'XG'], colors: [{ name: 'Azul escuro', qty: 44 }, { name: 'Preto', qty: 28 }], desc: 'Denim rígido de cintura alta, cinco bolsos e barra a fio. Modelagem reta.', created: NOW - 11 * DAY },
+  { id: 'p12', name: 'Calça pantalona malha', cat: 'c3', price: '199,90', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Preto', qty: 36 }, { name: 'Chumbo', qty: 21 }], desc: 'Malha canelada com cós elástico e caimento pantalona. Conforto para o dia todo.', created: NOW - 68 * DAY },
+  { id: 'p13', name: 'Casaco de lã batida', cat: 'c4', price: '749,00', sizes: ['M', 'G', 'GG'], colors: [{ name: 'Camel', qty: 7 }, { name: 'Preto', qty: 10 }], desc: 'Lã batida com gola alfaiataria, dois botões e bolsos embutidos. Forro em cetim.', created: NOW - 5 * DAY },
+  { id: 'p14', name: 'Blazer alfaiataria', cat: 'c4', price: '539,00', sizes: ['P', 'M', 'G', 'GG'], colors: [{ name: 'Off-white', qty: 13 }, { name: 'Marinho', qty: 16 }], desc: 'Ombro estruturado, abotoamento simples e barra reta. Tecido com leve elastano.', created: NOW - 95 * DAY }
+];
+SEED_PRODS.forEach(p => {
+  p.colors = p.colors.map((c, i) => Object.assign({}, c, { imgs: ['fotos/' + p.id + '-' + i + '.png'] }));
+  p.img = p.colors[0].imgs[0];
+  p.demo = true;
+});
+SEED_CATS.push({ id: 'c5', name: 'Calçados' });
+const chImgs = (k, n) => Array.from({ length: n }, (_, i) => 'fotos/chinelo-' + k + '-' + (i + 1) + '.jpeg');
+SEED_PRODS.unshift({
+  id: 'p15', name: 'Chinelo Conforto Acolchoado', cat: 'c5', price: '129,90', sizes: [], demo: true, created: NOW - DAY,
+  desc: 'Tira acolchoada com monograma dourado e palmilha anatômica com relevo massageador. Solado leve e macio para o dia todo.',
+  colors: [
+    { name: 'Preto', hex: '#1c1c1e', qty: 12, imgs: chImgs('preto', 4) },
+    { name: 'Avelã', hex: '#8a5a3c', qty: 10, imgs: chImgs('avela', 4) },
+    { name: 'Creme', hex: '#e8dfc9', qty: 9, imgs: chImgs('creme', 4) },
+    { name: 'Nude', hex: '#c8966a', qty: 8, imgs: chImgs('nude', 3) }
+  ],
+  img: 'fotos/chinelo-preto-1.jpeg'
+});
+const NEW_SEEDS = [
+  { id: 'p16', name: 'Rasteira Três Tiras Bronze', cat: 'c5', price: '149,90', sizes: [], demo: true, created: NOW - DAY,
+    desc: 'Slide com três tiras em tons de caramelo e bronze metalizado. Palmilha com relevo massageador e solado tratorado leve.',
+    colors: [{ name: 'Caramelo', hex: '#a26b3f', qty: 10, imgs: ['fotos/rasteira-caramelo-1.jpeg', 'fotos/rasteira-caramelo-2.jpeg'] }],
+    img: 'fotos/rasteira-caramelo-1.jpeg' },
+  { id: 'p17', name: 'Chinelo Fivela Dourada', cat: 'c5', price: '159,90', sizes: [], demo: true, created: NOW - DAY,
+    desc: 'Tiras acolchoadas com fivela dourada escultural e palmilha ultra conforto. Plataforma leve e macia.',
+    colors: [{ name: 'Off-white', hex: '#ece3d0', qty: 8, imgs: [] }, { name: 'Café', hex: '#6b3a24', qty: 6, imgs: [] }, { name: 'Preto', hex: '#1c1c1e', qty: 7, imgs: [] }],
+    img: 'fotos/fivela-capa.jpeg' },
+  { id: 'p18', name: 'Chinelo Plataforma Perfurado', cat: 'c5', price: '139,90', sizes: [], demo: true, created: NOW - DAY,
+    desc: 'Tira dupla com textura perfurada e monograma dourado. Plataforma anatômica que acompanha o passo com conforto.',
+    colors: [{ name: 'Nude', hex: '#b98b6e', qty: 9, imgs: ['fotos/perfurado-nude.jpeg'] }, { name: 'Preto', hex: '#1c1c1e', qty: 11, imgs: ['fotos/perfurado-preto.jpeg'] }, { name: 'Café', hex: '#6b4128', qty: 7, imgs: ['fotos/perfurado-cafe.jpeg'] }],
+    img: 'fotos/perfurado-capa.jpeg' },
+  { id: 'p19', name: 'Chinelo Massageador Monograma', cat: 'c5', price: '119,90', sizes: [], demo: true, created: NOW - DAY,
+    desc: 'Palmilha com bolinhas massageadoras, tira lisa com medalhão dourado e solado em camadas. Leve para o dia a dia.',
+    colors: [{ name: 'Creme', hex: '#e6dcc4', qty: 12, imgs: ['fotos/massageador-creme-1.jpeg', 'fotos/massageador-creme-2.jpeg'] }, { name: 'Preto', hex: '#1c1c1e', qty: 14, imgs: ['fotos/massageador-preto.jpg'] }, { name: 'Verde militar', hex: '#6f6f55', qty: 8, imgs: ['fotos/massageador-verde.jpeg'] }],
+    img: 'fotos/massageador-capa.jpg' }
+];
+NEW_SEEDS.forEach(p => SEED_PRODS.unshift(p));
+
+class Component extends DCLogic {
+  state = {
+    view: IS_ADMIN_PAGE ? 'login' : 'shop', adm: 'dashboard', activeCat: 'all', search: '', detailId: null,
+    cats: [], prods: [], users: [], cfg: Object.assign({}, DEFAULT_CFG), cfgD: null,
+    me: null, loginUser: '', loginPass: '', loginError: '',
+    f: { q: '', cat: '', status: '', stock: '', novo: '' },
+    draft: null, errors: [], uploading: 0, confirm: null, toast: '', toastErr: false,
+    newCat: '', editCat: null, editCatName: '',
+    uForm: { name: '', username: '', password: '', role: 'editor' }, uErr: '', pwFor: null, pwNew: '', pwCur: '', pwNext: '',
+    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbStatus: '', exporting: false,
+    pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false
+  };
+
+  componentDidMount() {
+    this.setupInstall();
+    if (IS_ADMIN_PAGE) {
+      let me = null;
+      try { me = sessionStorage.getItem('rvx_me'); } catch (e) {}
+      this.setState({ view: me ? 'admin' : 'login', me: me || null });
+    }
+    let s = null;
+    try { s = JSON.parse(localStorage.getItem(KEY) || localStorage.getItem('catalogo_roupas_v5') || 'null'); } catch (e) {}
+    let cats = SEED_CATS, prods = SEED_PRODS, users = null, cfg = Object.assign({}, DEFAULT_CFG);
+    if (s && Array.isArray(s.cats) && Array.isArray(s.prods)) {
+      if (s.v === 7) { cats = s.cats; prods = s.prods; }
+      else {
+        cats = s.cats.concat(SEED_CATS.filter(sc => !s.cats.some(c => c.id === sc.id)));
+        prods = s.prods.concat(SEED_PRODS.filter(sp => !s.prods.some(p => p.id === sp.id)));
+      }
+      users = s.users || null;
+      if (s.cfg) cfg = Object.assign(cfg, s.cfg);
+      if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
+      else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
+      if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
+      this.setState({ sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo' });
+    }
+    if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
+    const rv = s ? (s.rv || 0) : 0;
+    const needRepair = !s || rv < 3;
+    if (s && s.v === 7 && rv < 5) {
+      ['p15', 'p16', 'p17', 'p18', 'p19'].forEach(id => { if ((id !== 'p15' || rv < 4) && !prods.some(p => p.id === id)) prods = [SEED_PRODS.find(p => p.id === id)].concat(prods); });
+      if (!cats.some(c => c.id === 'c5')) cats = cats.concat([Object.assign({ order: cats.length }, SEED_CATS.find(c => c.id === 'c5'))]);
+    }
+    let list = prods.map((p, i) => this.migrate(p, i));
+    if (needRepair) {
+      list = list.map((p, i) => {
+        const seed = SEED_PRODS.find(x => x.id === p.id);
+        if (!seed) return p;
+        const names = (p.colors || []).map(c => c.name).join('|');
+        const seedNames = seed.colors.map(c => c.name).join('|');
+        const broken = names !== seedNames || (this.stockTotal(p) === 0 && seed.id !== 'p6');
+        if (!broken) return Object.assign(p, { demo: true });
+        const fresh = this.migrate(Object.assign({}, seed, { colors: seed.colors.map(c => Object.assign({}, c)), demo: true }), i);
+        return Object.assign(fresh, { order: p.order, status: p.status || 'published', cat: p.cat || seed.cat, demo: true });
+      });
+    }
+    this.setState({
+      cats: cats.map((c, i) => ({ id: c.id, name: c.name, active: c.active !== false, order: typeof c.order === 'number' ? c.order : i })),
+      prods: list,
+      users, cfg
+    }, this.persist);
+  }
+
+  componentDidUpdate() { this.applyLogo(); }
+
+  setupInstall() {
+    try { if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+    this._bip = e => { e.preventDefault(); this._deferred = e; this.setState({ installReady: true }); };
+    window.addEventListener('beforeinstallprompt', this._bip);
+    window.addEventListener('appinstalled', () => { this._deferred = null; this.setState({ installed: true, installReady: false }); this.flash('App instalado. Procure o ícone Reveluxo.'); });
+    const standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+    if (standalone) this.setState({ installed: true });
+  }
+
+  async installApp() {
+    if (this._deferred) {
+      this._deferred.prompt();
+      try { const r = await this._deferred.userChoice; if (r && r.outcome === 'accepted') this.setState({ installed: true }); } catch (e) {}
+      this._deferred = null;
+      this.setState({ installReady: false });
+      return;
+    }
+    this.setState({ installHelp: true });
+  }
+
+  installGuide() {
+    const ua = navigator.userAgent || '';
+    if (/iPhone|iPad|iPod/i.test(ua)) return { intro: 'No iPhone ou iPad, pelo Safari:', steps: ['Toque no botão Compartilhar (quadrado com seta para cima).', 'Escolha "Adicionar à Tela de Início" e toque em Adicionar.'] };
+    if (/Android/i.test(ua)) return { intro: 'No Android, pelo Chrome:', steps: ['Toque no menu ⋮ no canto superior.', 'Escolha "Instalar app" ou "Adicionar à tela inicial".'] };
+    return { intro: 'No computador, pelo Chrome ou Edge:', steps: ['Clique no ícone de instalar na barra de endereço (monitor com seta) ou no menu ⋮.', 'Escolha "Instalar Reveluxo". Um atalho é criado na área de trabalho e no menu iniciar.'] };
+  }
+
+  applyLogo() {
+    const src = this.state.cfg.logo || 'logo-reveluxo.png';
+    try { document.querySelectorAll('img[data-logo]').forEach(im => { if (im.getAttribute('src') !== src) im.setAttribute('src', src); }); } catch (e) {}
+  }
+
+  fixStockKeys(m) {
+    const cols = m.colors || [];
+    if (!m.stock) return;
+    const ids = cols.length ? cols.map(c => c.id) : ['_'];
+    if (ids.every(id => m.stock[id])) return;
+    const unmatched = Object.keys(m.stock).filter(k => !ids.includes(k));
+    const next = {};
+    ids.forEach((id, i) => {
+      if (m.stock[id]) next[id] = m.stock[id];
+      else if (unmatched.length === ids.filter(x => !m.stock[x]).length) next[id] = m.stock[unmatched.shift()];
+    });
+    if (ids.every(id => next[id])) m.stock = next; else m.stock = null;
+  }
+
+  migrate(p, i) {
+    const m = Object.assign({}, p);
+    m.status = m.status || 'published';
+    m.order = typeof m.order === 'number' ? m.order : i;
+    m.created = m.created || NOW;
+    m.updated = m.updated || m.created;
+    m.sizes = SIZES.filter(s => (m.sizes || []).includes(s));
+    const cols = this.normColors(m.colors).map(c => ({ id: c.id || uid(), name: c.name, hex: c.hex || this.colorHex(c.name), imgs: c.imgs, qty: c.qty }));
+    if (!Array.isArray(m.images)) {
+      const imgs = [];
+      if (m.img) imgs.push({ id: uid(), url: m.img, primary: true, color: '' });
+      cols.forEach(c => c.imgs.forEach(u => {
+        const ex = imgs.find(x => x.url === u);
+        if (ex) { if (!ex.color) ex.color = c.id; } else imgs.push({ id: uid(), url: u, primary: false, color: c.id });
+      }));
+      m.images = imgs;
+    }
+    if (Array.isArray(m.images) && cols.length) {
+      const ids = cols.map(c => c.id);
+      const orphan = [];
+      m.images.forEach(x => { if (x.color && !ids.includes(x.color) && !orphan.includes(x.color)) orphan.push(x.color); });
+      if (orphan.length) {
+        const free = ids.filter(id => !m.images.some(x => x.color === id));
+        const map = {};
+        orphan.forEach((o, k) => { map[o] = free[k] || ''; });
+        m.images = m.images.map(x => (x.color in map ? Object.assign({}, x, { color: map[x.color] }) : x));
+      }
+    }
+    if (m.stock) this.fixStockKeys(Object.assign(m, { colors: cols }));
+    if (!m.stock) {
+      const sz = m.sizes.length ? m.sizes : ['U'], n = sz.length;
+      m.stock = {};
+      if (cols.length) cols.forEach(c => {
+        const q = c.qty == null ? n : c.qty, row = {};
+        sz.forEach((s, k) => { row[s] = Math.floor(q / n) + (k < q % n ? 1 : 0); });
+        m.stock[c.id] = row;
+      });
+      else { const row = {}; sz.forEach(s => { row[s] = 1; }); m.stock._ = row; }
+    }
+    if (m.isNewFlag === undefined) { m.isNewFlag = true; m.newUntil = toDate(m.created + 14 * DAY); }
+    if (m.demo === undefined) m.demo = false;
+    m.colors = cols.map(c => ({ id: c.id, name: c.name, hex: c.hex }));
+    return this.derive(m);
+  }
+
+  derive(m) {
+    const imgs = m.images || [];
+    const prim = imgs.find(x => x.primary) || imgs[0];
+    m.img = prim ? prim.url : '';
+    const sz = (m.sizes || []).length ? m.sizes : ['U'];
+    m.colors = (m.colors || []).map(c => ({
+      id: c.id, name: c.name || 'Cor', hex: c.hex,
+      imgs: imgs.filter(x => x.color === c.id).map(x => x.url),
+      qty: sz.reduce((a, s) => a + (parseInt(((m.stock || {})[c.id] || {})[s]) || 0), 0)
+    }));
+    return m;
+  }
+
+  persist = () => {
+    const s = this.state;
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ v: 7, rv: 5, cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg, sbUrl: s.sbUrl, sbKey: s.sbKey, sbTable: s.sbTable }));
+    } catch (e) { this.flash('Armazenamento do aparelho cheio. Remova fotos antigas ou use o Supabase.', true); }
+  };
+
+  flash(msg, err) {
+    this.setState({ toast: msg, toastErr: !!err });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: '' }), 3200);
+  }
+
+  money(v) { const n = String(v || '').replace(/[^\d,.]/g, ''); return 'R$ ' + (n || '0,00'); }
+  parsePrice(t) { let s = String(t || '').replace(/[^\d,.]/g, ''); if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.'); const n = parseFloat(s); return isNaN(n) ? NaN : n; }
+  fmtPrice(n) { return n.toFixed(2).replace('.', ','); }
+  catName(id) { const c = this.state.cats.find(x => x.id === id); return c ? c.name : 'Sem categoria'; }
+  catActive(id) { const c = this.state.cats.find(x => x.id === id); return !!c && c.active !== false; }
+  sortedCats() { return this.state.cats.slice().sort((a, b) => a.order - b.order); }
+  digits(s) { return String(s || '').replace(/\D/g, ''); }
+  phoneLabel(w) {
+    let d = this.digits(w);
+    if (d.length >= 12 && d.startsWith('55')) d = d.slice(2);
+    if (d.length === 11) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+    if (d.length === 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+    return w || '';
+  }
+  waNumber(w) { const d = this.digits(w); return d.length <= 11 ? '55' + d : d; }
+
+  isNew(p) {
+    if (p.isNewFlag !== undefined) return !!p.isNewFlag && !!p.newUntil && todayStr() <= p.newUntil;
+    return !!p.created && (Date.now() - p.created) < 14 * DAY;
+  }
+  stockKeys(p) { return (p.colors || []).length ? p.colors.map(c => c.id) : ['_']; }
+  sizesOrU(p) { return (p.sizes || []).length ? p.sizes : ['U']; }
+  stockTotal(p) {
+    if (!p.stock) return null;
+    return this.stockKeys(p).reduce((a, k) => a + this.sizesOrU(p).reduce((b, s) => b + (parseInt((p.stock[k] || {})[s]) || 0), 0), 0);
+  }
+  isSoldOut(p) { const t = this.stockTotal(p); return t === 0; }
+  sizeQty(p, s, colorName) {
+    if (!p.stock) return 1;
+    if ((p.colors || []).length) {
+      const c = colorName ? p.colors.find(x => x.name === colorName) : null;
+      const keys = c ? [c.id] : p.colors.map(x => x.id);
+      return keys.reduce((a, k) => a + (parseInt((p.stock[k] || {})[s]) || 0), 0);
+    }
+    return parseInt((p.stock._ || {})[s]) || 0;
+  }
+
+  shopList() {
+    const sort = this.state.cfg.catalogSort;
+    const list = this.state.prods.filter(p => p.status === 'published' && this.catActive(p.cat));
+    if (sort === 'manual') return list.sort((a, b) => a.order - b.order);
+    if (sort === 'oldest') return list.sort((a, b) => (a.created || 0) - (b.created || 0));
+    return list.sort((a, b) => (b.created || 0) - (a.created || 0));
+  }
+
+  colorHex(name) {
+    const k = String(name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    const map = {
+      'preto': '#1c1c1e', 'branco': '#f4f2ec', 'branca': '#f4f2ec', 'off-white': '#ece7dc', 'off white': '#ece7dc', 'marfim': '#efe8d8', 'cru': '#e4dbc8',
+      'areia': '#d9c9ab', 'bege': '#d8c3a0', 'nude': '#e0bfa5', 'champagne': '#e0cfae', 'caramelo': '#a9744a', 'camel': '#bb8a55',
+      'marrom': '#6b4630', 'chocolate': '#4e3326', 'terracota': '#c0643f', 'ferrugem': '#a4502c', 'laranja': '#e07a36',
+      'mostarda': '#d9a52a', 'amarelo': '#e8c53a', 'dourado': '#c9a44c', 'vermelho': '#b3282d', 'vermelha': '#b3282d', 'vinho': '#6d2436', 'bordo': '#6d2436',
+      'rosa': '#e6a3b4', 'rose': '#d9a5a0', 'rosa claro': '#f0c6cf', 'pink': '#d9467d', 'lilas': '#b9a0cf', 'roxo': '#6b3f8f', 'violeta': '#7b4fa6',
+      'azul': '#3b5ea8', 'azul claro': '#a9c0d4', 'azul escuro': '#2f3f5c', 'marinho': '#2b3a55', 'azul marinho': '#2b3a55', 'jeans': '#4b6a8f',
+      'verde': '#3f7a4f', 'verde oliva': '#6b7150', 'oliva': '#6b7150', 'verde militar': '#555b3c', 'menta': '#a9d5c0', 'esmeralda': '#1f7a5a',
+      'cinza': '#7a7a7e', 'grafite': '#4a4a50', 'chumbo': '#5a5c62', 'prata': '#bfc1c4'
+    };
+    return map[k] || '#b9a58a';
+  }
+
+  bg(src) {
+    return { width: '100%', height: '100%', backgroundImage: 'url("' + String(src || '').replace(/"/g, '%22') + '")', backgroundSize: 'cover', backgroundPosition: 'center' };
+  }
+
+  normColors(list) {
+    return (list || []).map(c => {
+      if (typeof c === 'string') return { id: '', name: c, hex: '', qty: null, imgs: [] };
+      const imgs = Array.isArray(c.imgs) ? c.imgs.filter(Boolean) : (c.img ? [c.img] : []);
+      return { id: c.id || '', name: c.name || 'Cor', hex: c.hex || '', qty: (c.qty === 0 || c.qty) ? c.qty : null, imgs };
+    });
+  }
+
+  shareProduct = () => {
+    const p = this.state.prods.find(x => x.id === this.state.detailId);
+    if (!p) return;
+    const text = this.state.cfg.storeName + ' — Moda Feminina\n' + p.name + ' — ' + this.money(p.price) + (p.desc ? '\n' + p.desc : '');
+    const url = (typeof location !== 'undefined' ? location.href.split('#')[0] : '') + '#produto-' + p.id;
+    if (navigator.share) { navigator.share({ title: this.state.cfg.storeName + ' — ' + p.name, text, url }).catch(() => {}); return; }
+    const payload = text + '\n' + url;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(payload).then(() => {
+        this.setState({ shareLabel: 'Link copiado' });
+        clearTimeout(this._s);
+        this._s = setTimeout(() => this.setState({ shareLabel: 'Compartilhar' }), 2400);
+      }).catch(() => {});
+    } else window.open('https://wa.me/?text=' + encodeURIComponent(payload), '_blank');
+  };
+
+  scrollTop() { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); } }
+
+  renderVals() {
+    const st = this.state, cfg = st.cfg;
+    const showSizesOnCard = this.props.showSizesOnCard ?? true;
+    const showPriceOnCard = this.props.showPriceOnCard ?? true;
+    const enableSearch = this.props.enableSearch ?? true;
+    const logoSrc = cfg.logo || 'logo-reveluxo.png';
+    const ig = String(cfg.instagram || '').replace(/^@/, '');
+
+    const q = st.search.trim().toLowerCase();
+    const matches = p => !q || p.name.toLowerCase().includes(q) || (p.desc || '').toLowerCase().includes(q);
+    const filtered = this.shopList().filter(p => (st.activeCat === 'all' || p.cat === st.activeCat) && matches(p));
+    const openP = p => () => this.setState({ detailId: p.id, pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false });
+
+    const gridItems = filtered.map(p => {
+      const sold = this.isSoldOut(p);
+      return {
+        name: p.name, sizes: p.sizes,
+        imgStyle: Object.assign(this.bg(p.img), { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }),
+        hasImg: !!p.img, noImg: !p.img, soldOut: sold, isNew: !sold && this.isNew(p),
+        catName: this.catName(p.cat), priceLabel: this.money(p.price), open: openP(p)
+      };
+    });
+
+    const navBase = 'background:transparent;border:none;padding:0 0 6px;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;cursor:pointer;';
+    const activeCats = this.sortedCats().filter(c => c.active);
+    const catPills = [{ id: 'all', name: 'Todas as peças' }].concat(activeCats).map(c => ({
+      label: c.name,
+      style: navBase + (st.activeCat === c.id ? 'color:#c9a44c;border-bottom:1px solid #c9a44c;' : 'color:#8a8377;border-bottom:1px solid transparent;'),
+      onClick: () => this.setState({ view: 'shop', activeCat: c.id })
+    }));
+
+    const d = st.prods.find(p => p.id === st.detailId);
+    const dSold = d ? this.isSoldOut(d) : false;
+    const szBase = 'width:48px;height:48px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;padding:0;';
+    const detailSizes = d ? SIZES.map(s => {
+      const has = (d.sizes || []).includes(s) && this.sizeQty(d, s, st.pickColor) > 0;
+      const on = st.pickSize === s;
+      return {
+        label: s,
+        style: !has ? szBase + 'background:transparent;border:1px solid #23211c;color:#55504a;text-decoration:line-through;cursor:not-allowed;'
+          : on ? szBase + 'background:#c9a44c;border:1px solid #c9a44c;color:#000000;cursor:pointer;'
+          : szBase + 'background:transparent;border:1px solid #3a3529;color:#ffffff;cursor:pointer;',
+        pick: () => { if (has) this.setState({ pickSize: on ? '' : s }); }
+      };
+    }) : [];
+    const dColors = d ? (d.colors || []) : [];
+    const detailColors = dColors.map(c => {
+      const on = st.pickColor === c.name;
+      return {
+        label: c.name,
+        dotStyle: 'width:32px;height:32px;border-radius:9999px;display:block;background:' + (c.hex || this.colorHex(c.name)) + ';',
+        style: 'width:44px;height:44px;border-radius:9999px;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent;' + (on ? 'border:2px solid #c9a44c;' : 'border:1px solid #2e2b24;'),
+        pick: () => this.setState(s => {
+          const next = on ? '' : c.name;
+          const keep = s.pickSize && this.sizeQty(d, s.pickSize, next) > 0 ? s.pickSize : '';
+          return { pickColor: next, pickPhoto: 0, pickSize: keep };
+        })
+      };
+    });
+    const dPicked = dColors.find(c => c.name === st.pickColor);
+    const allUrls = d ? (d.images || []).map(x => x.url) : [];
+    const base = d && d.img ? [d.img].concat(allUrls.filter(u => u !== d.img)) : allUrls;
+    const dGallery = dPicked && dPicked.imgs.length ? dPicked.imgs : base;
+    const dIdx = Math.min(st.pickPhoto || 0, Math.max(dGallery.length - 1, 0));
+    const dImg = dGallery[dIdx] || '';
+    const detailThumbs = dGallery.map((src, i) => ({
+      style: Object.assign(this.bg(src), { cursor: 'pointer', backgroundColor: '#f5f3ef', borderRadius: '8px', border: i === dIdx ? '2px solid #c9a44c' : '2px solid transparent', opacity: i === dIdx ? 1 : 0.55 }),
+      pick: () => this.setState({ pickPhoto: i })
+    }));
+    const msg = d ? String(cfg.contactMsg || DEFAULT_CFG.contactMsg)
+      .split('[NOME DA PEÇA]').join(d.name)
+      .split('[COR]').join(st.pickColor || 'a definir')
+      .split('[TAMANHO]').join((d.sizes || []).length ? (st.pickSize || 'a definir') : 'único')
+      .split('[VALOR]').join(this.money(d.price)) : '';
+    const buyText = dSold ? (cfg.soldoutMode === 'restock' ? 'Olá! Quero ser avisada quando esta peça voltar: ' : 'Olá! Gostaria de consultar a disponibilidade desta peça: ') + (d ? d.name : '') : msg;
+
+    const out = {
+      isShop: st.view === 'shop', isLogin: st.view === 'login', isAdmin: st.view === 'admin' && !!st.me,
+      logoSrc, waHref: 'https://wa.me/' + this.waNumber(cfg.whats), igHref: 'https://www.instagram.com/' + ig + '/',
+      phoneLabel: this.phoneLabel(cfg.whats), igLabel: '@' + ig, addr: cfg.addr, storeDesc: cfg.storeDesc,
+      goHome: () => { if (IS_ADMIN_PAGE) { location.href = 'index.html'; return; } this.setState({ view: 'shop', activeCat: 'all' }, () => this.scrollTop()); },
+      goAdmin: () => { if (DEPLOY && !IS_ADMIN_PAGE) { location.href = 'admin.html'; return; } this.setState({ view: st.me ? 'admin' : 'login', detailId: null, loginError: '' }, () => this.scrollTop()); },
+      enableSearch, showSizesOnCard, showPriceOnCard,
+      search: st.search, onSearch: e => this.setState({ search: e.target.value }),
+      catPills, gridItems,
+      footerCats: activeCats.map(c => ({ name: c.name, onClick: () => this.setState({ view: 'shop', activeCat: c.id }, () => this.scrollTop()) })),
+      shopTitle: st.activeCat === 'all' ? 'Coleção' : this.catName(st.activeCat),
+      shopCount: filtered.length + (filtered.length === 1 ? ' peça' : ' peças'),
+      isEmptyResult: filtered.length === 0,
+
+      hasDetail: !!d && st.view === 'shop',
+      detailName: d ? d.name : '', detailPrice: d ? this.money(d.price) : '',
+      detailDesc: d ? (d.desc || '') : '', detailCat: d ? this.catName(d.cat) : '',
+      detailImgStyle: Object.assign(this.bg(dImg), { backgroundSize: 'contain', backgroundRepeat: 'no-repeat', cursor: 'zoom-in' }),
+      openZoom: () => this.setState({ zoom: true }), closeZoom: () => this.setState({ zoom: false }),
+      isZoomed: !!st.zoom && !!dImg,
+      zoomStyle: Object.assign(this.bg(dImg), { backgroundSize: 'contain', backgroundRepeat: 'no-repeat', cursor: 'zoom-out', flex: '1 1 auto', minHeight: 0, marginTop: '16px', height: 'auto' }),
+      hasPrevNext: dGallery.length > 1,
+      prevPhoto: e => { e.stopPropagation(); this.setState({ pickPhoto: (dIdx - 1 + dGallery.length) % dGallery.length }); },
+      nextPhoto: e => { e.stopPropagation(); this.setState({ pickPhoto: (dIdx + 1) % dGallery.length }); },
+      detailHasImg: !!(d && dImg), detailNoImg: !!(d && !dImg),
+      detailIsNew: !!(d && !dSold && this.isNew(d)), detailSoldOut: dSold,
+      pickColorLabel: st.pickColor || 'selecione',
+      detailSizes, detailColors, detailThumbs,
+      detailHasThumbs: detailThumbs.length > 1, detailHasColors: detailColors.length > 0,
+      detailHasSizes: !!(d && (d.sizes || []).length),
+      buyHref: 'https://wa.me/' + this.waNumber(cfg.whats) + '?text=' + encodeURIComponent(buyText),
+      buyLabel: dSold ? (cfg.soldoutMode === 'restock' ? 'Avisar sobre reposição' : 'Consultar disponibilidade') : 'Tenho interesse',
+      shareProduct: this.shareProduct, shareLabel: st.shareLabel,
+      closeDetail: () => this.setState({ detailId: null, zoom: false }),
+
+      hasConfirm: !!st.confirm, confirm: st.confirm || { title: '', text: '', actions: [] },
+      closeConfirm: () => this.setState({ confirm: null }),
+      hasToast: !!st.toast, toast: st.toast,
+      toastStyle: 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:95;background:' + (st.toastErr ? '#a2342a' : '#1b1814') + ';color:#fff;padding:14px 22px;border-radius:999px;font:600 13.5px Manrope, sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.2);max-width:90vw;text-align:center;',
+
+      loginUser: st.loginUser, loginPass: st.loginPass, loginError: st.loginError, hasLoginErr: !!st.loginError,
+      onLoginUser: e => this.setState({ loginUser: e.target.value, loginError: '' }),
+      onLoginPass: e => this.setState({ loginPass: e.target.value, loginError: '' }),
+      doLogin: e => {
+        if (e && e.preventDefault) e.preventDefault();
+        const u = st.users.find(x => x.active && x.username === st.loginUser.trim().toLowerCase() && x.password === st.loginPass);
+        if (u) {
+          try { sessionStorage.setItem('rvx_me', u.id); } catch (er) {}
+          this.setState({ me: u.id, view: 'admin', adm: 'dashboard', loginPass: '', loginError: '' }, () => this.scrollTop());
+        }
+        else this.setState({ loginError: 'Usuário ou senha incorretos.' });
+      }
+    };
+    const guide = this.installGuide();
+    Object.assign(out, {
+      canInstall: !st.installed, installApp: () => this.installApp(),
+      showInstallHelp: !!st.installHelp, closeInstall: () => this.setState({ installHelp: false }), stopProp: e => e.stopPropagation(),
+      installIntro: guide.intro, installSteps: guide.steps.map((t, i) => ({ n: i + 1, text: t }))
+    });
+    if (out.isAdmin && this.adminVals) Object.assign(out, this.adminVals());
+    return out;
+  }
+}
+
+Object.assign(Component.prototype, {
+  sbHeaders() { return { apikey: this.state.sbKey, Authorization: 'Bearer ' + this.state.sbKey, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates' }; },
+  sbEndpoint() { return String(this.state.sbUrl || '').replace(/\/+$/, '') + '/rest/v1/' + (this.state.sbTable || 'catalogo'); },
+  async sbPush() {
+    if (!this.state.sbUrl || !this.state.sbKey) return this.setState({ sbStatus: 'Preencha URL e anon key.' });
+    this.setState({ sbStatus: 'Enviando…' });
+    const s = this.state;
+    try {
+      const r = await fetch(this.sbEndpoint(), { method: 'POST', headers: this.sbHeaders(), body: JSON.stringify({ id: 1, data: { cats: s.cats, prods: s.prods, cfg: s.cfg }, updated_at: new Date().toISOString() }) });
+      this.setState({ sbStatus: r.ok ? 'Catálogo enviado.' : 'Erro ' + r.status + ' ao enviar.' });
+    } catch (e) { this.setState({ sbStatus: 'Falha de conexão com o Supabase.' }); }
+  },
+  async sbPull() {
+    if (!this.state.sbUrl || !this.state.sbKey) return this.setState({ sbStatus: 'Preencha URL e anon key.' });
+    this.setState({ sbStatus: 'Baixando…' });
+    try {
+      const r = await fetch(this.sbEndpoint() + '?id=eq.1&select=data', { headers: this.sbHeaders() });
+      const rows = await r.json();
+      const data = rows && rows[0] && rows[0].data;
+      if (!data || !Array.isArray(data.prods)) return this.setState({ sbStatus: 'Nenhum catálogo salvo no Supabase.' });
+      this.setState({ cats: data.cats || this.state.cats, prods: data.prods.map((p, i) => this.migrate(p, i)), cfg: Object.assign({}, DEFAULT_CFG, data.cfg || {}), sbStatus: 'Catálogo atualizado.' }, this.persist);
+    } catch (e) { this.setState({ sbStatus: 'Falha de conexão com o Supabase.' }); }
+  },
+
+  loadImg(src) {
+    return new Promise(res => {
+      if (!src) return res(null);
+      const im = new Image();
+      im.crossOrigin = 'anonymous';
+      im.onload = () => res(im); im.onerror = () => res(null);
+      im.src = src;
+    });
+  },
+  drawFitted(ctx, im, x, y, w, h) {
+    const r = Math.min(w / im.naturalWidth, h / im.naturalHeight);
+    const dw = im.naturalWidth * r, dh = im.naturalHeight * r;
+    ctx.drawImage(im, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+  },
+  rr(x, X, Y, w, h, r) {
+    x.beginPath(); x.moveTo(X + r, Y);
+    x.arcTo(X + w, Y, X + w, Y + h, r); x.arcTo(X + w, Y + h, X, Y + h, r);
+    x.arcTo(X, Y + h, X, Y, r); x.arcTo(X, Y, X + w, Y, r); x.closePath();
+  },
+  wrapLines(x, text, maxW, maxLines) {
+    const words = String(text || '').split(/\s+/).filter(Boolean), lines = [];
+    let cur = '';
+    words.forEach(w => { const t = cur ? cur + ' ' + w : w; if (x.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; });
+    if (cur) lines.push(cur);
+    if (maxLines && lines.length > maxLines) {
+      const cut = lines.slice(0, maxLines);
+      let last = cut[maxLines - 1];
+      while (x.measureText(last + '…').width > maxW && last.length > 1) last = last.slice(0, -1);
+      cut[maxLines - 1] = last.replace(/[\s,.;]+$/, '') + '…';
+      return cut;
+    }
+    return lines;
+  },
+
+  async buildPages() {
+    const list = this.shopList();
+    if (!list.length) return [];
+    try { await Promise.all(['400 100px "Cormorant Garamond"', '500 100px "Cormorant Garamond"', '400 40px Jost', '500 40px Jost'].map(f => document.fonts.load(f))); } catch (e) {}
+    const cfg = this.state.cfg;
+    const W = 2480, H = 3508, M = 170;
+    const SERIF = '"Cormorant Garamond", Georgia, serif', SANS = 'Jost, Helvetica, Arial, sans-serif';
+    const GOLD = '#c9a44c', MUTED = '#b3ac9e', SOFT = '#d4cfc3';
+    const logo = await this.loadImg(cfg.logo || 'logo-reveluxo.png');
+    const now = new Date();
+    const monthYear = now.toLocaleDateString('pt-BR', { month: 'long' }) + ' de ' + now.getFullYear();
+    const igTxt = 'Instagram @' + String(cfg.instagram || '').replace(/^@/, ''), waTxt = 'WhatsApp ' + this.phoneLabel(cfg.whats);
+    const n = list.length, out = [];
+    const ls = (x, v) => { try { x.letterSpacing = v + 'px'; } catch (e) {} };
+    const page = () => { const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const x = cv.getContext('2d'); x.fillStyle = '#000000'; x.fillRect(0, 0, W, H); return [cv, x]; };
+    const drawLogo = (x, cx, cy, maxW, maxH) => {
+      if (!logo) { x.textAlign = 'center'; x.fillStyle = GOLD; ls(x, 20); x.font = '400 ' + Math.round(maxH * 0.5) + 'px ' + SERIF; x.fillText('REVELUXO', cx, cy + maxH * 0.18); ls(x, 0); return; }
+      const r = Math.min(maxW / logo.naturalWidth, maxH / logo.naturalHeight);
+      x.drawImage(logo, cx - logo.naturalWidth * r / 2, cy - logo.naturalHeight * r / 2, logo.naturalWidth * r, logo.naturalHeight * r);
+    };
+    const footer = x => {
+      x.strokeStyle = '#23211c'; x.lineWidth = 3; x.beginPath(); x.moveTo(M, H - 210); x.lineTo(W - M, H - 210); x.stroke();
+      x.font = '400 40px ' + SANS; x.fillStyle = MUTED; ls(x, 6);
+      x.textAlign = 'left'; x.fillText(igTxt, M, H - 120);
+      x.textAlign = 'right'; x.fillText(waTxt, W - M, H - 120); ls(x, 0);
+    };
+    const pill = (x, X, Y, text, bgc, fg) => {
+      x.font = '600 38px ' + SANS; ls(x, 10);
+      const w = x.measureText(text).width + 96, h = 92;
+      x.fillStyle = bgc; this.rr(x, X, Y, w, h, h / 2); x.fill();
+      x.fillStyle = fg; x.textAlign = 'left'; x.fillText(text, X + 48, Y + 60); ls(x, 0);
+    };
+    {
+      const [cv, x] = page();
+      drawLogo(x, W / 2, 1000, 1600, 700);
+      x.strokeStyle = GOLD; x.lineWidth = 3; x.beginPath(); x.moveTo(W / 2 - 90, 1640); x.lineTo(W / 2 + 90, 1640); x.stroke();
+      x.textAlign = 'center';
+      x.fillStyle = '#ffffff'; x.font = '400 170px ' + SERIF; x.fillText('Vista o seu brilho.', W / 2, 1930);
+      x.fillStyle = SOFT; x.font = 'italic 400 96px ' + SERIF;
+      x.fillText('Escolha sua peça e', W / 2, 2100); x.fillText('fale direto com a gente.', W / 2, 2220);
+      x.fillStyle = GOLD; x.font = '500 44px ' + SANS; ls(x, 18); x.fillText(('Coleção · ' + monthYear).toUpperCase(), W / 2, 2500);
+      x.fillStyle = MUTED; x.font = '400 40px ' + SANS; ls(x, 14); x.fillText((n + (n === 1 ? ' peça' : ' peças')).toUpperCase(), W / 2, 2600); ls(x, 0);
+      footer(x); out.push(cv);
+    }
+    for (let i = 0; i < n; i++) {
+      const p = list[i];
+      const [cv, x] = page();
+      const soldOut = this.isSoldOut(p);
+      x.textAlign = 'left'; x.fillStyle = GOLD; x.font = '500 44px ' + SANS; ls(x, 14);
+      x.fillText(String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0'), M, 225); ls(x, 0);
+      drawLogo(x, W - M - 210, 205, 420, 150);
+      const IX = M, IY = 320, IW = W - M * 2, IH = 1760;
+      x.save(); this.rr(x, IX, IY, IW, IH, 56); x.clip();
+      x.fillStyle = '#f5f3ef'; x.fillRect(IX, IY, IW, IH);
+      const im = await this.loadImg(p.img);
+      if (im) this.drawFitted(x, im, IX, IY, IW, IH);
+      if (soldOut) { x.fillStyle = 'rgba(0,0,0,0.35)'; x.fillRect(IX, IY, IW, IH); }
+      x.restore();
+      if (soldOut) pill(x, IX + 50, IY + 50, 'ESGOTADO', '#1c1b19', '#ffffff');
+      else if (this.isNew(p)) pill(x, IX + 50, IY + 50, 'NOVO', GOLD, '#000000');
+      let y = IY + IH + 130;
+      x.textAlign = 'left'; x.fillStyle = MUTED; x.font = '500 40px ' + SANS; ls(x, 16);
+      x.fillText(this.catName(p.cat).toUpperCase(), M, y); ls(x, 0);
+      x.fillStyle = '#ffffff'; x.font = '500 140px ' + SERIF;
+      const nl = this.wrapLines(x, p.name, IW, 2);
+      y += 150; nl.forEach((ln, k) => x.fillText(ln, M, y + k * 138)); y += (nl.length - 1) * 138 + 105;
+      x.fillStyle = '#ffffff'; x.font = '600 72px ' + SANS; x.fillText(this.money(p.price), M, y); y += 100;
+      if (p.desc) {
+        x.fillStyle = SOFT; x.font = '400 50px ' + SANS;
+        const dl = this.wrapLines(x, p.desc, 1960, 3);
+        dl.forEach((ln, k) => x.fillText(ln, M, y + k * 76)); y += (dl.length - 1) * 76 + 40;
+      }
+      const rowLabelY = y + 100, rowY = rowLabelY + 100;
+      const colors = p.colors || [];
+      const sizes = SIZES.filter(s => (p.sizes || []).includes(s) && this.sizeQty(p, s) > 0);
+      let sizesX = M;
+      if (colors.length) {
+        x.fillStyle = MUTED; x.font = '500 38px ' + SANS; ls(x, 14); x.textAlign = 'left'; x.fillText('CORES', M, rowLabelY); ls(x, 0);
+        let cx = M; x.font = '400 44px ' + SANS;
+        for (const c of colors) {
+          const tw = x.measureText(c.name).width;
+          if (cx + 108 + tw > W / 2 + 40) break;
+          x.fillStyle = c.hex || this.colorHex(c.name); x.beginPath(); x.arc(cx + 34, rowY - 14, 34, 0, Math.PI * 2); x.fill();
+          x.strokeStyle = 'rgba(255,255,255,0.18)'; x.lineWidth = 2; x.stroke();
+          x.fillStyle = '#ffffff'; x.fillText(c.name, cx + 88, rowY);
+          cx += 88 + tw + 56;
+        }
+        sizesX = W / 2 + 120;
+      }
+      if (sizes.length) {
+        x.fillStyle = MUTED; x.font = '500 38px ' + SANS; ls(x, 14); x.textAlign = 'left'; x.fillText('TAMANHOS', sizesX, rowLabelY); ls(x, 0);
+        let sx = sizesX; x.font = '600 40px ' + SANS; x.textAlign = 'center';
+        for (const s of sizes) {
+          x.strokeStyle = '#3a3529'; x.lineWidth = 3; x.beginPath(); x.arc(sx + 58, rowY - 14, 58, 0, Math.PI * 2); x.stroke();
+          x.fillStyle = '#ffffff'; x.fillText(s, sx + 58, rowY); sx += 140;
+        }
+      }
+      footer(x); out.push(cv);
+    }
+    {
+      const [cv, x] = page();
+      drawLogo(x, W / 2, 1000, 1200, 500);
+      x.textAlign = 'center';
+      x.fillStyle = '#ffffff'; x.font = '400 150px ' + SERIF; x.fillText('Gostou de alguma peça?', W / 2, 1640);
+      x.fillStyle = SOFT; x.font = '400 56px ' + SANS;
+      x.fillText('Fale com a gente pelo WhatsApp, informe o', W / 2, 1810);
+      x.fillText('nome da peça, a cor e o tamanho.', W / 2, 1900);
+      const bw = 1180, bh = 160, bx = (W - bw) / 2, by = 2060;
+      x.fillStyle = GOLD; this.rr(x, bx, by, bw, bh, bh / 2); x.fill();
+      x.fillStyle = '#000000'; x.font = '600 52px ' + SANS; ls(x, 10); x.fillText(waTxt.toUpperCase(), W / 2, by + 98);
+      x.fillStyle = '#ffffff'; x.font = '400 48px ' + SANS; ls(x, 8); x.fillText(igTxt, W / 2, 2420); ls(x, 0);
+      x.fillStyle = MUTED; x.font = '400 38px ' + SANS;
+      x.fillText('Preços e disponibilidade de ' + monthYear + ', sujeitos a alteração.', W / 2, H - 150);
+      out.push(cv);
+    }
+    return out;
+  },
+
+  download(blob, name) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = name; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  },
+
+  async exportPdf() {
+    if (this.state.exporting) return;
+    this.setState({ exporting: true });
+    try {
+      const pages = await this.buildPages();
+      if (!pages.length) { this.flash('Nenhuma peça publicada para o catálogo.', true); return; }
+      const PW = 595.28, PH = 841.89, enc = new TextEncoder(), objects = [], jpegs = [];
+      for (const cv of pages) { const b = await new Promise(r => cv.toBlob(r, 'image/jpeg', 0.95)); jpegs.push(new Uint8Array(await b.arrayBuffer())); }
+      const n = pages.length, kids = [];
+      for (let i = 0, id = 3; i < n; i++, id += 3) kids.push(id);
+      objects[1] = enc.encode('<< /Type /Catalog /Pages 2 0 R >>');
+      objects[2] = enc.encode('<< /Type /Pages /Count ' + n + ' /Kids [' + kids.map(k => k + ' 0 R').join(' ') + '] >>');
+      for (let i = 0; i < n; i++) {
+        const pid = kids[i], cid = pid + 1, iid = pid + 2;
+        objects[pid] = enc.encode('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + PW + ' ' + PH + '] /Resources << /XObject << /Im0 ' + iid + ' 0 R >> >> /Contents ' + cid + ' 0 R >>');
+        const content = 'q ' + PW + ' 0 0 ' + PH + ' 0 0 cm /Im0 Do Q';
+        objects[cid] = enc.encode('<< /Length ' + content.length + ' >>\nstream\n' + content + '\nendstream');
+        const head = enc.encode('<< /Type /XObject /Subtype /Image /Width ' + pages[i].width + ' /Height ' + pages[i].height + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + jpegs[i].length + ' >>\nstream\n');
+        const tail = enc.encode('\nendstream');
+        const m = new Uint8Array(head.length + jpegs[i].length + tail.length);
+        m.set(head, 0); m.set(jpegs[i], head.length); m.set(tail, head.length + jpegs[i].length);
+        objects[iid] = m;
+      }
+      const chunks = [enc.encode('%PDF-1.4\n')], offsets = [];
+      let offset = chunks[0].length;
+      for (let i = 1; i < objects.length; i++) {
+        offsets[i] = offset;
+        const a = enc.encode(i + ' 0 obj\n'), c = enc.encode('\nendobj\n');
+        chunks.push(a, objects[i], c); offset += a.length + objects[i].length + c.length;
+      }
+      let xref = 'xref\n0 ' + objects.length + '\n0000000000 65535 f \n';
+      for (let i = 1; i < objects.length; i++) xref += String(offsets[i]).padStart(10, '0') + ' 00000 n \n';
+      xref += 'trailer\n<< /Size ' + objects.length + ' /Root 1 0 R >>\nstartxref\n' + offset + '\n%%EOF';
+      chunks.push(enc.encode(xref));
+      this.download(new Blob(chunks, { type: 'application/pdf' }), 'catalogo-reveluxo.pdf');
+      this.flash('Catálogo PDF gerado com ' + n + ' páginas.');
+    } catch (e) { console.error(e); this.flash('Não foi possível gerar o PDF.', true); }
+    finally { this.setState({ exporting: false }); }
+  },
+
+  compressImage(file, max, q, type) {
+    max = max || 1600; q = q || 0.86; type = type || 'image/jpeg';
+    return new Promise((res, rej) => {
+      if (!/^image\//.test(file.type)) return rej(new Error('formato não suportado'));
+      if (file.size > 12 * 1024 * 1024) return rej(new Error('arquivo acima de 12 MB'));
+      const fr = new FileReader();
+      fr.onerror = () => rej(new Error('não foi possível ler o arquivo'));
+      fr.onload = () => {
+        const im = new Image();
+        im.onload = () => {
+          const r = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+          const w = Math.round(im.naturalWidth * r), h = Math.round(im.naturalHeight * r);
+          const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+          const x = cv.getContext('2d');
+          if (type === 'image/jpeg') { x.fillStyle = '#ffffff'; x.fillRect(0, 0, w, h); }
+          x.drawImage(im, 0, 0, w, h);
+          res(cv.toDataURL(type, q));
+        };
+        im.onerror = () => rej(new Error('imagem inválida'));
+        im.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  },
+
+  ask(title, text, actions) {
+    this.setState({ confirm: { title, text, actions: actions.map(a => ({
+      label: a.label,
+      style: 'height:44px;padding:0 18px;border:0;border-radius:999px;background:' + (a.bg || '#1b1814') + ';color:#fff;font:700 13px Manrope, sans-serif;cursor:pointer;',
+      run: () => { this.setState({ confirm: null }); a.run(); }
+    })) } });
+  },
+  chip(on, extra) {
+    return 'height:42px;padding:0 18px;border-radius:999px;border:1px solid ' + (on ? '#1b1814' : '#ddd6ca') + ';background:' + (on ? '#1b1814' : '#ffffff') + ';color:' + (on ? '#f4f1eb' : '#1b1814') + ';font:700 13px Manrope, sans-serif;cursor:pointer;' + (extra || '');
+  },
+  goAdm(v) {
+    if (v === 'settings') this.setState({ cfgD: Object.assign({}, this.state.cfg, { whats: this.phoneLabel(this.state.cfg.whats), instagram: '@' + String(this.state.cfg.instagram || '').replace(/^@/, '') }) });
+    this.setState({ adm: v, errors: [] }, () => this.scrollTop());
+  },
+  setProds(fn, msg) { this.setState(s => ({ prods: fn(s.prods) }), () => { this.persist(); if (msg) this.flash(msg); }); },
+
+  openEditor(id) {
+    const p0 = id ? this.state.prods.find(x => x.id === id) : null;
+    const p = p0 ? Object.assign({}, p0, { stock: p0.stock ? Object.assign({}, p0.stock) : null }) : null;
+    if (p) this.fixStockKeys(p);
+    const created = p ? p.created : Date.now();
+    const colors = p ? (p.colors || []).map(c => ({ id: c.id || uid(), name: c.name, hex: c.hex || this.colorHex(c.name) })) : [];
+    const sizesOn = {}; SIZES.forEach(s => { sizesOn[s] = p ? (p.sizes || []).includes(s) : false; });
+    const stock = {};
+    (colors.length ? colors.map(c => c.id) : ['_']).forEach(k => { stock[k] = {}; SIZES.concat(['U']).forEach(s => { stock[k][s] = String(((p && p.stock && p.stock[k]) || {})[s] || 0); }); });
+    let novoMode = '15';
+    if (p && p.isNewFlag && p.newUntil) {
+      const days = Math.round((new Date(p.newUntil + 'T00:00:00') - new Date(toDate(created) + 'T00:00:00')) / DAY);
+      novoMode = ['3', '7', '15', '30', '60'].includes(String(days)) ? String(days) : 'custom';
+    }
+    const cats = this.sortedCats();
+    this.setState({ adm: 'editor', errors: [], draft: {
+      id: p ? p.id : null, name: p ? p.name : '', cat: p ? (p.cat || '') : ((cats[0] || {}).id || ''),
+      priceText: p ? p.price : '', desc: p ? (p.desc || '') : '', status: p ? p.status : 'draft',
+      images: p ? (p.images || []).map(x => Object.assign({}, x)) : [], sizesOn, colors, stock,
+      isNewFlag: p ? !!p.isNewFlag : true, novoMode, newUntil: p && p.newUntil ? p.newUntil : toDate(created + 15 * DAY), created
+    } }, () => this.scrollTop());
+  },
+  setDraft(patch) { this.setState(s => ({ draft: Object.assign({}, s.draft, typeof patch === 'function' ? patch(s.draft) : patch) })); },
+
+  validate(d, publishing) {
+    const e = [];
+    if (!d.name.trim()) e.push('Informe o nome da peça.');
+    if (publishing) {
+      if (!d.cat) e.push('Escolha uma categoria.');
+      if (!(this.parsePrice(d.priceText) > 0)) e.push('Informe um preço válido.');
+      if (!d.images.length) e.push('Adicione pelo menos uma foto para publicar.');
+      if (d.colors.some(c => !c.name.trim())) e.push('Dê um nome para cada cor cadastrada.');
+    } else if (d.priceText && isNaN(this.parsePrice(d.priceText))) e.push('O preço informado não é válido.');
+    return e;
+  },
+
+  saveProduct(status) {
+    const d = Object.assign({}, this.state.draft, status ? { status } : {});
+    const errors = this.validate(d, d.status === 'published');
+    if (errors.length) return this.setState({ errors, draft: d });
+    const old = d.id ? this.state.prods.find(p => p.id === d.id) : null;
+    const sizes = SIZES.filter(s => d.sizesOn[s]);
+    const keys = d.colors.length ? d.colors.map(c => c.id) : ['_'];
+    const stock = {};
+    const cellSz = sizes.length ? sizes : ['U'];
+    keys.forEach(k => { stock[k] = {}; cellSz.forEach(s => { stock[k][s] = parseInt((d.stock[k] || {})[s]) || 0; }); });
+    const pr = this.parsePrice(d.priceText);
+    const minOrder = this.state.prods.reduce((a, p) => Math.min(a, p.order), 0);
+    const item = this.derive({
+      id: d.id || 'p' + Date.now(), name: d.name.trim(), cat: d.cat, price: isNaN(pr) ? '' : this.fmtPrice(pr), desc: d.desc.trim(),
+      sizes, colors: d.colors.map(c => ({ id: c.id, name: c.name.trim() || 'Cor', hex: c.hex })),
+      images: d.images.map(x => ({ id: x.id, url: x.url, primary: !!x.primary, color: d.colors.some(c => c.id === x.color) ? x.color : '' })),
+      stock, status: d.status, isNewFlag: d.isNewFlag, newUntil: d.isNewFlag ? d.newUntil : '',
+      created: old ? old.created : Date.now(), updated: Date.now(), order: old ? old.order : minOrder - 1, demo: false
+    });
+    this.setState(s => ({ prods: old ? s.prods.map(p => (p.id === item.id ? item : p)) : [item].concat(s.prods), adm: 'products', draft: null, errors: [] }), () => {
+      this.persist();
+      this.flash(item.status === 'published' ? 'Peça publicada. Ela já aparece no catálogo.' : 'Peça salva.');
+      this.scrollTop();
+    });
+  },
+
+  async addFiles(files) {
+    const list = Array.prototype.slice.call(files);
+    this.setState({ uploading: list.length });
+    for (const f of list) {
+      try {
+        const url = await this.compressImage(f);
+        this.setDraft(d => ({ images: d.images.concat([{ id: uid(), url, primary: false, color: '' }]) }));
+      } catch (e) { this.flash(f.name + ': ' + e.message, true); }
+      this.setState(s => ({ uploading: s.uploading - 1 }));
+    }
+  },
+
+  moveProduct(id, dir) {
+    const list = this.state.prods.slice().sort((a, b) => a.order - b.order);
+    const i = list.findIndex(p => p.id === id), j = i + dir;
+    if (i < 0 || j < 0 || j >= list.length) return;
+    const a = list[i].order, b = list[j].order;
+    const ids = { [list[i].id]: b, [list[j].id]: a === b ? a + dir : a };
+    this.setProds(ps => ps.map(p => (p.id in ids ? Object.assign({}, p, { order: ids[p.id] }) : p)));
+  },
+  moveCat(id, dir) {
+    const list = this.sortedCats(), i = list.findIndex(c => c.id === id), j = i + dir;
+    if (i < 0 || j < 0 || j >= list.length) return;
+    const ids = { [list[i].id]: list[j].order, [list[j].id]: list[i].order === list[j].order ? list[i].order + dir : list[i].order };
+    this.setState(s => ({ cats: s.cats.map(c => (c.id in ids ? Object.assign({}, c, { order: ids[c.id] }) : c)) }), this.persist);
+  },
+
+  adminVals() {
+    const st = this.state, cfg = st.cfg;
+    const me = st.users.find(u => u.id === st.me) || {};
+    const isOwner = me.role === 'owner';
+    const cats = this.sortedCats();
+    const all = st.prods;
+    const STATUS = { published: 'Publicado', draft: 'Rascunho', hidden: 'Oculto' };
+    const thumb = p => p.img ? Object.assign(this.bg(p.img), { display: 'block' }) : { display: 'none' };
+    const tabs = [['dashboard', 'Painel'], ['products', 'Peças'], ['categories', 'Categorias']].concat(isOwner ? [['users', 'Usuários'], ['settings', 'Configurações']] : []);
+    const out = {
+      nav: tabs.map(([v, label]) => {
+        const on = st.adm === v || (v === 'products' && st.adm === 'editor');
+        return { label, go: () => this.goAdm(v), style: 'flex:0 0 auto;height:40px;padding:0 14px;border:0;border-radius:999px;background:' + (on ? '#f3ede3' : 'transparent') + ';color:' + (on ? '#0c0b0a' : '#d9d1c4') + ';font:600 13px Manrope, sans-serif;cursor:pointer;' };
+      }),
+      isDashboard: st.adm === 'dashboard', isProducts: st.adm === 'products', isEditor: st.adm === 'editor' && !!st.draft,
+      isCategories: st.adm === 'categories', isUsers: st.adm === 'users' && isOwner, isSettings: st.adm === 'settings' && isOwner && !!st.cfgD,
+      doLogout: () => {
+        try { sessionStorage.removeItem('rvx_me'); } catch (e) {}
+        if (IS_ADMIN_PAGE) { this.setState({ me: null, view: 'login', adm: 'dashboard' }); return; }
+        this.setState({ me: null, view: 'shop', adm: 'dashboard' }, () => this.scrollTop());
+      },
+      newProduct: () => this.openEditor(null),
+      exportPdf: () => this.exportPdf(), pdfLabel: st.exporting ? 'Gerando PDF…' : 'Gerar catálogo PDF',
+      catOptions: cats.map(c => ({ v: c.id, l: c.name + (c.active ? '' : ' (inativa)') })),
+      userName: me.name || me.username || '', userLogin: me.username || ''
+    };
+
+    const goF = f => () => this.setState({ adm: 'products', f: Object.assign({ q: '', cat: '', status: '', stock: '', novo: '' }, f) }, () => this.scrollTop());
+    const demos = all.filter(p => p.demo);
+    Object.assign(out, {
+      stats: [
+        { label: 'Peças ativas', value: all.filter(p => p.status === 'published').length, go: goF({ status: 'published' }) },
+        { label: 'Cadastradas', value: all.length, go: goF({}) },
+        { label: 'Novidades', value: all.filter(p => this.isNew(p)).length, go: goF({ novo: 'yes' }) },
+        { label: 'Esgotadas', value: all.filter(p => this.isSoldOut(p)).length, go: goF({ stock: 'out' }) },
+        { label: 'Categorias', value: cats.length, go: () => this.goAdm('categories') }
+      ],
+      hasDemo: demos.length > 0, demoCount: demos.length,
+      removeDemo: () => this.ask('Remover exemplos?', 'As ' + demos.length + ' peças de exemplo serão excluídas do catálogo.', [{ label: 'Remover', bg: '#a2342a', run: () => this.setProds(ps => ps.filter(p => !p.demo), 'Exemplos removidos.') }]),
+      recent: all.slice().sort((a, b) => (b.updated || 0) - (a.updated || 0)).slice(0, 5).map(p => ({ name: p.name, statusLabel: STATUS[p.status], thumb: thumb(p), edit: () => this.openEditor(p.id) }))
+    });
+
+    const f = st.f;
+    const setF = k => e => this.setState({ f: Object.assign({}, this.state.f, { [k]: e.target.value }) });
+    const qn = f.q.trim().toLowerCase();
+    const src = all.slice().sort((a, b) => a.order - b.order).filter(p => (!qn || p.name.toLowerCase().includes(qn)) && (!f.cat || p.cat === f.cat) && (!f.status || p.status === f.status)
+      && (!f.stock || (f.stock === 'out' ? this.isSoldOut(p) : !this.isSoldOut(p))) && (!f.novo || (f.novo === 'yes' ? this.isNew(p) : !this.isNew(p))));
+    const stCol = { published: ['#e7f0e6', '#2f5b2c', '#cfe0cc'], draft: ['#f1eee8', '#5c554b', '#e0dace'], hidden: ['#ffffff', '#6b6358', '#ddd6ca'] };
+    const badge = (bgc, fg, bd) => 'height:26px;display:inline-flex;align-items:center;padding:0 10px;border-radius:999px;background:' + bgc + ';color:' + fg + ';border:1px solid ' + (bd || bgc) + ';font:700 11px Manrope, sans-serif;';
+    Object.assign(out, {
+      f, onF: { q: setF('q'), cat: setF('cat'), status: setF('status'), stock: setF('stock'), novo: setF('novo') },
+      rowsLabel: src.length + ' de ' + all.length + ' peças · use ▲▼ para definir a ordem manual do catálogo', noRows: src.length === 0,
+      rows: src.map((p, i) => {
+        const total = this.stockTotal(p) || 0, sold = this.isSoldOut(p), c = stCol[p.status] || stCol.draft;
+        return {
+          name: p.name, meta: this.catName(p.cat) + ' · ' + this.money(p.price), thumb: thumb(p),
+          statusLabel: STATUS[p.status], stStyle: badge(c[0], c[1], c[2]),
+          isNew: this.isNew(p), newUntil: fmtDate(p.newUntil),
+          stock: sold ? 'Esgotado' : total + ' em estoque', skStyle: badge(sold ? '#fbeeec' : '#f1eee8', sold ? '#a2342a' : '#4a443c'),
+          first: i === 0, last: i === src.length - 1,
+          up: () => this.moveProduct(p.id, -1), down: () => this.moveProduct(p.id, 1),
+          edit: () => this.openEditor(p.id),
+          toggleLabel: p.status === 'published' ? 'Ocultar' : 'Publicar',
+          toggle: () => {
+            if (p.status === 'published') return this.setProds(ps => ps.map(x => (x.id === p.id ? Object.assign({}, x, { status: 'hidden' }) : x)), 'Peça ocultada do catálogo.');
+            const miss = [];
+            if (!p.cat) miss.push('categoria'); if (!(this.parsePrice(p.price) > 0)) miss.push('preço'); if (!(p.images || []).length) miss.push('foto');
+            if (miss.length) return this.flash('Para publicar, complete: ' + miss.join(', ') + '.', true);
+            this.setProds(ps => ps.map(x => (x.id === p.id ? Object.assign({}, x, { status: 'published' }) : x)), 'Peça publicada.');
+          },
+          dup: () => {
+            const make = withPhotos => {
+              const cmap = {}; const colors = (p.colors || []).map(c2 => { const id = uid(); cmap[c2.id] = id; return { id, name: c2.name, hex: c2.hex }; });
+              const stock = {}; Object.keys(p.stock || {}).forEach(k => { const nk = cmap[k] || k; stock[nk] = {}; Object.keys(p.stock[k]).forEach(s => { stock[nk][s] = 0; }); });
+              const copy = this.derive(Object.assign({}, p, {
+                id: 'p' + Date.now(), name: p.name + ' (cópia)', status: 'draft', demo: false, created: Date.now(), updated: Date.now(),
+                newUntil: toDate(Date.now() + 15 * DAY), order: p.order + 0.5, colors, stock,
+                images: withPhotos ? (p.images || []).map(x => Object.assign({}, x, { id: uid(), color: cmap[x.color] || '' })) : []
+              }));
+              this.setState(s => ({ prods: s.prods.concat([copy]) }), () => { this.persist(); this.openEditor(copy.id); });
+            };
+            this.ask('Duplicar peça', 'A cópia é criada como rascunho, com estoque zerado. Deseja copiar também as fotos?', [
+              { label: 'Sem fotos', bg: '#6b6358', run: () => make(false) }, { label: 'Com fotos', bg: '#1b1814', run: () => make(true) }
+            ]);
+          },
+          del: () => this.ask('Excluir peça', 'Tem certeza que deseja excluir "' + p.name + '"? Ela sairá do catálogo e não poderá ser recuperada.', [{ label: 'Excluir', bg: '#a2342a', run: () => this.setProds(ps => ps.filter(x => x.id !== p.id), 'Peça excluída.') }])
+        };
+      })
+    });
+
+    const d = st.draft;
+    if (d) {
+      const onD = k => e => this.setDraft({ [k]: e.target.value });
+      const hasPrimary = d.images.some(x => x.primary);
+      const moveImg = (i, dir) => this.setDraft(x => { const a = x.images.slice(), j = i + dir; if (j < 0 || j >= a.length) return {}; const t = a[i]; a[i] = a[j]; a[j] = t; return { images: a }; });
+      const onSizes0 = SIZES.filter(s => d.sizesOn[s]);
+      const onSizes = onSizes0.length ? onSizes0 : ['U'];
+      const cellLabel = s => (s === 'U' ? 'Qtd' : s);
+      const hasColors = d.colors.length > 0;
+      const keys = hasColors ? d.colors.map(c => c.id) : ['_'];
+      const total = keys.reduce((a, k) => a + onSizes.reduce((b, s) => b + (parseInt((d.stock[k] || {})[s]) || 0), 0), 0);
+      const setColor = (id, patch) => this.setDraft(x => ({ colors: x.colors.map(c => (c.id === id ? Object.assign({}, c, patch) : c)) }));
+      const qtyVal = e => e.target.value.replace(/[^\d]/g, '');
+      const setQty = (k, s) => e => { const v = qtyVal(e); this.setDraft(x => ({ stock: Object.assign({}, x.stock, { [k]: Object.assign({}, x.stock[k] || {}, { [s]: v }) }) })); };
+      const expired = d.newUntil && todayStr() > d.newUntil;
+      Object.assign(out, {
+        draft: d, draftIsNew: !!d.isNewFlag, editorTitle: d.id ? 'Editar peça' : 'Nova peça', hasColors,
+        cancelEdit: () => this.setState({ adm: 'products', draft: null, errors: [] }, () => this.scrollTop()),
+        onD: { name: onD('name'), cat: onD('cat'), priceText: onD('priceText'), desc: onD('desc'), newUntil: onD('newUntil') },
+        colorOptions: d.colors.map(c => ({ v: c.id, l: c.name || 'Cor sem nome' })),
+        photos: d.images.map((im, i) => {
+          const primary = im.primary || (!hasPrimary && i === 0);
+          return {
+            alt: 'Foto ' + (i + 1), primary, color: im.color || '',
+            frame: 'position:relative;width:132px;height:170px;border-radius:12px;overflow:hidden;background:#f5f3ef;border:2px solid ' + (primary ? '#1b1814' : 'transparent') + ';',
+            img: Object.assign(this.bg(im.url), { backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }),
+            onColor: e => { const v = e.target.value; this.setDraft(x => ({ images: x.images.map((m, k) => (k === i ? Object.assign({}, m, { color: v }) : m)) })); },
+            left: () => moveImg(i, -1), right: () => moveImg(i, 1),
+            setPrimary: () => this.setDraft(x => ({ images: x.images.map((m, k) => Object.assign({}, m, { primary: k === i })) })),
+            remove: () => this.ask('Excluir foto', 'Tem certeza que deseja excluir esta foto da peça?', [{ label: 'Excluir', bg: '#a2342a', run: () => this.setDraft(x => ({ images: x.images.filter((_, k) => k !== i) })) }])
+          };
+        }),
+        uploadLabel: st.uploading > 0 ? 'Enviando ' + st.uploading + '…' : 'Adicionar fotos',
+        onFiles: e => { const fl = e.target.files; if (fl && fl.length) this.addFiles(fl); e.target.value = ''; },
+        colorRows: d.colors.map(c => ({
+          name: c.name, hex: c.hex,
+          onName: e => { const v = e.target.value; setColor(c.id, { name: v, hex: c.hexTouched ? c.hex : (this.colorHex(v) !== '#b9a58a' ? this.colorHex(v) : c.hex) }); },
+          onHex: e => setColor(c.id, { hex: e.target.value, hexTouched: true }),
+          remove: () => this.setDraft(x => { const s2 = Object.assign({}, x.stock); delete s2[c.id]; return { colors: x.colors.filter(k => k.id !== c.id), stock: s2, images: x.images.map(m => (m.color === c.id ? Object.assign({}, m, { color: '' }) : m)) }; })
+        })),
+        addColor: () => this.setDraft(x => { const id = uid(); const row = {}; SIZES.concat(['U']).forEach(s => { row[s] = '0'; }); return { colors: x.colors.concat([{ id, name: '', hex: '#b9a58a' }]), stock: Object.assign({}, x.stock, { [id]: row }) }; }),
+        colorsHelp: hasColors ? 'Cada cor tem o próprio estoque. Marque nas fotos qual cor aparece nelas.' : 'Opcional. Sem cores, o estoque é controlado só por tamanho.',
+        sizeToggles: SIZES.map(s => ({ size: s, style: this.chip(d.sizesOn[s], 'min-width:52px;'), toggle: () => this.setDraft(x => ({ sizesOn: Object.assign({}, x.sizesOn, { [s]: !x.sizesOn[s] }) })) })),
+        hasStockBlocks: true,
+        stockBlocks: hasColors
+          ? d.colors.map(c => ({ hasColor: true, name: c.name || 'Cor sem nome', dot: 'width:18px;height:18px;border-radius:999px;display:inline-block;background:' + c.hex + ';box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);',
+              cells: onSizes.map(s => ({ size: cellLabel(s), qty: (d.stock[c.id] || {})[s] ?? '0', aria: 'Quantidade ' + c.name + ' ' + cellLabel(s), onQty: setQty(c.id, s) })) }))
+          : [{ hasColor: false, name: '', dot: '', cells: onSizes.map(s => ({ size: cellLabel(s), qty: (d.stock._ || {})[s] ?? '0', aria: 'Quantidade ' + cellLabel(s), onQty: setQty('_', s) })) }],
+        stockSummary: (onSizes0.length ? '' : 'Sem tamanhos marcados — tamanho único. ') + (total === 0 ? 'Quantidade 0 — a peça aparecerá como ESGOTADA.' : 'Total em estoque: ' + total + (total === 1 ? ' unidade.' : ' unidades.')),
+        novoYesNo: [[true, 'Sim'], [false, 'Não']].map(([v, label]) => ({ label, style: this.chip(!!d.isNewFlag === v), pick: () => this.setDraft({ isNewFlag: v }) })),
+        durations: [3, 7, 15, 30, 60].map(n => ({ label: n + ' dias', style: this.chip(d.novoMode === String(n), 'height:40px;padding:0 16px;font-weight:600;'), pick: () => this.setDraft({ novoMode: String(n), newUntil: toDate(d.created + n * DAY) }) }))
+          .concat([{ label: 'Personalizado', style: this.chip(d.novoMode === 'custom', 'height:40px;padding:0 16px;font-weight:600;'), pick: () => this.setDraft({ novoMode: 'custom' }) }]),
+        isCustomNovo: d.novoMode === 'custom',
+        novoSummary: 'Cadastro em ' + fmtDate(toDate(d.created)) + ' · etiqueta NOVO até ' + fmtDate(d.newUntil) + (expired ? ' (já expirou — a etiqueta não aparece)' : '') + '. Depois disso ela some sozinha e a peça continua no catálogo.',
+        statusOpts: [['draft', 'Rascunho'], ['published', 'Publicado'], ['hidden', 'Oculto']].map(([v, label]) => ({ label, style: this.chip(d.status === v), pick: () => this.setDraft({ status: v }) })),
+        hasErrors: st.errors.length > 0, errors: st.errors,
+        saveDraft: () => this.saveProduct(), publish: () => this.saveProduct('published')
+      });
+    }
+
+    const counts = {}; all.forEach(p => { counts[p.cat] = (counts[p.cat] || 0) + 1; });
+    const commitCat = () => {
+      const nm = st.editCatName.trim(); if (!nm) return;
+      this.setState(s => ({ cats: s.cats.map(c => (c.id === s.editCat ? Object.assign({}, c, { name: nm }) : c)), editCat: null }), this.persist);
+    };
+    Object.assign(out, {
+      newCat: st.newCat, onNewCat: e => this.setState({ newCat: e.target.value }),
+      addCat: e => {
+        e.preventDefault();
+        const nm = st.newCat.trim(); if (!nm) return;
+        if (cats.some(c => c.name.toLowerCase() === nm.toLowerCase())) return this.flash('Essa categoria já existe.', true);
+        const maxO = cats.reduce((a, c) => Math.max(a, c.order), -1);
+        this.setState(s => ({ cats: s.cats.concat([{ id: 'c' + Date.now(), name: nm, active: true, order: maxO + 1 }]), newCat: '' }), () => { this.persist(); this.flash('Categoria criada. Ela já aparece no menu do catálogo.'); });
+      },
+      editCatName: st.editCatName, onEditCatName: e => this.setState({ editCatName: e.target.value }),
+      catRows: cats.map((c, i) => {
+        const editing = st.editCat === c.id, n = counts[c.id] || 0;
+        return {
+          name: c.name, count: n + (n === 1 ? ' peça' : ' peças'),
+          rowStyle: 'display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid #e6e0d5;border-radius:16px;padding:10px 14px;opacity:' + (c.active ? 1 : 0.6) + ';',
+          editing, notEditing: !editing, editLabel: editing ? 'Salvar' : 'Editar', activeLabel: c.active ? 'Ativa' : 'Inativa',
+          tStyle: 'height:36px;padding:0 14px;border-radius:999px;border:1px solid #ddd6ca;background:' + (c.active ? '#e7f0e6' : '#f1eee8') + ';color:' + (c.active ? '#2f5b2c' : '#6b6358') + ';font:700 12px Manrope, sans-serif;cursor:pointer;',
+          first: i === 0, last: i === cats.length - 1,
+          up: () => this.moveCat(c.id, -1), down: () => this.moveCat(c.id, 1),
+          toggle: () => this.setState(s => ({ cats: s.cats.map(x => (x.id === c.id ? Object.assign({}, x, { active: !x.active }) : x)) }), this.persist),
+          edit: () => (editing ? commitCat() : this.setState({ editCat: c.id, editCatName: c.name })),
+          key: e => { if (e.key === 'Enter') commitCat(); if (e.key === 'Escape') this.setState({ editCat: null }); },
+          del: () => this.ask('Excluir categoria', 'Tem certeza que deseja excluir "' + c.name + '"?' + (n ? ' As ' + n + ' peças dela ficarão sem categoria e voltarão para rascunho.' : '') + ' Para só esconder do catálogo, use "Ativa/Inativa".', [{ label: 'Excluir', bg: '#a2342a', run: () => this.setState(s => ({
+            cats: s.cats.filter(x => x.id !== c.id),
+            prods: s.prods.map(p => (p.cat === c.id ? Object.assign({}, p, { cat: '', status: 'draft' }) : p)),
+            activeCat: s.activeCat === c.id ? 'all' : s.activeCat
+          }), this.persist) }])
+        };
+      })
+    });
+
+    if (isOwner) {
+      const users = st.users, owners = users.filter(u => u.role === 'owner' && u.active), uf = st.uForm;
+      const setU = k => e => this.setState({ uForm: Object.assign({}, this.state.uForm, { [k]: k === 'username' ? e.target.value.toLowerCase().replace(/\s/g, '') : e.target.value }), uErr: '' });
+      const ROLE = { owner: 'Administradora', editor: 'Colaboradora' };
+      const setUsers = (fn, msg) => this.setState(s => ({ users: fn(s.users) }), () => { this.persist(); if (msg) this.flash(msg); });
+      Object.assign(out, {
+        uForm: uf, onU: { name: setU('name'), username: setU('username'), password: setU('password') },
+        hasUErr: !!st.uErr, uErr: st.uErr,
+        roleOpts: [['editor', 'Colaboradora', 'Cadastra e edita peças e categorias'], ['owner', 'Administradora', 'Acesso total, inclusive usuários e configurações']].map(([v, label, desc]) => ({
+          label, desc, pick: () => this.setState({ uForm: Object.assign({}, this.state.uForm, { role: v }) }),
+          style: 'min-height:42px;padding:8px 16px;border-radius:16px;border:1px solid ' + (uf.role === v ? '#1b1814' : '#ddd6ca') + ';background:' + (uf.role === v ? '#1b1814' : '#fff') + ';color:' + (uf.role === v ? '#f4f1eb' : '#1b1814') + ';font:600 13px Manrope, sans-serif;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:2px;'
+        })),
+        addUser: e => {
+          e.preventDefault();
+          const name = uf.name.trim(), username = uf.username.trim();
+          if (!name) return this.setState({ uErr: 'Informe o nome.' });
+          if (!/^[a-z0-9._-]{3,30}$/.test(username)) return this.setState({ uErr: 'Usuário: 3 a 30 caracteres, só letras minúsculas, números, ponto, hífen ou _.' });
+          if (users.some(u => u.username === username)) return this.setState({ uErr: 'Esse usuário já existe.' });
+          if (uf.password.length < 8) return this.setState({ uErr: 'A senha precisa ter pelo menos 8 caracteres.' });
+          setUsers(us => us.concat([{ id: 'u' + Date.now(), name, username, password: uf.password, role: uf.role, active: true }]), 'Acesso criado. ' + name + ' entra com o usuário "' + username + '".');
+          this.setState({ uForm: { name: '', username: '', password: '', role: 'editor' } });
+        },
+        pwNew: st.pwNew, onPwNew: e => this.setState({ pwNew: e.target.value }), closePw: () => this.setState({ pwFor: null, pwNew: '' }),
+        userRows: users.map(u => {
+          const isMe = u.id === me.id, lastOwner = u.role === 'owner' && u.active && owners.length <= 1;
+          const guard = () => { if (lastOwner) { this.flash('A loja precisa de pelo menos uma administradora ativa.', true); return false; } return true; };
+          return {
+            nameLabel: (u.name || u.username) + (isMe ? ' (você)' : ''), username: u.username, initial: (u.name || u.username || '?').trim().charAt(0).toUpperCase(),
+            canManage: !isMe, roleLabel: ROLE[u.role] || u.role, statusLabel: u.active ? 'ativo' : 'desativado',
+            rowStyle: 'display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid #e6e0d5;border-radius:16px;padding:14px;opacity:' + (u.active ? 1 : 0.55) + ';',
+            roleAction: u.role === 'owner' ? 'Tornar colaboradora' : 'Tornar administradora', activeAction: u.active ? 'Desativar' : 'Ativar',
+            pwOpen: st.pwFor === u.id,
+            toggleRole: () => { if (u.role === 'owner' && !guard()) return; setUsers(us => us.map(x => (x.id === u.id ? Object.assign({}, x, { role: x.role === 'owner' ? 'editor' : 'owner' }) : x))); },
+            toggleActive: () => { if (u.active && !guard()) return; setUsers(us => us.map(x => (x.id === u.id ? Object.assign({}, x, { active: !x.active }) : x)), u.active ? 'Acesso desativado.' : 'Acesso reativado.'); },
+            openPw: () => this.setState({ pwFor: u.id, pwNew: '' }),
+            savePw: () => {
+              if (this.state.pwNew.length < 8) return this.flash('A senha precisa ter pelo menos 8 caracteres.', true);
+              const pw = this.state.pwNew;
+              setUsers(us => us.map(x => (x.id === u.id ? Object.assign({}, x, { password: pw }) : x)), 'Senha redefinida.');
+              this.setState({ pwFor: null, pwNew: '' });
+            },
+            del: () => { if (!guard()) return; this.ask('Excluir acesso', 'Tem certeza que deseja excluir o acesso de ' + (u.name || u.username) + '? As peças cadastradas continuam no catálogo.', [{ label: 'Excluir', bg: '#a2342a', run: () => setUsers(us => us.filter(x => x.id !== u.id), 'Acesso excluído.') }]); }
+          };
+        })
+      });
+    }
+
+    const cd = st.cfgD;
+    if (cd) {
+      const onC = k => e => this.setState({ cfgD: Object.assign({}, this.state.cfgD, { [k]: e.target.value }) });
+      const setCfgD = patch => this.setState({ cfgD: Object.assign({}, this.state.cfgD, patch) });
+      Object.assign(out, {
+        cfgD: cd, cfgLogoStyle: Object.assign(this.bg(cd.logo || 'logo-reveluxo.png'), { width: '92%', height: '86%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }),
+        onC: { storeName: onC('storeName'), whats: onC('whats'), instagram: onC('instagram'), addr: onC('addr'), storeDesc: onC('storeDesc'), contactMsg: onC('contactMsg') },
+        onLogo: async e => { const fl = e.target.files && e.target.files[0]; e.target.value = ''; if (!fl) return; try { setCfgD({ logo: await this.compressImage(fl, 1200, 0.92, 'image/png') }); } catch (er) { this.flash(er.message, true); } },
+        soldOpts: [['consult', 'Consultar disponibilidade'], ['restock', 'Avisar sobre reposição']].map(([v, label]) => ({ label, style: this.chip(cd.soldoutMode === v, 'font-weight:600;'), pick: () => setCfgD({ soldoutMode: v }) })),
+        sortOpts: [['manual', 'Ordem manual'], ['newest', 'Mais recentes'], ['oldest', 'Mais antigas']].map(([v, label]) => ({ label, style: this.chip(cd.catalogSort === v, 'font-weight:600;'), pick: () => setCfgD({ catalogSort: v }) })),
+        saveSettings: () => {
+          const w = this.digits(cd.whats);
+          if (w && (w.length < 10 || w.length > 13)) return this.flash('Confira o número do WhatsApp: use DDD + número.', true);
+          if (!String(cd.storeName || '').trim()) return this.flash('Informe o nome da loja.', true);
+          const next = Object.assign({}, cd, { storeName: cd.storeName.trim(), whats: w, instagram: String(cd.instagram || '').replace(/^@/, '').trim() });
+          this.setState({ cfg: next }, () => { this.persist(); this.flash('Configurações salvas.'); });
+        },
+        sbUrl: st.sbUrl, sbKey: st.sbKey, sbTable: st.sbTable, sbStatus: st.sbStatus,
+        onSbUrl: e => this.setState({ sbUrl: e.target.value }, this.persist),
+        onSbKey: e => this.setState({ sbKey: e.target.value }, this.persist),
+        onSbTable: e => this.setState({ sbTable: e.target.value }, this.persist),
+        sbPush: () => this.sbPush(), sbPull: () => this.sbPull(),
+        pwCur: st.pwCur, pwNext: st.pwNext, onPwCur: e => this.setState({ pwCur: e.target.value }), onPwNext: e => this.setState({ pwNext: e.target.value }),
+        changePw: () => {
+          if (st.pwNext.length < 8) return this.flash('A nova senha precisa ter pelo menos 8 caracteres.', true);
+          if (me.password !== st.pwCur) return this.flash('Senha atual incorreta.', true);
+          const pw = st.pwNext;
+          this.setState(s => ({ users: s.users.map(u => (u.id === me.id ? Object.assign({}, u, { password: pw }) : u)), pwCur: '', pwNext: '' }), () => { this.persist(); this.flash('Senha alterada.'); });
+        }
+      });
+    }
+    return out;
+  }
+});
+</script>
+</body>
+</html>
