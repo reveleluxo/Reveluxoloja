@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   
   <style>
     html, body { margin: 0; padding: 0; background: #000000; font-family: 'Manrope', sans-serif; color: #1b1814; }
@@ -24,7 +23,6 @@
     ::placeholder { color: #9a9286; }
     img, input, textarea, select { max-width: 100%; }
     
-    /* Layouts do Painel */
     .view-container { min-height: 100vh; background: #f4f1eb; color: #1b1814; }
     .hidden { display: none !important; }
 
@@ -46,14 +44,14 @@
     main { max-width: 1280px; margin: 0 auto; padding: 32px clamp(14px, 3vw, 32px) 96px; }
     
     /* Cards e UI */
-    .card { background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; padding: 20px; }
-    .btn-primary { height: 52px; padding: 0 26px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px 'Manrope', sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
-    .btn-secondary { height: 52px; padding: 0 22px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px 'Manrope', sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+    .card { background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; padding: 22px; }
+    .btn-primary { height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px 'Manrope', sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+    .btn-secondary { height: 48px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px 'Manrope', sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
     .btn-danger { height: 38px; padding: 0 12px; border: 1px solid #efd3cf; border-radius: 999px; background: #fff; color: #a2342a; font: 600 12.5px 'Manrope', sans-serif; cursor: pointer; }
     
     /* Form Elements */
     .form-group { display: flex; flex-direction: column; gap: 6px; font: 600 12px 'Manrope', sans-serif; color: #4a443c; }
-    .form-input { height: 48px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px 'Manrope', sans-serif; background: #fff; color: #1b1814; }
+    .form-input { height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px 'Manrope', sans-serif; background: #fff; color: #1b1814; }
   </style>
 </head>
 <body>
@@ -91,6 +89,7 @@
           <button class="nav-btn active" onclick="switchTab('dashboard')">Painel</button>
           <button class="nav-btn" onclick="switchTab('products')">Peças</button>
           <button class="nav-btn" onclick="switchTab('categories')">Categorias</button>
+          <button class="nav-btn" onclick="switchTab('settings')">Configurações</button>
         </nav>
         <div style="display: flex; gap: 6px; align-items: center; margin-left: auto;">
           <button onclick="window.location.href='index.html'" style="height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(243,237,227,.25); background: transparent; color: #f3ede3; font: 600 13px Manrope, sans-serif; cursor: pointer;">Ver catálogo</button>
@@ -133,7 +132,7 @@
       <!-- SEÇÃO LISTA DE PEÇAS -->
       <section id="tab-products" class="tab-content hidden">
         <div style="display: flex; flex-direction: column; gap: 20px;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-center; gap: 16px; flex-wrap: wrap;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
             <h1 style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Peças</h1>
             <button onclick="openEditor()" class="btn-primary">+ Nova peça</button>
           </div>
@@ -191,6 +190,34 @@
           <div id="categories-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
       </section>
+
+      <!-- SEÇÃO CONFIGURAÇÕES / BANCO DE DADOS -->
+      <section id="tab-settings" class="tab-content hidden">
+        <div style="display: flex; flex-direction: column; gap: 20px; max-width: 880px;">
+          <h1 style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Configurações</h1>
+          
+          <div class="card" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: end;">
+            <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Banco de dados (Firebase / Firestore)</h2>
+            <p style="margin: 0; grid-column: 1 / -1; font: 500 13px/1.6 Manrope, sans-serif; color: #6b6358;">Sincroniza o catálogo entre aparelhos via Firestore Rest API. Quando salvo, os dados permanecem salvos no navegador.</p>
+            
+            <label class="form-group">Firebase Project ID
+              <input type="text" id="fbProjectId" class="form-input" placeholder="meu-projeto-1234" onchange="saveApiKeys()" />
+            </label>
+            <label class="form-group">Firebase API Key
+              <input type="text" id="fbApiKey" class="form-input" placeholder="AIzaSy…" onchange="saveApiKeys()" />
+            </label>
+            <label class="form-group">Coleção
+              <input type="text" id="fbCollection" class="form-input" placeholder="catalogo" value="catalogo" onchange="saveApiKeys()" />
+            </label>
+
+            <div style="grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 10px;">
+              <button onclick="fbPush()" class="btn-primary">Enviar catálogo</button>
+              <button onclick="fbPull()" class="btn-secondary">Baixar catálogo</button>
+              <span id="fbStatus" style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;"></span>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
@@ -206,7 +233,10 @@
 
     let state = {
       prods: [],
-      cats: DEFAULT_CATS
+      cats: DEFAULT_CATS,
+      fbProjectId: '',
+      fbApiKey: '',
+      fbCollection: 'catalogo'
     };
 
     // Inicialização
@@ -222,6 +252,9 @@
           const parsed = JSON.parse(data);
           state.prods = parsed.prods || [];
           state.cats = parsed.cats && parsed.cats.length ? parsed.cats : DEFAULT_CATS;
+          state.fbProjectId = parsed.fbProjectId || localStorage.getItem('fb_project_id') || '';
+          state.fbApiKey = parsed.fbApiKey || localStorage.getItem('fb_api_key') || '';
+          state.fbCollection = parsed.fbCollection || localStorage.getItem('fb_collection') || 'catalogo';
         } catch (e) {
           console.error("Erro ao carregar dados", e);
         }
@@ -229,6 +262,11 @@
         state.cats = DEFAULT_CATS;
         saveStorage();
       }
+
+      // Preenche os campos do Firebase se existirem
+      document.getElementById('fbProjectId').value = state.fbProjectId;
+      document.getElementById('fbApiKey').value = state.fbApiKey;
+      document.getElementById('fbCollection').value = state.fbCollection;
     }
 
     function saveStorage() {
@@ -236,6 +274,18 @@
       renderDashboard();
       renderProducts();
       renderCategories();
+    }
+
+    function saveApiKeys() {
+      state.fbProjectId = document.getElementById('fbProjectId').value.trim();
+      state.fbApiKey = document.getElementById('fbApiKey').value.trim();
+      state.fbCollection = document.getElementById('fbCollection').value.trim() || 'catalogo';
+
+      localStorage.setItem('fb_project_id', state.fbProjectId);
+      localStorage.setItem('fb_api_key', state.fbApiKey);
+      localStorage.setItem('fb_collection', state.fbCollection);
+
+      saveStorage();
     }
 
     // Autenticação
@@ -414,6 +464,70 @@
       if (confirm('Excluir esta categoria?')) {
         state.cats = state.cats.filter(c => c.id !== id);
         saveStorage();
+      }
+    }
+
+    // Integração Firebase
+    function getFbEndpoint() {
+      const proj = state.fbProjectId;
+      const col = state.fbCollection || 'catalogo';
+      return `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${state.fbApiKey}`;
+    }
+
+    async function fbPush() {
+      saveApiKeys();
+      const statusEl = document.getElementById('fbStatus');
+      if (!state.fbProjectId || !state.fbApiKey) {
+        statusEl.innerText = 'Preencha o Project ID e a API Key.';
+        return;
+      }
+
+      statusEl.innerText = 'Enviando…';
+      const payload = {
+        fields: {
+          data: { stringValue: JSON.stringify({ cats: state.cats, prods: state.prods }) },
+          updated_at: { stringValue: new Date().toISOString() }
+        }
+      };
+
+      try {
+        const r = await fetch(getFbEndpoint(), {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        statusEl.innerText = r.ok ? 'Catálogo enviado com sucesso!' : `Erro ${r.status} ao enviar.`;
+      } catch (e) {
+        statusEl.innerText = 'Falha de conexão com o Firebase.';
+      }
+    }
+
+    async function fbPull() {
+      saveApiKeys();
+      const statusEl = document.getElementById('fbStatus');
+      if (!state.fbProjectId || !state.fbApiKey) {
+        statusEl.innerText = 'Preencha o Project ID e a API Key.';
+        return;
+      }
+
+      statusEl.innerText = 'Baixando…';
+      try {
+        const r = await fetch(getFbEndpoint());
+        const doc = await r.json();
+        const rawData = doc && doc.fields && doc.fields.data && doc.fields.data.stringValue;
+        const data = rawData ? JSON.parse(rawData) : null;
+
+        if (!data || !Array.isArray(data.prods)) {
+          statusEl.innerText = 'Nenhum catálogo encontrado no banco.';
+          return;
+        }
+
+        state.cats = data.cats || state.cats;
+        state.prods = data.prods || [];
+        saveStorage();
+        statusEl.innerText = 'Catálogo atualizado com sucesso!';
+      } catch (e) {
+        statusEl.innerText = 'Falha de conexão com o Firebase.';
       }
     }
   </script>
