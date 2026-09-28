@@ -1011,6 +1011,10 @@ class Component extends DCLogic {
     try {
       localStorage.setItem(KEY, JSON.stringify({ v: 7, rv: 5, cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg, sbUrl: s.sbUrl, sbKey: s.sbKey, sbTable: s.sbTable }));
     } catch (e) { this.flash('Armazenamento do aparelho cheio. Remova fotos antigas ou use o Supabase.', true); }
+    if (IS_ADMIN_PAGE && this.state.sbUrl && this.state.sbKey) {
+      clearTimeout(this._sbAuto);
+      this._sbAuto = setTimeout(() => this.sbPush(true), 900);
+    }
   };
 
   flash(msg, err) {
@@ -1252,13 +1256,13 @@ class Component extends DCLogic {
 Object.assign(Component.prototype, {
   sbHeaders() { return { apikey: this.state.sbKey, Authorization: 'Bearer ' + this.state.sbKey, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates' }; },
   sbEndpoint() { return String(this.state.sbUrl || '').replace(/\/+$/, '') + '/rest/v1/' + (this.state.sbTable || 'catalogo'); },
-  async sbPush() {
-    if (!this.state.sbUrl || !this.state.sbKey) return this.setState({ sbStatus: 'Preencha URL e anon key.' });
-    this.setState({ sbStatus: 'Enviando…' });
+  async sbPush(auto) {
+    if (!this.state.sbUrl || !this.state.sbKey) return auto ? null : this.setState({ sbStatus: 'Preencha URL e anon key.' });
+    this.setState({ sbStatus: auto ? 'Sincronizando…' : 'Enviando…' });
     const s = this.state;
     try {
       const r = await fetch(this.sbEndpoint(), { method: 'POST', headers: this.sbHeaders(), body: JSON.stringify({ id: 1, data: { cats: s.cats, prods: s.prods, cfg: s.cfg }, updated_at: new Date().toISOString() }) });
-      this.setState({ sbStatus: r.ok ? 'Catálogo enviado.' : 'Erro ' + r.status + ' ao enviar.' });
+      this.setState({ sbStatus: r.ok ? (auto ? 'Sincronizado automaticamente.' : 'Catálogo enviado.') : 'Erro ' + r.status + ' ao enviar.' });
     } catch (e) { this.setState({ sbStatus: 'Falha de conexão com o Supabase.' }); }
   },
   async sbPull(silent) {
