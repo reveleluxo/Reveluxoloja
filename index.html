@@ -753,9 +753,9 @@
   </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">
-const SB_CONFIG = { url: '', key: '', table: 'catalogo' };
-const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
+// Supabase: preencha aqui para todas as visitantes verem o catálogo sincronizado (ver GUIA-SUPABASE.md)
+const SB_CONFIG = { url: 'https://bkczoikgivkcghxbsqon.supabase.co', key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrY3pvaWtnaXZrY2doeGJzcW9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2MTk0MzQsImV4cCI6MjEwNjE5NTQzNH0.d7yBrXwhE66IbKLFXBnKrDISeMdYO-sA30J73LIPuvU', table: 'catalogo' };
 const KEY = 'catalogo_roupas_v6';
 const DAY = 864e5;
 const PATH = (typeof location !== 'undefined' ? decodeURIComponent(location.pathname) : '');
@@ -838,12 +838,20 @@ class Component extends DCLogic {
     draft: null, errors: [], uploading: 0, confirm: null, toast: '', toastErr: false,
     newCat: '', editCat: null, editCatName: '',
     uForm: { name: '', username: '', password: '', role: 'editor' }, uErr: '', pwFor: null, pwNew: '', pwCur: '', pwNext: '',
-    sbUrl: SB_CONFIG.url, sbKey: SB_CONFIG.key, sbTable: SB_CONFIG.table, sbStatus: '', exporting: false,
+    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbStatus: '', exporting: false,
     pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false
   };
 
   componentDidMount() {
     this.setupInstall();
+    setTimeout(() => {
+      const st = this.state;
+      const patch = {};
+      if (!st.sbUrl && SB_CONFIG.url) patch.sbUrl = SB_CONFIG.url;
+      if (!st.sbKey && SB_CONFIG.key) patch.sbKey = SB_CONFIG.key;
+      if (SB_CONFIG.table && (!st.sbTable || st.sbTable === 'catalogo')) patch.sbTable = SB_CONFIG.table;
+      this.setState(patch, () => { if (!IS_ADMIN_PAGE && this.state.sbUrl && this.state.sbKey) this.sbPull(true); });
+    }, 0);
     if (IS_ADMIN_PAGE) {
       let me = null;
       try { me = sessionStorage.getItem('rvx_me'); } catch (e) {}
@@ -863,7 +871,7 @@ class Component extends DCLogic {
       if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
       else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
       if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
-      this.setState({ sbUrl: s.sbUrl || SB_CONFIG.url, sbKey: s.sbKey || SB_CONFIG.key, sbTable: s.sbTable || SB_CONFIG.table });
+      this.setState({ sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo' });
     }
     if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
     const rv = s ? (s.rv || 0) : 0;
@@ -1253,9 +1261,9 @@ Object.assign(Component.prototype, {
       this.setState({ sbStatus: r.ok ? 'Catálogo enviado.' : 'Erro ' + r.status + ' ao enviar.' });
     } catch (e) { this.setState({ sbStatus: 'Falha de conexão com o Supabase.' }); }
   },
-  async sbPull() {
-    if (!this.state.sbUrl || !this.state.sbKey) return this.setState({ sbStatus: 'Preencha URL e anon key.' });
-    this.setState({ sbStatus: 'Baixando…' });
+  async sbPull(silent) {
+    if (!this.state.sbUrl || !this.state.sbKey) return silent ? null : this.setState({ sbStatus: 'Preencha URL e anon key.' });
+    if (!silent) this.setState({ sbStatus: 'Baixando…' });
     try {
       const r = await fetch(this.sbEndpoint() + '?id=eq.1&select=data', { headers: this.sbHeaders() });
       const rows = await r.json();
