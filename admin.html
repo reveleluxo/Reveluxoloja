@@ -389,8 +389,7 @@
       e.target.value = '';
     }
 
-    // COMPRESSOR ULTRA-LEVE DE FOTOS (GARANTE ENVIOS SEM ERRO NO FIREBASE)
-    function compressImage(file, maxDimension = 420, quality = 0.50) {
+    function compressImage(file, maxDimension = 450, quality = 0.50) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -480,7 +479,7 @@
       }
 
       saveState();
-      fbPush();
+      fbPushProduct(newProd);
       showToast('Peça salva com sucesso!');
       switchTab('products');
     }
@@ -489,7 +488,7 @@
       if (confirm("Deseja realmente excluir esta peça?")) {
         state.prods = state.prods.filter(p => p.id !== id);
         saveState();
-        fbPush();
+        fbDeleteProduct(id);
         showToast('Peça excluída.');
       }
     }
@@ -502,7 +501,7 @@
         state.cats.push({ id: 'c' + Date.now(), name });
         input.value = '';
         saveState();
-        fbPush();
+        fbPushCategories();
         showToast('Categoria adicionada!');
       }
     }
@@ -511,7 +510,7 @@
       if (confirm("Excluir esta categoria?")) {
         state.cats = state.cats.filter(c => c.id !== id);
         saveState();
-        fbPush();
+        fbPushCategories();
         showToast('Categoria removida.');
       }
     }
@@ -568,25 +567,19 @@
       }, 800);
     }
 
-    async function fbPush() {
+    /* ---- SINCRONIZAÇÃO INDIVIDUAL COM O FIREBASE ---- */
+    async function fbPushProduct(prod) {
       const proj = document.getElementById('fb-project-id').value.trim();
       const key = document.getElementById('fb-api-key').value.trim();
       const col = document.getElementById('fb-collection').value.trim();
       const status = document.getElementById('fb-status');
 
-      status.innerText = "Enviando ao Firebase...";
+      status.innerText = "Salvando peça no Firebase...";
 
-      const stringifiedData = JSON.stringify({ cats: state.cats, prods: state.prods });
-      const kbSize = Math.round(stringifiedData.length / 1024);
-
-      if (kbSize > 950) {
-        status.innerText = `Aviso: Catálogo grande (${kbSize} KB / máx 1000 KB). Exclua peças antigas.`;
-      }
-
-      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${key}`;
+      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/${prod.id}?key=${key}`;
       const payload = {
         fields: {
-          data: { stringValue: stringifiedData }
+          data: { stringValue: JSON.stringify(prod) }
         }
       };
 
@@ -597,13 +590,55 @@
           body: JSON.stringify(payload)
         });
         if (res.ok) {
-          status.innerText = `Enviado com sucesso! (${kbSize} KB usados)`;
+          status.innerText = "Peça salva com sucesso no banco!";
+          fbPushCategories();
         } else {
-          status.innerText = `Erro no Firebase. Tamanho acumulado: ${kbSize} KB.`;
+          status.innerText = "Erro ao enviar peça.";
         }
       } catch (err) {
         status.innerText = "Falha de conexão.";
       }
+    }
+
+    async function fbDeleteProduct(prodId) {
+      const proj = document.getElementById('fb-project-id').value.trim();
+      const key = document.getElementById('fb-api-key').value.trim();
+      const col = document.getElementById('fb-collection').value.trim();
+
+      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/${prodId}?key=${key}`;
+      try {
+        await fetch(endpoint, { method: 'DELETE' });
+      } catch (e) { console.error(e); }
+    }
+
+    async function fbPushCategories() {
+      const proj = document.getElementById('fb-project-id').value.trim();
+      const key = document.getElementById('fb-api-key').value.trim();
+      const col = document.getElementById('fb-collection').value.trim();
+
+      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/_categorias?key=${key}`;
+      const payload = {
+        fields: {
+          data: { stringValue: JSON.stringify(state.cats) }
+        }
+      };
+
+      try {
+        await fetch(endpoint, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) { console.error(e); }
+    }
+
+    async function fbPush() {
+      showToast("Sincronizando todas as peças...");
+      for (const p of state.prods) {
+        await fbPushProduct(p);
+      }
+      await fbPushCategories();
+      showToast("Sincronização completa!");
     }
 
     async function fbPull() {
@@ -612,17 +647,27 @@
       const col = document.getElementById('fb-collection').value.trim();
       const status = document.getElementById('fb-status');
 
-      status.innerText = "Baixando...";
+      status.innerText = "Baixando peças...";
 
-      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${key}`;
+      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}?key=${key}`;
 
       try {
         const res = await fetch(endpoint);
         const doc = await res.json();
-        if (doc && doc.fields && doc.fields.data && doc.fields.data.stringValue) {
-          const data = JSON.parse(doc.fields.data.stringValue);
-          state.prods = data.prods || [];
-          state.cats = data.cats || state.cats;
+        if (doc && doc.documents) {
+          const loadedProds = [];
+          doc.documents.forEach(d => {
+            const docName = d.name.split('/').pop();
+            if (d.fields && d.fields.data && d.fields.data.stringValue) {
+              const parsed = JSON.parse(d.fields.data.stringValue);
+              if (docName === '_categorias') {
+                state.cats = parsed;
+              } else if (docName !== 'loja') {
+                loadedProds.push(parsed);
+              }
+            }
+          });
+          state.prods = loadedProds;
           saveState();
           status.innerText = "Catálogo atualizado!";
         } else {
