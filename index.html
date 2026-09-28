@@ -31,22 +31,18 @@
     .nav-btn { background: transparent; border: none; padding: 0 0 6px; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer; color: #8a8377; border-bottom: 1px solid transparent; }
     .nav-btn.active { color: #c9a44c; border-bottom: 1px solid #c9a44c; }
 
-    /* Modal e Detalhes */
     .modal-overlay { position: fixed; inset: 0; z-index: 60; background: #000000; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .grid-detail { max-width: 1240px; margin: 0 auto; padding: 8px 32px 64px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 80px; align-items: start; }
 
-    /* Setas do Carrossel */
     .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 9999px; background: rgba(0,0,0,0.75); border: 1px solid rgba(201, 164, 76, 0.4); color: #ffffff; font-size: 22px; line-height: 1; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; user-select: none; }
     .carousel-btn:active { background: #c9a44c; color: #000; }
     .carousel-btn.prev { left: 12px; }
     .carousel-btn.next { right: 12px; }
 
-    /* Indicadores de foto (Bolinhas) */
     .dots-row { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; }
     .dot.active { background: #c9a44c; width: 18px; border-radius: 4px; }
 
-    /* Thumbnails */
     .thumbs-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
     .thumb-item { width: 68px; height: 86px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 2px solid transparent; opacity: 0.5; transition: all 0.2s; }
     .thumb-item.active { border-color: #c9a44c; opacity: 1; }
@@ -60,12 +56,10 @@
 </head>
 <body>
 
-  <!-- BARRA DE ANÚNCIO -->
   <div style="background: #c9a44c; color: #000000; text-align: center; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding: 9px 16px;">
     Peças exclusivas · Entrega em todo o Brasil
   </div>
 
-  <!-- CABEÇALHO DA LOJA -->
   <header style="border-bottom: 1px solid #23211c;">
     <div style="max-width: 1240px; margin: 0 auto; padding: 40px 32px 0; text-align: center;">
       <div onclick="setCategory('all')" style="cursor: pointer; display: inline-block;">
@@ -77,18 +71,15 @@
         <a id="link-ig" href="https://www.instagram.com/reveluxo/" target="_blank" rel="noopener" style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #a49c8c;">@reveluxo</a>
       </div>
 
-      <!-- BUSCA -->
       <div style="max-width: 340px; margin: 30px auto 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #2e2b24; padding-bottom: 8px;">
         <span style="font-size: 12px; color: #b3ac9e;">⌕</span>
         <input type="text" id="search-input" oninput="handleSearch(event)" placeholder="Buscar peças" style="flex: 1 1 auto; border: none; background: transparent; font-size: 13px; letter-spacing: 0.1em; padding: 2px 0; color: #eae5da;" />
       </div>
 
-      <!-- CATEGORIAS -->
       <div id="cat-nav" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 34px; padding-bottom: 20px;"></div>
     </div>
   </header>
 
-  <!-- VITRINE DE PRODUTOS -->
   <main style="max-width: 1240px; margin: 0 auto; padding: 64px 32px 96px;">
     <div style="text-align: center; margin-bottom: 52px;">
       <div id="shop-title" style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 34px; font-weight: 300; letter-spacing: 0.16em; text-transform: uppercase; color: #f3efe6;">COLEÇÃO</div>
@@ -104,7 +95,6 @@
     <div id="products-grid" class="grid-cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 52px 32px;"></div>
   </main>
 
-  <!-- RODAPÉ DE PÁGINA -->
   <footer style="border-top: 1px solid #23211c; background: #000000;">
     <div style="max-width: 1240px; margin: 0 auto; padding: 72px 32px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 48px;">
       <div>
@@ -125,7 +115,6 @@
     </div>
   </footer>
 
-  <!-- MODAL DE DETALHES DO PRODUTO (COM PASSAR FOTOS PARA O LADO E TOUCH) -->
   <div id="modal-detail" class="modal-overlay hidden">
     <div style="position: sticky; top: 0; z-index: 2; background: #000000; display: flex; align-items: center; gap: 16px; padding: 18px 32px;">
       <button onclick="closeDetail()" style="display: flex; align-items: center; gap: 12px; background: transparent; border: none; padding: 6px 0; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; cursor: pointer;">
@@ -135,19 +124,15 @@
 
     <div class="grid-detail">
       <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
-        <!-- CONTAINER DA IMAGEM E CONTROLES -->
         <div id="image-container" style="position: relative; width: 100%; aspect-ratio: 3 / 4; border-radius: 20px; overflow: hidden; background: #151515; display: flex; align-items: center; justify-content: center; touch-action: pan-y;">
           <img id="detail-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover; user-select: none;" />
           
-          <!-- SETAS DE NAVEGAÇÃO DA FOTO -->
           <button id="btn-prev-photo" class="carousel-btn prev hidden" onclick="changePhoto(-1)">‹</button>
           <button id="btn-next-photo" class="carousel-btn next hidden" onclick="changePhoto(1)">›</button>
 
-          <!-- BOLINHAS INDICADORAS -->
           <div id="photo-dots" class="dots-row"></div>
         </div>
 
-        <!-- THUMBNAILS DE FOTOS DA PEÇA -->
         <div id="detail-thumbs" class="thumbs-row"></div>
       </div>
 
@@ -189,7 +174,6 @@
     let currentPhotoIdx = 0;
     let activePhotosList = [];
 
-    // Suporte ao gesto no Celular (Touch Swipe)
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -217,9 +201,9 @@
       if (activePhotosList.length <= 1) return;
       const swipeDistance = touchEndX - touchStartX;
       if (swipeDistance < -40) {
-        changePhoto(1);  // Deslizou para esquerda -> próxima foto
+        changePhoto(1);
       } else if (swipeDistance > 40) {
-        changePhoto(-1); // Deslizou para direita -> foto anterior
+        changePhoto(-1);
       }
     }
 
@@ -240,23 +224,42 @@
       const key = FIREBASE_CONFIG.fbApiKey;
       const col = FIREBASE_CONFIG.fbCollection;
 
-      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${key}`;
+      // Adiciona timestamp para evitar cache no navegador
+      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}?key=${key}&t=${Date.now()}`;
 
       try {
         const response = await fetch(endpoint);
         const doc = await response.json();
         
-        if (doc && doc.fields && doc.fields.data && doc.fields.data.stringValue) {
-          const cloudData = JSON.parse(doc.fields.data.stringValue);
-          if (Array.isArray(cloudData.prods)) {
-            state.prods = cloudData.prods;
-            state.cats = cloudData.cats || state.cats;
+        if (doc && doc.documents) {
+          const loadedProds = [];
+          doc.documents.forEach(d => {
+            const docName = d.name.split('/').pop();
+            if (d.fields && d.fields.data && d.fields.data.stringValue) {
+              try {
+                const parsed = JSON.parse(d.fields.data.stringValue);
+                if (docName === '_categorias') {
+                  state.cats = parsed;
+                } else if (docName === 'loja') {
+                  // Suporte ao formato antigo se houver
+                  if (Array.isArray(parsed.prods)) {
+                    parsed.prods.forEach(p => loadedProds.push(p));
+                  }
+                } else {
+                  loadedProds.push(parsed);
+                }
+              } catch(e) {}
+            }
+          });
+          
+          if (loadedProds.length > 0) {
+            state.prods = loadedProds;
             localStorage.setItem(STORAGE_KEY, JSON.stringify({ prods: state.prods, cats: state.cats }));
             renderCatalog();
           }
         }
       } catch (err) {
-        console.log("Modo offline ou sem dados no banco online:", err);
+        console.log("Modo offline ou erro ao carregar do Firebase:", err);
       }
     }
 
@@ -311,7 +314,6 @@
           const catName = cat ? cat.name : 'Geral';
           const imgUrl = p.img || (p.images && p.images[0] ? (p.images[0].url || p.images[0]) : 'https://via.placeholder.com/300x400?text=Sem+Foto');
           
-          // Verifica número de fotos da peça
           const totalPics = p.images && p.images.length > 0 ? p.images.length : (p.img ? 1 : 0);
 
           const card = document.createElement('div');
@@ -339,7 +341,6 @@
 
       const cat = state.cats.find(c => c.id === activeProduct.cat);
       
-      // Extrai lista de fotos garantindo compatibilidade com formatos antigos/novos
       if (activeProduct.images && activeProduct.images.length > 0) {
         activePhotosList = activeProduct.images.map(i => typeof i === 'string' ? i : (i.url || i));
       } else if (activeProduct.img) {
@@ -378,7 +379,6 @@
         prevBtn.classList.remove('hidden');
         nextBtn.classList.remove('hidden');
 
-        // Cria bolinhas indicadoras sobre a foto
         activePhotosList.forEach((_, i) => {
           const dot = document.createElement('div');
           dot.className = `dot ${i === currentPhotoIdx ? 'active' : ''}`;
@@ -389,7 +389,6 @@
           dotsContainer.appendChild(dot);
         });
 
-        // Cria miniaturas abaixo da foto
         activePhotosList.forEach((url, i) => {
           const t = document.createElement('div');
           t.className = `thumb-item ${i === currentPhotoIdx ? 'active' : ''}`;
