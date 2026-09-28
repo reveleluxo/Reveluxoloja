@@ -3,211 +3,111 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Painel — Reveluxo</title>
-  <meta name="robots" content="noindex, nofollow" />
+  <title>Painel de Administração — Reveluxo</title>
   <link rel="icon" href="icon-192.png" />
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#000000" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    html, body { margin: 0; padding: 0; background: #000000; color: #eae5da; font-family: 'Jost', sans-serif; font-weight: 300; }
+    html, body { margin: 0; padding: 0; background: #0a0a0a; color: #eae5da; font-family: 'Jost', sans-serif; font-weight: 300; }
     * { box-sizing: border-box; }
     a { color: #c9a44c; text-decoration: none; }
-    a:hover { color: #e3c684; }
     input, textarea, select, button { font-family: inherit; color: inherit; }
-    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #b08a3e; outline-offset: 2px; }
-    ::placeholder { color: #9a9286; }
-    img, input, textarea, select { max-width: 100%; }
-    .hidden { display: none !important; }
     
-    .admin-body { min-height: 100vh; background: #f4f1eb; color: #1b1814; font-family: 'Manrope', system-ui, sans-serif; font-weight: 500; }
-    .nav-tab-btn { flex: 0 0 auto; height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #d9d1c4; font: 600 13px 'Manrope', sans-serif; cursor: pointer; }
-    .nav-tab-btn.active { background: #f3ede3; color: #0c0b0a; }
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+    .card { background: #141414; border: 1px solid #23211c; border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+    .title { font-size: 20px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #c9a44c; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
     
-    .toast-msg { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 95; background: #1b1814; color: #fff; padding: 14px 22px; border-radius: 999px; font: 600 13.5px 'Manrope', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 90vw; text-align: center; }
-    .toast-msg.error { background: #a2342a; }
+    label { display: block; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #a49c8c; margin-bottom: 6px; }
+    input[type="text"], input[type="number"], textarea, select { width: 100%; background: #000; border: 1px solid #2e2b24; border-radius: 8px; padding: 12px; color: #fff; font-size: 14px; margin-bottom: 16px; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #c9a44c; }
 
-    .photo-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-    .photo-thumb-card { width: 120px; height: 150px; border-radius: 12px; overflow: hidden; background: #f5f3ef; border: 2px solid transparent; position: relative; }
-    .photo-thumb-card.cover { border-color: #1b1814; }
-    .photo-thumb-card img { width: 100%; height: 100%; object-fit: cover; }
-    .photo-thumb-card .remove-btn { position: absolute; top: 6px; right: 6px; background: rgba(162, 52, 42, 0.85); color: #fff; border: none; border-radius: 999px; width: 24px; height: 24px; cursor: pointer; font-size: 12px; font-weight: bold; }
+    .btn { background: #c9a44c; color: #000; border: none; padding: 14px 24px; border-radius: 9999px; font-weight: 600; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; width: 100%; }
+    .btn:hover { background: #e3c684; }
+    .btn-danger { background: #3a1515; color: #ff6b6b; border: 1px solid #5a2020; }
+    .btn-danger:hover { background: #5a2020; color: #fff; }
+
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .preview-item { position: relative; width: 90px; height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid #333; }
+    .preview-item img { width: 100%; height: 100%; object-fit: cover; }
+    .remove-photo-btn { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.8); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    .item-row { display: flex; align-items: center; justify-content: space-between; background: #000; border: 1px solid #222; padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; gap: 12px; }
+    .item-info { display: flex; align-items: center; gap: 14px; }
+    .item-thumb { width: 44px; height: 58px; border-radius: 6px; object-fit: cover; background: #222; }
+
+    .status-badge { font-size: 11px; padding: 6px 12px; border-radius: 20px; background: #1f271b; color: #7ec870; border: 1px solid #2e4428; display: inline-block; margin-bottom: 16px; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- TELA DE LOGIN -->
-  <div id="view-login" class="hidden" style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #f4f1eb; color: #1b1814; font-family: Manrope, system-ui, sans-serif;">
-    <div style="flex: 1 1 380px; min-height: 240px; background: #000; display: grid; place-items: center; padding: 32px;">
-      <img src="logo-reveluxo.png" alt="Reveluxo — Moda Feminina" style="width: min(80%, 520px);" onerror="this.src='https://via.placeholder.com/460x100?text=Reveluxo'" />
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <h1 style="font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; margin: 0;">Painel Reveluxo</h1>
+      <a href="index.html" style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;">← Voltar ao Site</a>
     </div>
-    <form onsubmit="handleLogin(event)" style="flex: 1 1 380px; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 48px clamp(24px, 6vw, 96px); max-width: 560px;">
-      <div style="font: 700 11px Manrope, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #8a6a2c;">Área da loja</div>
-      <h1 style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Entrar no painel</h1>
-      <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Usuário
-        <input type="text" id="login-user" autocomplete="username" style="height: 48px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" required />
-      </label>
-      <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Senha
-        <input type="password" id="login-pass" autocomplete="current-password" style="height: 48px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" required />
-      </label>
-      <div id="login-err" class="hidden" role="alert" style="font: 600 13px Manrope, sans-serif; color: #a2342a;">Usuário ou senha incorretos.</div>
-      <button type="submit" style="height: 52px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer;">Entrar</button>
-      <button type="button" onclick="window.location.href='index.html'" style="align-self: flex-start; background: transparent; border: 0; padding: 0; font: 600 12px Manrope, sans-serif; color: #6b6358; cursor: pointer;">← Voltar ao catálogo</button>
-    </form>
-  </div>
 
-  <!-- PAINEL ADMINISTRATIVO -->
-  <div id="view-admin" class="admin-body hidden">
-    <header style="background: #0c0b0a; color: #f3ede3; position: sticky; top: 0; z-index: 20;">
-      <div style="display: flex; align-items: center; gap: 16px; padding: 0 clamp(12px, 3vw, 32px); min-height: 60px; flex-wrap: wrap; max-width: 1280px; margin: 0 auto;">
-        <img src="logo-reveluxo.png" alt="Reveluxo" style="height: 34px;" onerror="this.src='https://via.placeholder.com/120x34?text=Reveluxo'" />
-        <nav style="display: flex; gap: 4px; flex: 1 1 auto; overflow-x: auto; scrollbar-width: none;">
-          <button id="tab-btn-dashboard" class="nav-tab-btn active" onclick="switchTab('dashboard')">Painel</button>
-          <button id="tab-btn-products" class="nav-tab-btn" onclick="switchTab('products')">Peças</button>
-          <button id="tab-btn-categories" class="nav-tab-btn" onclick="switchTab('categories')">Categorias</button>
-          <button id="tab-btn-settings" class="nav-tab-btn" onclick="switchTab('settings')">Configurações / Firebase</button>
-        </nav>
-        <div style="display: flex; gap: 6px; align-items: center; margin-left: auto;">
-          <button onclick="window.location.href='index.html'" style="height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(243,237,227,.25); background: transparent; color: #f3ede3; font: 600 13px Manrope, sans-serif; cursor: pointer;">Ver catálogo</button>
-          <button onclick="handleLogout()" style="height: 40px; padding: 0 14px; border: 0; background: transparent; color: #a79e90; font: 600 13px Manrope, sans-serif; cursor: pointer;">Sair</button>
-        </div>
-      </div>
-    </header>
+    <div id="status-msg" class="status-badge hidden">Conectado ao Firebase</div>
 
-    <main style="max-width: 1280px; margin: 0 auto; padding: 32px clamp(14px, 3vw, 32px) 96px;">
+    <!-- Formulário de Peça -->
+    <div class="card">
+      <div class="title" id="form-title">Cadastrar Nova Peça</div>
       
-      <!-- TAB DASHBOARD -->
-      <section id="sec-dashboard" style="display: flex; flex-direction: column; gap: 28px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;">
+      <form id="prod-form" onsubmit="handleSaveProduct(event)">
+        <input type="hidden" id="prod-id" />
+
+        <label for="prod-name">Nome da Peça</label>
+        <input type="text" id="prod-name" required placeholder="Ex: Vestido Seda Dourado" />
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div>
-            <div style="font: 700 11px Manrope, sans-serif; letter-spacing: .24em; text-transform: uppercase; color: #8a6a2c;">Painel</div>
-            <h1 style="margin: 6px 0 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Olá, Administradora</h1>
+            <label for="prod-price">Preço (R$)</label>
+            <input type="text" id="prod-price" required placeholder="Ex: 189,90" />
           </div>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btn-export-pdf" onclick="generatePdfCatalog()" style="height: 52px; padding: 0 22px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer;">Gerar catálogo PDF</button>
-            <button onclick="openEditor()" style="height: 52px; padding: 0 26px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer;">+ Nova peça</button>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
-          <div style="text-align: left; background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 8px;">
-            <span style="font: 600 12px Manrope, sans-serif; color: #6b6358;">Total de Peças</span>
-            <span id="dash-total-prods" style="font: 600 44px/1 'Cormorant Garamond', serif; color: #1b1814;">0</span>
-          </div>
-          <div style="text-align: left; background: #fff; border: 1px solid #e6e0d5; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 8px;">
-            <span style="font: 600 12px Manrope, sans-serif; color: #6b6358;">Categorias</span>
-            <span id="dash-total-cats" style="font: 600 44px/1 'Cormorant Garamond', serif; color: #1b1814;">0</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB PRODUTOS (LISTA) -->
-      <section id="sec-products" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;">
-          <h1 style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Peças do Catálogo</h1>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button onclick="generatePdfCatalog()" style="height: 48px; padding: 0 22px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12.5px Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; cursor: pointer;">Baixar PDF</button>
-            <button onclick="openEditor()" style="height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; cursor: pointer;">+ Nova peça</button>
+          <div>
+            <label for="prod-cat">Categoria</label>
+            <select id="prod-cat" required></select>
           </div>
         </div>
 
-        <div id="products-list-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
-      </section>
+        <label for="prod-desc">Descrição</label>
+        <textarea id="prod-desc" rows="3" placeholder="Detalhes do tecido, caimento, tamanhos..."></textarea>
 
-      <!-- TAB EDITOR DE PRODUTO -->
-      <section id="sec-editor" class="hidden" style="display: flex; flex-direction: column; gap: 22px; max-width: 880px; margin: 0 auto;">
-        <div>
-          <button onclick="switchTab('products')" style="height: 36px; border: 0; background: transparent; padding: 0; color: #6b6358; font: 600 13px Manrope, sans-serif; cursor: pointer;">← Voltar para Peças</button>
-          <h1 id="editor-title" style="margin: 4px 0 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Nova peça</h1>
+        <label>Fotos da Peça (Você pode selecionar várias)</label>
+        <input type="file" id="prod-files" accept="image/*" multiple onchange="handleFileSelect(event)" style="display: none;" />
+        
+        <div style="margin-bottom: 16px;">
+          <button type="button" onclick="document.getElementById('prod-files').click()" style="background: #222; border: 1px dashed #444; width: 100%; padding: 16px; border-radius: 8px; color: #ccc; cursor: pointer; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">
+            📷 Adicionar Fotos da Galeria / Câmera
+          </button>
         </div>
 
-        <form onsubmit="saveProduct(event)" style="display: flex; flex-direction: column; gap: 20px;">
-          <input type="hidden" id="edit-prod-id" />
+        <div id="photos-preview" class="preview-grid"></div>
 
-          <!-- SEÇÃO FOTOS COM UPLOAD -->
-          <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
-            <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">1 · Fotos da Peça</h2>
-            
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <label style="width: 132px; height: 150px; border-radius: 12px; border: 1.5px dashed #c9bfae; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; color: #6b6358; font: 600 12.5px Manrope, sans-serif; text-align: center; padding: 8px; position: relative;">
-                <span style="font-size: 26px; line-height: 1;">+</span>Adicionar fotos
-                <input type="file" accept="image/*" multiple onchange="handleFileUpload(event)" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
-              </label>
+        <button type="submit" id="btn-save" class="btn">Salvar Peça no Site</button>
+        <button type="button" id="btn-cancel" onclick="resetForm()" class="btn btn-danger hidden" style="margin-top: 10px;">Cancelar Edição</button>
+      </form>
+    </div>
 
-              <label style="width: 132px; height: 150px; border-radius: 12px; border: 1.5px solid #1b1814; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; color: #1b1814; font: 600 12.5px Manrope, sans-serif; text-align: center; padding: 8px; position: relative;">
-                <span style="font-size: 22px; line-height: 1;">◉</span>Tirar foto
-                <input type="file" accept="image/*" capture="environment" onchange="handleFileUpload(event)" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
-              </label>
-            </div>
-
-            <div id="photos-preview-grid" class="photo-grid"></div>
-          </section>
-
-          <!-- SEÇÃO INFORMAÇÕES -->
-          <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
-            <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">2 · Informações</h2>
-            <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c; grid-column: 1 / -1;">Nome da peça *
-              <input type="text" id="edit-prod-name" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" required />
-            </label>
-            <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Categoria *
-              <select id="edit-prod-cat" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 12px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" required></select>
-            </label>
-            <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Preço (R$) *
-              <input type="text" id="edit-prod-price" placeholder="189,90" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" required />
-            </label>
-            <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c; grid-column: 1 / -1;">Descrição
-              <textarea id="edit-prod-desc" rows="4" placeholder="Tecido, caimento, detalhes da peça" style="border: 1px solid #ddd6ca; border-radius: 12px; padding: 12px 14px; font: 500 15px/1.5 Manrope, sans-serif; background: #fff; color: #1b1814; resize: vertical;"></textarea>
-            </label>
-          </section>
-
-          <div style="display: flex; gap: 10px;">
-            <button type="submit" style="height: 50px; padding: 0 26px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; letter-spacing: .1em; text-transform: uppercase; cursor: pointer;">Salvar Peça</button>
-            <button type="button" onclick="switchTab('products')" style="height: 50px; padding: 0 18px; border: 0; background: transparent; color: #6b6358; font: 600 13px Manrope, sans-serif; cursor: pointer;">Cancelar</button>
-          </div>
-        </form>
-      </section>
-
-      <!-- TAB CATEGORIAS -->
-      <section id="sec-categories" class="hidden" style="display: flex; flex-direction: column; gap: 20px; max-width: 820px;">
-        <h1 style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Categorias</h1>
-        <form onsubmit="addCategory(event)" style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <input type="text" id="new-cat-name" placeholder="Nova categoria, ex.: Moda Fitness" style="flex: 1 1 240px; height: 48px; border: 1px solid #ddd6ca; border-radius: 999px; padding: 0 18px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" required />
-          <button type="submit" style="height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; cursor: pointer;">Adicionar</button>
-        </form>
-        <div id="categories-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
-      </section>
-
-      <!-- TAB CONFIGURAÇÕES E FIREBASE -->
-      <section id="sec-settings" class="hidden" style="display: flex; flex-direction: column; gap: 20px; max-width: 880px;">
-        <h1 style="margin: 0; font: 600 44px/1.05 'Cormorant Garamond', serif;">Sincronização Firebase</h1>
-        <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; align-items: end;">
-          <h2 style="margin: 0; grid-column: 1 / -1; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Banco de Dados (Firebase)</h2>
-          <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Firebase Project ID
-            <input type="text" id="fb-project-id" value="reveluxo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
-          </label>
-          <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Firebase API Key
-            <input type="text" id="fb-api-key" value="AIzaSyDWSw_gtqBjONiqw3pCCLZf5LWmrLeSS90" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
-          </label>
-          <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Coleção
-            <input type="text" id="fb-collection" value="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
-          </label>
-          <div style="grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <button onclick="fbPush()" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Enviar ao Firebase</button>
-            <button onclick="fbPull()" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Baixar do Firebase</button>
-            <span id="fb-status" style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;"></span>
-          </div>
-        </section>
-      </section>
-
-    </main>
+    <!-- Lista de Peças -->
+    <div class="card">
+      <div class="title">
+        <span>Peças Cadastradas</span>
+        <span id="prod-count" style="font-size: 12px; color: #888;">0 Peças</span>
+      </div>
+      <div id="prods-list"></div>
+    </div>
   </div>
-
-  <div id="toast" class="toast-msg hidden"></div>
 
   <script>
+    const FIREBASE_CONFIG = {
+      fbProjectId: 'reveluxo',
+      fbApiKey: 'AIzaSyDWSw_gtqBjONiqw3pCCLZf5LWmrLeSS90',
+      fbCollection: 'catalogo'
+    };
+
     const STORAGE_KEY = 'catalogo_roupas_v6';
 
     const DEFAULT_CATS = [
@@ -219,18 +119,17 @@
 
     let state = {
       prods: [],
-      cats: DEFAULT_CATS,
-      me: null
+      cats: DEFAULT_CATS
     };
 
-    let currentPhotos = [];
+    let currentImages = []; // Armazena as imagens base64 da peça atual
 
     window.addEventListener('DOMContentLoaded', () => {
-      loadState();
-      checkAuth();
+      loadLocalStorage();
+      fetchFirebaseData();
     });
 
-    function loadState() {
+    function loadLocalStorage() {
       const data = localStorage.getItem(STORAGE_KEY);
       if (data) {
         try {
@@ -239,443 +138,301 @@
           state.cats = parsed.cats && parsed.cats.length ? parsed.cats : DEFAULT_CATS;
         } catch (e) { console.error(e); }
       }
+      renderCategoriesSelect();
+      renderProductsList();
     }
 
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ prods: state.prods, cats: state.cats }));
-      renderAll();
-    }
+    async function fetchFirebaseData() {
+      const proj = FIREBASE_CONFIG.fbProjectId;
+      const key = FIREBASE_CONFIG.fbApiKey;
+      const col = FIREBASE_CONFIG.fbCollection;
 
-    function showToast(msg, isErr = false) {
-      const t = document.getElementById('toast');
-      t.innerText = msg;
-      t.className = `toast-msg ${isErr ? 'error' : ''}`;
-      t.classList.remove('hidden');
-      setTimeout(() => t.classList.add('hidden'), 3500);
-    }
+      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}?key=${key}&t=${Date.now()}`;
 
-    function checkAuth() {
-      const logged = sessionStorage.getItem('rvx_me');
-      if (logged) {
-        state.me = logged;
-        document.getElementById('view-login').classList.add('hidden');
-        document.getElementById('view-admin').classList.remove('hidden');
-        renderAll();
-      } else {
-        document.getElementById('view-login').classList.remove('hidden');
-        document.getElementById('view-admin').classList.add('hidden');
-      }
-    }
+      try {
+        const response = await fetch(endpoint);
+        const doc = await response.json();
+        
+        if (doc && doc.documents) {
+          const prodsMap = new Map();
 
-    function handleLogin(e) {
-      e.preventDefault();
-      const u = document.getElementById('login-user').value.trim();
-      const p = document.getElementById('login-pass').value;
-
-      if (u.toLowerCase() === 'admin' && p === 'capivara2026') {
-        sessionStorage.setItem('rvx_me', 'admin');
-        document.getElementById('login-err').classList.add('hidden');
-        checkAuth();
-      } else {
-        document.getElementById('login-err').classList.remove('hidden');
-      }
-    }
-
-    function handleLogout() {
-      sessionStorage.removeItem('rvx_me');
-      checkAuth();
-    }
-
-    function switchTab(tab) {
-      ['dashboard', 'products', 'editor', 'categories', 'settings'].forEach(t => {
-        const sec = document.getElementById(`sec-${t}`);
-        if (sec) sec.classList.add('hidden');
-        const btn = document.getElementById(`tab-btn-${t}`);
-        if (btn) btn.classList.remove('active');
-      });
-
-      const activeSec = document.getElementById(`sec-${tab}`);
-      if (activeSec) activeSec.classList.remove('hidden');
-
-      const activeBtn = document.getElementById(`tab-btn-${tab}`);
-      if (activeBtn) activeBtn.classList.add('active');
-    }
-
-    function renderAll() {
-      document.getElementById('dash-total-prods').innerText = state.prods.length;
-      document.getElementById('dash-total-cats').innerText = state.cats.length;
-
-      const prodContainer = document.getElementById('products-list-container');
-      prodContainer.innerHTML = '';
-
-      if (state.prods.length === 0) {
-        prodContainer.innerHTML = `<div style="padding: 20px; background: #fff; border-radius: 12px;">Nenhum produto cadastrado.</div>`;
-      } else {
-        state.prods.forEach(p => {
-          const cat = state.cats.find(c => c.id === p.cat);
-          const imgUrl = p.img || (p.images && p.images[0] ? (p.images[0].url || p.images[0]) : 'https://via.placeholder.com/80?text=Sem+Foto');
+          doc.documents.forEach(d => {
+            const docName = d.name.split('/').pop();
+            if (d.fields && d.fields.data && d.fields.data.stringValue) {
+              try {
+                const parsed = JSON.parse(d.fields.data.stringValue);
+                if (docName === '_categorias') {
+                  state.cats = parsed;
+                } else if (docName === 'loja') {
+                  if (Array.isArray(parsed.prods)) {
+                    parsed.prods.forEach(p => { if (p && p.id) prodsMap.set(p.id, p); });
+                  }
+                } else {
+                  if (parsed && parsed.id) prodsMap.set(parsed.id, parsed);
+                }
+              } catch(e) {}
+            }
+          });
           
-          const row = document.createElement('div');
-          row.style = "display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #e6e0d5; border-radius: 16px; padding: 12px 14px;";
-          row.innerHTML = `
-            <img src="${imgUrl}" style="width: 52px; height: 66px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/80?text=Sem+Foto'" />
-            <div style="flex: 1; display: flex; flex-direction: column;">
-              <span style="font: 700 15px Manrope, sans-serif;">${p.name}</span>
-              <span style="font: 500 12.5px Manrope, sans-serif; color: #6b6358;">${cat ? cat.name : 'Geral'} · R$ ${p.price}</span>
-            </div>
-            <button onclick="openEditor('${p.id}')" style="height: 38px; padding: 0 12px; border: 1px solid #ddd6ca; border-radius: 999px; background: #fff; cursor: pointer;">Editar</button>
-            <button onclick="deleteProduct('${p.id}')" style="height: 38px; padding: 0 12px; border: 1px solid #efd3cf; border-radius: 999px; background: #fff; color: #a2342a; cursor: pointer;">Excluir</button>
-          `;
-          prodContainer.appendChild(row);
-        });
+          state.prods = Array.from(prodsMap.values());
+          saveAndSyncLocal();
+          renderCategoriesSelect();
+          renderProductsList();
+          showStatus("Sincronizado com o Firebase");
+        }
+      } catch (err) {
+        console.log("Erro ao carregar do Firebase:", err);
       }
+    }
 
-      const catSelect = document.getElementById('edit-prod-cat');
-      catSelect.innerHTML = '';
-      const catListContainer = document.getElementById('categories-list');
-      catListContainer.innerHTML = '';
+    function saveAndSyncLocal() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ prods: state.prods, cats: state.cats }));
+    }
 
+    function showStatus(text) {
+      const badge = document.getElementById('status-msg');
+      badge.innerText = text;
+      badge.classList.remove('hidden');
+      setTimeout(() => badge.classList.add('hidden'), 3000);
+    }
+
+    function renderCategoriesSelect() {
+      const select = document.getElementById('prod-cat');
+      select.innerHTML = '';
       state.cats.forEach(c => {
         const opt = document.createElement('option');
         opt.value = c.id;
         opt.innerText = c.name;
-        catSelect.appendChild(opt);
-
-        const crow = document.createElement('div');
-        crow.style = "display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1px solid #e6e0d5; border-radius: 16px; padding: 12px 18px;";
-        crow.innerHTML = `
-          <span style="font: 700 15px Manrope, sans-serif;">${c.name}</span>
-          <button onclick="deleteCategory('${c.id}')" style="height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #efd3cf; background: #fff; color: #a2342a; cursor: pointer;">Excluir</button>
-        `;
-        catListContainer.appendChild(crow);
+        select.appendChild(opt);
       });
     }
 
-    function renderPhotoPreview() {
-      const container = document.getElementById('photos-preview-grid');
+    function renderProductsList() {
+      const container = document.getElementById('prods-list');
+      document.getElementById('prod-count').innerText = `${state.prods.length} ${state.prods.length === 1 ? 'Peça' : 'Peças'}`;
       container.innerHTML = '';
 
-      currentPhotos.forEach((url, index) => {
-        const card = document.createElement('div');
-        card.className = `photo-thumb-card ${index === 0 ? 'cover' : ''}`;
-        card.innerHTML = `
-          <img src="${url}" />
-          <button type="button" class="remove-btn" onclick="removePhoto(${index})">✕</button>
+      if (state.prods.length === 0) {
+        container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px; font-size: 13px;">Nenhuma peça cadastrada.</div>';
+        return;
+      }
+
+      state.prods.forEach(p => {
+        const cat = state.cats.find(c => c.id === p.cat);
+        const imgUrl = p.img || (p.images && p.images[0] ? (p.images[0].url || p.images[0]) : 'https://via.placeholder.com/100?text=Sem+Foto');
+
+        const row = document.createElement('div');
+        row.className = 'item-row';
+        row.innerHTML = `
+          <div class="item-info">
+            <img src="${imgUrl}" class="item-thumb" onerror="this.src='https://via.placeholder.com/100?text=Erro'" />
+            <div>
+              <div style="font-weight: 500; font-size: 15px; color: #fff;">${p.name}</div>
+              <div style="font-size: 12px; color: #c9a44c;">R$ ${p.price} · <span style="color: #888;">${cat ? cat.name : 'Geral'}</span></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button onclick="editProduct('${p.id}')" style="background: #222; border: 1px solid #444; color: #fff; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px;">Editar</button>
+            <button onclick="deleteProduct('${p.id}')" style="background: #3a1515; border: 1px solid #5a2020; color: #ff6b6b; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px;">Excluir</button>
+          </div>
         `;
-        container.appendChild(card);
+        container.appendChild(row);
       });
     }
 
-    function removePhoto(index) {
-      currentPhotos.splice(index, 1);
-      renderPhotoPreview();
-    }
-
-    async function handleFileUpload(e) {
+    // Processamento de Foto com Alta Definição (1200px max, 88% de qualidade)
+    function handleFileSelect(e) {
       const files = Array.from(e.target.files);
       if (!files.length) return;
 
-      showToast('Otimizando fotos...');
-      for (const file of files) {
-        try {
-          const compressedBase64 = await compressImage(file);
-          currentPhotos.push(compressedBase64);
-        } catch (err) {
-          console.error("Erro na imagem:", err);
-          showToast('Aviso: Alguma imagem não pôde ser lida.', true);
-        }
-      }
-      renderPhotoPreview();
-      e.target.value = '';
-    }
-
-    function compressImage(file, maxDimension = 450, quality = 0.50) {
-      return new Promise((resolve, reject) => {
+      let processedCount = 0;
+      files.forEach(file => {
         const reader = new FileReader();
         reader.onload = (event) => {
           const img = new Image();
           img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 1200;
+            const MAX_HEIGHT = 1600;
             let width = img.width;
             let height = img.height;
 
-            if (width > maxDimension || height > maxDimension) {
-              if (width > height) {
-                height = Math.round((height * maxDimension) / width);
-                width = maxDimension;
-              } else {
-                width = Math.round((width * maxDimension) / height);
-                height = maxDimension;
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
               }
             }
 
-            const canvas = document.createElement('canvas');
             canvas.width = width;
             canvas.height = height;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
 
-            resolve(canvas.toDataURL('image/jpeg', quality));
+            // Mantém excelente definição
+            const highResBase64 = canvas.toDataURL('image/jpeg', 0.88);
+            currentImages.push(highResBase64);
+
+            processedCount++;
+            if (processedCount === files.length) {
+              renderPhotosPreview();
+            }
           };
-          img.onerror = () => reject(new Error('Imagem não carregou'));
           img.src = event.target.result;
         };
-        reader.onerror = () => reject(new Error('Erro ao ler'));
         reader.readAsDataURL(file);
       });
     }
 
-    function openEditor(id = null) {
-      switchTab('editor');
-      if (id) {
-        const p = state.prods.find(x => x.id === id);
-        if (p) {
-          document.getElementById('editor-title').innerText = 'Editar Peça';
-          document.getElementById('edit-prod-id').value = p.id;
-          document.getElementById('edit-prod-name').value = p.name;
-          document.getElementById('edit-prod-cat').value = p.cat;
-          document.getElementById('edit-prod-price').value = p.price;
-          document.getElementById('edit-prod-desc').value = p.desc || '';
-          
-          currentPhotos = p.images ? p.images.map(img => typeof img === 'string' ? img : img.url) : (p.img ? [p.img] : []);
-        }
-      } else {
-        document.getElementById('editor-title').innerText = 'Nova Peça';
-        document.getElementById('edit-prod-id').value = '';
-        document.getElementById('edit-prod-name').value = '';
-        document.getElementById('edit-prod-price').value = '';
-        document.getElementById('edit-prod-desc').value = '';
-        currentPhotos = [];
-      }
-      renderPhotoPreview();
+    function renderPhotosPreview() {
+      const container = document.getElementById('photos-preview');
+      container.innerHTML = '';
+      currentImages.forEach((url, idx) => {
+        const item = document.createElement('div');
+        item.className = 'preview-item';
+        item.innerHTML = `
+          <img src="${url}" />
+          <button type="button" class="remove-photo-btn" onclick="removePhoto(${idx})">✕</button>
+        `;
+        container.appendChild(item);
+      });
     }
 
-    function saveProduct(e) {
+    function removePhoto(idx) {
+      currentImages.splice(idx, 1);
+      renderPhotosPreview();
+    }
+
+    async function handleSaveProduct(e) {
       e.preventDefault();
-      const id = document.getElementById('edit-prod-id').value || 'p' + Date.now();
-      const name = document.getElementById('edit-prod-name').value;
-      const cat = document.getElementById('edit-prod-cat').value;
-      const price = document.getElementById('edit-prod-price').value;
-      const desc = document.getElementById('edit-prod-desc').value;
+      const btn = document.getElementById('btn-save');
+      btn.innerText = 'Salvando peça...';
+      btn.disabled = true;
 
-      const primaryImg = currentPhotos[0] || 'https://via.placeholder.com/400x500?text=Sem+Foto';
-      const formattedImages = currentPhotos.map(url => ({ url }));
+      const id = document.getElementById('prod-id').value || 'p_' + Date.now();
+      const name = document.getElementById('prod-name').value.trim();
+      const price = document.getElementById('prod-price').value.trim();
+      const cat = document.getElementById('prod-cat').value;
+      const desc = document.getElementById('prod-desc').value.trim();
 
-      const newProd = { 
-        id, 
-        name, 
-        cat, 
-        price, 
-        img: primaryImg, 
-        images: formattedImages, 
-        desc 
+      const prodData = {
+        id: id,
+        name: name,
+        price: price,
+        cat: cat,
+        desc: desc,
+        images: currentImages,
+        img: currentImages[0] || 'https://via.placeholder.com/300x400?text=Sem+Foto'
       };
 
-      const idx = state.prods.findIndex(p => p.id === id);
-
-      if (idx >= 0) {
-        state.prods[idx] = newProd;
+      // Atualiza lista local
+      const existingIdx = state.prods.findIndex(x => x.id === id);
+      if (existingIdx >= 0) {
+        state.prods[existingIdx] = prodData;
       } else {
-        state.prods.unshift(newProd);
+        state.prods.push(prodData);
       }
 
-      saveState();
-      fbPushProduct(newProd);
-      showToast('Peça salva com sucesso!');
-      switchTab('products');
+      saveAndSyncLocal();
+      renderProductsList();
+
+      // Salva Documento no Firebase
+      await saveToFirebase(id, prodData);
+
+      resetForm();
+      btn.innerText = 'Salvar Peça no Site';
+      btn.disabled = false;
+      showStatus("Peça salva com sucesso!");
     }
 
-    function deleteProduct(id) {
-      if (confirm("Deseja realmente excluir esta peça?")) {
-        state.prods = state.prods.filter(p => p.id !== id);
-        saveState();
-        fbDeleteProduct(id);
-        showToast('Peça excluída.');
-      }
-    }
+    async function saveToFirebase(docId, dataObj) {
+      const proj = FIREBASE_CONFIG.fbProjectId;
+      const key = FIREBASE_CONFIG.fbApiKey;
+      const col = FIREBASE_CONFIG.fbCollection;
 
-    function addCategory(e) {
-      e.preventDefault();
-      const input = document.getElementById('new-cat-name');
-      const name = input.value.trim();
-      if (name) {
-        state.cats.push({ id: 'c' + Date.now(), name });
-        input.value = '';
-        saveState();
-        fbPushCategories();
-        showToast('Categoria adicionada!');
-      }
-    }
+      const url = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/${docId}?key=${key}`;
 
-    function deleteCategory(id) {
-      if (confirm("Excluir esta categoria?")) {
-        state.cats = state.cats.filter(c => c.id !== id);
-        saveState();
-        fbPushCategories();
-        showToast('Categoria removida.');
-      }
-    }
-
-    function generatePdfCatalog() {
-      if (!state.prods.length) {
-        showToast('Cadastre ao menos uma peça para gerar o PDF.', true);
-        return;
-      }
-
-      showToast('Montando o PDF do catálogo...');
-      
-      const printWindow = window.open('', '_blank');
-      const htmlContent = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Catálogo Reveluxo</title>
-          <style>
-            body { font-family: 'Jost', sans-serif; margin: 0; padding: 20px; background: #fff; color: #000; }
-            .header { text-align: center; border-bottom: 2px solid #c9a44c; padding-bottom: 15px; margin-bottom: 30px; }
-            .header h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 38px; margin: 0; text-transform: uppercase; }
-            .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-            .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; text-align: center; page-break-inside: avoid; }
-            .card img { width: 100%; height: 260px; object-fit: contain; border-radius: 4px; }
-            .title { font-size: 18px; font-weight: bold; margin: 10px 0 4px; }
-            .price { color: #c9a44c; font-size: 16px; font-weight: bold; }
-            .desc { font-size: 12px; color: #555; margin-top: 6px; }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <h1>Reveluxo — Moda Feminina</h1>
-            <p>Catálogo de Peças · Peça pelo WhatsApp (85) 98583-6214</p>
-          </div>
-          <div class="grid">
-            ${state.prods.map(p => `
-              <div class="card">
-                <img src="${p.img || (p.images && p.images[0] ? (p.images[0].url || p.images[0]) : '')}" />
-                <div class="title">${p.name}</div>
-                <div class="price">R$ ${p.price}</div>
-                <div class="desc">${p.desc || ''}</div>
-              </div>
-            `).join('')}
-          </div>
-        </body>
-        </html>
-      `;
-
-      printWindow.document.write(htmlContent);
-      printWindow.document.close();
-      setTimeout(() => {
-        printWindow.print();
-      }, 800);
-    }
-
-    /* ---- SINCRONIZAÇÃO INDIVIDUAL COM O FIREBASE ---- */
-    async function fbPushProduct(prod) {
-      const proj = document.getElementById('fb-project-id').value.trim();
-      const key = document.getElementById('fb-api-key').value.trim();
-      const col = document.getElementById('fb-collection').value.trim();
-      const status = document.getElementById('fb-status');
-
-      status.innerText = "Salvando peça no Firebase...";
-
-      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/${prod.id}?key=${key}`;
       const payload = {
         fields: {
-          data: { stringValue: JSON.stringify(prod) }
+          data: { stringValue: JSON.stringify(dataObj) }
         }
       };
 
       try {
-        const res = await fetch(endpoint, {
+        await fetch(url, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        if (res.ok) {
-          status.innerText = "Peça salva com sucesso no banco!";
-          fbPushCategories();
-        } else {
-          status.innerText = "Erro ao enviar peça.";
-        }
       } catch (err) {
-        status.innerText = "Falha de conexão.";
+        console.error("Erro ao salvar no Firebase:", err);
       }
     }
 
-    async function fbDeleteProduct(prodId) {
-      const proj = document.getElementById('fb-project-id').value.trim();
-      const key = document.getElementById('fb-api-key').value.trim();
-      const col = document.getElementById('fb-collection').value.trim();
+    async function deleteProduct(id) {
+      if (!confirm("Tem certeza que deseja excluir esta peça?")) return;
 
-      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/${prodId}?key=${key}`;
-      try {
-        await fetch(endpoint, { method: 'DELETE' });
-      } catch (e) { console.error(e); }
-    }
+      // Remove localmente
+      state.prods = state.prods.filter(x => x.id !== id);
+      saveAndSyncLocal();
+      renderProductsList();
 
-    async function fbPushCategories() {
-      const proj = document.getElementById('fb-project-id').value.trim();
-      const key = document.getElementById('fb-api-key').value.trim();
-      const col = document.getElementById('fb-collection').value.trim();
+      // Exclui do Firebase Firestore
+      const proj = FIREBASE_CONFIG.fbProjectId;
+      const key = FIREBASE_CONFIG.fbApiKey;
+      const col = FIREBASE_CONFIG.fbCollection;
 
-      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/_categorias?key=${key}`;
-      const payload = {
-        fields: {
-          data: { stringValue: JSON.stringify(state.cats) }
-        }
-      };
+      const url = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/${id}?key=${key}`;
 
       try {
-        await fetch(endpoint, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      } catch (e) { console.error(e); }
-    }
-
-    async function fbPush() {
-      showToast("Sincronizando todas as peças...");
-      for (const p of state.prods) {
-        await fbPushProduct(p);
-      }
-      await fbPushCategories();
-      showToast("Sincronização completa!");
-    }
-
-    async function fbPull() {
-      const proj = document.getElementById('fb-project-id').value.trim();
-      const key = document.getElementById('fb-api-key').value.trim();
-      const col = document.getElementById('fb-collection').value.trim();
-      const status = document.getElementById('fb-status');
-
-      status.innerText = "Baixando peças...";
-
-      const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}?key=${key}`;
-
-      try {
-        const res = await fetch(endpoint);
-        const doc = await res.json();
-        if (doc && doc.documents) {
-          const loadedProds = [];
-          doc.documents.forEach(d => {
-            const docName = d.name.split('/').pop();
-            if (d.fields && d.fields.data && d.fields.data.stringValue) {
-              const parsed = JSON.parse(d.fields.data.stringValue);
-              if (docName === '_categorias') {
-                state.cats = parsed;
-              } else if (docName !== 'loja') {
-                loadedProds.push(parsed);
-              }
-            }
-          });
-          state.prods = loadedProds;
-          saveState();
-          status.innerText = "Catálogo atualizado!";
-        } else {
-          status.innerText = "Nenhum dado encontrado.";
-        }
+        await fetch(url, { method: 'DELETE' });
+        showStatus("Peça excluída com sucesso!");
       } catch (err) {
-        status.innerText = "Erro ao baixar dados.";
+        console.error("Erro ao excluir do Firebase:", err);
       }
+    }
+
+    function editProduct(id) {
+      const prod = state.prods.find(x => x.id === id);
+      if (!prod) return;
+
+      document.getElementById('prod-id').value = prod.id;
+      document.getElementById('prod-name').value = prod.name;
+      document.getElementById('prod-price').value = prod.price;
+      document.getElementById('prod-cat').value = prod.cat;
+      document.getElementById('prod-desc').value = prod.desc || '';
+
+      if (prod.images && prod.images.length > 0) {
+        currentImages = prod.images.map(i => typeof i === 'string' ? i : (i.url || i));
+      } else if (prod.img) {
+        currentImages = [prod.img];
+      } else {
+        currentImages = [];
+      }
+
+      renderPhotosPreview();
+
+      document.getElementById('form-title').innerText = 'Editar Peça';
+      document.getElementById('btn-save').innerText = 'Atualizar Peça';
+      document.getElementById('btn-cancel').classList.remove('hidden');
+
+      window.scrollTo(0, 0);
+    }
+
+    function resetForm() {
+      document.getElementById('prod-form').reset();
+      document.getElementById('prod-id').value = '';
+      currentImages = [];
+      renderPhotosPreview();
+
+      document.getElementById('form-title').innerText = 'Cadastrar Nova Peça';
+      document.getElementById('btn-save').innerText = 'Salvar Peça no Site';
+      document.getElementById('btn-cancel').classList.add('hidden');
     }
   </script>
 </body>
