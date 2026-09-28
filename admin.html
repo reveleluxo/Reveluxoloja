@@ -389,8 +389,8 @@
       e.target.value = '';
     }
 
-    // COMPRESSOR SUPER LEVE E ULTRA RÁPIDO PARA FOTOS DA GALERIA / PRINT
-    function compressImage(file, maxDimension = 500, quality = 0.55) {
+    // COMPRESSOR ULTRA-LEVE DE FOTOS (GARANTE ENVIOS SEM ERRO NO FIREBASE)
+    function compressImage(file, maxDimension = 420, quality = 0.50) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -576,10 +576,17 @@
 
       status.innerText = "Enviando ao Firebase...";
 
+      const stringifiedData = JSON.stringify({ cats: state.cats, prods: state.prods });
+      const kbSize = Math.round(stringifiedData.length / 1024);
+
+      if (kbSize > 950) {
+        status.innerText = `Aviso: Catálogo grande (${kbSize} KB / máx 1000 KB). Exclua peças antigas.`;
+      }
+
       const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${key}`;
       const payload = {
         fields: {
-          data: { stringValue: JSON.stringify({ cats: state.cats, prods: state.prods }) }
+          data: { stringValue: stringifiedData }
         }
       };
 
@@ -590,9 +597,9 @@
           body: JSON.stringify(payload)
         });
         if (res.ok) {
-          status.innerText = "Enviado com sucesso!";
+          status.innerText = `Enviado com sucesso! (${kbSize} KB usados)`;
         } else {
-          status.innerText = "Erro ao enviar ao Firebase.";
+          status.innerText = `Erro no Firebase. Tamanho acumulado: ${kbSize} KB.`;
         }
       } catch (err) {
         status.innerText = "Falha de conexão.";
