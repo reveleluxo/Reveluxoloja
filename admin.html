@@ -25,6 +25,7 @@
 
     .btn { background: #c9a44c; color: #000; border: none; padding: 14px 24px; border-radius: 9999px; font-weight: 600; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; width: 100%; }
     .btn:hover { background: #e3c684; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-danger { background: #3a1515; color: #ff6b6b; border: 1px solid #5a2020; }
     .btn-danger:hover { background: #5a2020; color: #fff; }
 
@@ -38,6 +39,7 @@
     .item-thumb { width: 44px; height: 58px; border-radius: 6px; object-fit: cover; background: #222; }
 
     .status-badge { font-size: 11px; padding: 6px 12px; border-radius: 20px; background: #1f271b; color: #7ec870; border: 1px solid #2e4428; display: inline-block; margin-bottom: 16px; }
+    .status-badge.error { background: #3a1515; color: #ff6b6b; border-color: #5a2020; }
     .hidden { display: none !important; }
   </style>
 </head>
@@ -122,7 +124,7 @@
       cats: DEFAULT_CATS
     };
 
-    let currentImages = []; // Armazena as imagens base64 da peça atual
+    let currentImages = [];
 
     window.addEventListener('DOMContentLoaded', () => {
       loadLocalStorage();
@@ -189,11 +191,16 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ prods: state.prods, cats: state.cats }));
     }
 
-    function showStatus(text) {
+    function showStatus(text, isError = false) {
       const badge = document.getElementById('status-msg');
       badge.innerText = text;
+      if (isError) {
+        badge.classList.add('error');
+      } else {
+        badge.classList.remove('error');
+      }
       badge.classList.remove('hidden');
-      setTimeout(() => badge.classList.add('hidden'), 3000);
+      setTimeout(() => badge.classList.add('hidden'), 4000);
     }
 
     function renderCategoriesSelect() {
@@ -240,7 +247,7 @@
       });
     }
 
-    // Processamento de Foto com Alta Definição (1200px max, 88% de qualidade)
+    // Redimensionamento de imagem otimizado para caber no limite do Firestore
     function handleFileSelect(e) {
       const files = Array.from(e.target.files);
       if (!files.length) return;
@@ -252,8 +259,8 @@
           const img = new Image();
           img.onload = () => {
             const canvas = document.createElement('canvas');
-            const MAX_WIDTH = 1200;
-            const MAX_HEIGHT = 1600;
+            const MAX_WIDTH = 800;
+            const MAX_HEIGHT = 1066;
             let width = img.width;
             let height = img.height;
 
@@ -274,9 +281,8 @@
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
 
-            // Mantém excelente definição
-            const highResBase64 = canvas.toDataURL('image/jpeg', 0.88);
-            currentImages.push(highResBase64);
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.75);
+            currentImages.push(compressedBase64);
 
             processedCount++;
             if (processedCount === files.length) {
@@ -311,7 +317,7 @@
     async function handleSaveProduct(e) {
       e.preventDefault();
       const btn = document.getElementById('btn-save');
-      btn.innerText = 'Salvando peça...';
+      btn.innerText = 'Enviando ao banco de dados...';
       btn.disabled = true;
 
       const id = document.getElementById('prod-id').value || 'p_' + Date.now();
@@ -330,24 +336,26 @@
         img: currentImages[0] || 'https://via.placeholder.com/300x400?text=Sem+Foto'
       };
 
-      // Atualiza lista local
-      const existingIdx = state.prods.findIndex(x => x.id === id);
-      if (existingIdx >= 0) {
-        state.prods[existingIdx] = prodData;
+      const success = await saveToFirebase(id, prodData);
+
+      if (success) {
+        const existingIdx = state.prods.findIndex(x => x.id === id);
+        if (existingIdx >= 0) {
+          state.prods[existingIdx] = prodData;
+        } else {
+          state.prods.push(prodData);
+        }
+
+        saveAndSyncLocal();
+        renderProductsList();
+        resetForm();
+        showStatus("Peça salva com sucesso no Firebase!");
       } else {
-        state.prods.push(prodData);
+        showStatus("Erro ao salvar! Tente reduzir a quantidade de fotos da peça.", true);
       }
 
-      saveAndSyncLocal();
-      renderProductsList();
-
-      // Salva Documento no Firebase
-      await saveToFirebase(id, prodData);
-
-      resetForm();
       btn.innerText = 'Salvar Peça no Site';
       btn.disabled = false;
-      showStatus("Peça salva com sucesso!");
     }
 
     async function saveToFirebase(docId, dataObj) {
@@ -364,25 +372,25 @@
       };
 
       try {
-        await fetch(url, {
+        const res = await fetch(url, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
+        return res.ok;
       } catch (err) {
         console.error("Erro ao salvar no Firebase:", err);
+        return false;
       }
     }
 
     async function deleteProduct(id) {
       if (!confirm("Tem certeza que deseja excluir esta peça?")) return;
 
-      // Remove localmente
       state.prods = state.prods.filter(x => x.id !== id);
       saveAndSyncLocal();
       renderProductsList();
 
-      // Exclui do Firebase Firestore
       const proj = FIREBASE_CONFIG.fbProjectId;
       const key = FIREBASE_CONFIG.fbApiKey;
       const col = FIREBASE_CONFIG.fbCollection;
