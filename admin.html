@@ -23,16 +23,13 @@
     img, input, textarea, select { max-width: 100%; }
     .hidden { display: none !important; }
     
-    /* Layout Admin */
     .admin-body { min-height: 100vh; background: #f4f1eb; color: #1b1814; font-family: 'Manrope', system-ui, sans-serif; font-weight: 500; }
     .nav-tab-btn { flex: 0 0 auto; height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: #d9d1c4; font: 600 13px 'Manrope', sans-serif; cursor: pointer; }
     .nav-tab-btn.active { background: #f3ede3; color: #0c0b0a; }
     
-    /* Toast */
     .toast-msg { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 95; background: #1b1814; color: #fff; padding: 14px 22px; border-radius: 999px; font: 600 13.5px 'Manrope', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,.2); max-width: 90vw; text-align: center; }
     .toast-msg.error { background: #a2342a; }
 
-    /* Thumbnails de fotos */
     .photo-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
     .photo-thumb-card { width: 120px; height: 150px; border-radius: 12px; overflow: hidden; background: #f5f3ef; border: 2px solid transparent; position: relative; }
     .photo-thumb-card.cover { border-color: #1b1814; }
@@ -135,23 +132,18 @@
             <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">1 · Fotos da Peça</h2>
             
             <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <!-- Botão Selecionar Arquivos -->
               <label style="width: 132px; height: 150px; border-radius: 12px; border: 1.5px dashed #c9bfae; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; color: #6b6358; font: 600 12.5px Manrope, sans-serif; text-align: center; padding: 8px; position: relative;">
                 <span style="font-size: 26px; line-height: 1;">+</span>Adicionar fotos
                 <input type="file" accept="image/*" multiple onchange="handleFileUpload(event)" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
               </label>
 
-              <!-- Botão Tirar Foto / Câmera -->
               <label style="width: 132px; height: 150px; border-radius: 12px; border: 1.5px solid #1b1814; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; color: #1b1814; font: 600 12.5px Manrope, sans-serif; text-align: center; padding: 8px; position: relative;">
                 <span style="font-size: 22px; line-height: 1;">◉</span>Tirar foto
                 <input type="file" accept="image/*" capture="environment" onchange="handleFileUpload(event)" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
               </label>
             </div>
 
-            <!-- Previsualização de Fotos Carregadas -->
             <div id="photos-preview-grid" class="photo-grid"></div>
-            <span style="font: 500 12px Manrope, sans-serif; color: #6b6358;">Você também pode colar a URL de uma imagem se preferir abaixo:</span>
-            <input type="url" id="edit-prod-img-url" placeholder="https://exemplo.com/foto.jpg" onchange="addUrlPhoto(this.value)" style="height: 44px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 14px Manrope, sans-serif; background: #fff; color: #1b1814;" />
           </section>
 
           <!-- SEÇÃO INFORMAÇÕES -->
@@ -231,7 +223,6 @@
       me: null
     };
 
-    // Lista de fotos temporária do formulário em edição
     let currentPhotos = [];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -311,11 +302,9 @@
     }
 
     function renderAll() {
-      // Dashboard Total
       document.getElementById('dash-total-prods').innerText = state.prods.length;
       document.getElementById('dash-total-cats').innerText = state.cats.length;
 
-      // Render Lista de Produtos
       const prodContainer = document.getElementById('products-list-container');
       prodContainer.innerHTML = '';
 
@@ -324,7 +313,7 @@
       } else {
         state.prods.forEach(p => {
           const cat = state.cats.find(c => c.id === p.cat);
-          const imgUrl = p.img || (p.images && p.images[0] ? p.images[0].url : 'https://via.placeholder.com/80?text=Sem+Foto');
+          const imgUrl = p.img || (p.images && p.images[0] ? (p.images[0].url || p.images[0]) : 'https://via.placeholder.com/80?text=Sem+Foto');
           
           const row = document.createElement('div');
           row.style = "display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #e6e0d5; border-radius: 16px; padding: 12px 14px;";
@@ -341,7 +330,6 @@
         });
       }
 
-      // Render Categorias
       const catSelect = document.getElementById('edit-prod-cat');
       catSelect.innerHTML = '';
       const catListContainer = document.getElementById('categories-list');
@@ -363,7 +351,6 @@
       });
     }
 
-    /* ---- LÓGICA DE UPLOAD E GERENCIAMENTO DE FOTOS ---- */
     function renderPhotoPreview() {
       const container = document.getElementById('photos-preview-grid');
       container.innerHTML = '';
@@ -379,14 +366,6 @@
       });
     }
 
-    function addUrlPhoto(url) {
-      if (url && url.trim()) {
-        currentPhotos.push(url.trim());
-        document.getElementById('edit-prod-img-url').value = '';
-        renderPhotoPreview();
-      }
-    }
-
     function removePhoto(index) {
       currentPhotos.splice(index, 1);
       renderPhotoPreview();
@@ -396,6 +375,7 @@
       const files = Array.from(e.target.files);
       if (!files.length) return;
 
+      showToast('Otimizando fotos...');
       for (const file of files) {
         try {
           const compressedBase64 = await compressImage(file);
@@ -408,7 +388,8 @@
       e.target.value = '';
     }
 
-    function compressImage(file, maxDimension = 1200, quality = 0.85) {
+    // Otimizador de foto para garantir limite do Firebase
+    function compressImage(file, maxDimension = 800, quality = 0.70) {
       return new Promise((resolve, reject) => {
         if (!file.type.startsWith('image/')) {
           return reject(new Error('Formato não suportado'));
@@ -537,7 +518,6 @@
       }
     }
 
-    /* ---- GERADOR DE CATÁLOGO EM PDF ---- */
     function generatePdfCatalog() {
       if (!state.prods.length) {
         showToast('Cadastre ao menos uma peça para gerar o PDF.', true);
@@ -572,7 +552,7 @@
           <div class="grid">
             ${state.prods.map(p => `
               <div class="card">
-                <img src="${p.img || (p.images && p.images[0] ? p.images[0].url : '')}" />
+                <img src="${p.img || (p.images && p.images[0] ? (p.images[0].url || p.images[0]) : '')}" />
                 <div class="title">${p.name}</div>
                 <div class="price">R$ ${p.price}</div>
                 <div class="desc">${p.desc || ''}</div>
@@ -590,14 +570,13 @@
       }, 800);
     }
 
-    /* ---- SINCRONIZAÇÃO COM FIREBASE ---- */
     async function fbPush() {
       const proj = document.getElementById('fb-project-id').value.trim();
       const key = document.getElementById('fb-api-key').value.trim();
       const col = document.getElementById('fb-collection').value.trim();
       const status = document.getElementById('fb-status');
 
-      status.innerText = "Enviando...";
+      status.innerText = "Enviando ao Firebase...";
 
       const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}/loja?key=${key}`;
       const payload = {
@@ -615,7 +594,7 @@
         if (res.ok) {
           status.innerText = "Enviado com sucesso!";
         } else {
-          status.innerText = "Erro ao enviar ao Firebase.";
+          status.innerText = "Erro ao enviar ao Firebase (Verifique tamanho das fotos).";
         }
       } catch (err) {
         status.innerText = "Falha de conexão.";
