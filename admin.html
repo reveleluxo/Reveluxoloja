@@ -9,13 +9,12 @@
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Painel — Reveluxo</title>
-<meta name="robots" content="noindex, nofollow" />
-<meta name="description" content="Catálogo de moda feminina Reveluxo. Peça pelo WhatsApp (85) 98583-6214." />
+<title>Reveluxo — Painel Administrativo</title>
+<meta name="description" content="Painel administrativo do catálogo Reveluxo." />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Reveluxo — Moda Feminina" />
-<meta property="og:title" content="Reveluxo — Moda Feminina" />
-<meta property="og:description" content="Vestidos, blusas, calças e casacos. Peça pelo WhatsApp (85) 98583-6214 · @reveluxo" />
+<meta property="og:title" content="Reveluxo — Painel Administrativo" />
+<meta property="og:description" content="Painel de gerenciamento de peças, categorias e configurações." />
 <meta property="og:image" content="logo-reveluxo.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="logo-reveluxo.png" />
@@ -24,7 +23,7 @@
 <meta name="theme-color" content="#000000" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="apple-mobile-web-app-title" content="Reveluxo" />
+<meta name="apple-mobile-web-app-title" content="Reveluxo Admin" />
 <link rel="apple-touch-icon" href="icon-192.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -56,7 +55,7 @@
 </helmet>
 <div style="font-family: Jost, ui-sans-serif, system-ui, sans-serif; background: #000000; color: #eae5da; min-height: 100vh; font-weight: 300;">
 
-  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ true }}">
+  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
     <div style="background: #c9a44c; color: #000000; text-align: center; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding: 9px 16px;">Peças exclusivas · Entrega em todo o Brasil</div>
     <div style="border-bottom: 1px solid #23211c;">
       <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 40px 32px 0; text-align: center;">
@@ -160,7 +159,7 @@
     </div>
   </sc-if>
 
-  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
     <div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #f4f1eb; color: #1b1814; font-family: Manrope, system-ui, sans-serif;">
       <div style="flex: 1 1 380px; min-height: 240px; background: #000; display: grid; place-items: center; padding: 32px;">
         <img src="logo-reveluxo.png" data-logo="1" alt="Reveluxo — Moda Feminina" style="width: min(80%, 520px);" />
@@ -754,7 +753,9 @@
   </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">
+const SB_CONFIG = { url: 'https://bkczoikgivkcghxbsqon.supabase.co', key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJrY3pvaWtnaXZrY2doeGJzcW9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2MTk0MzQsImV4cCI6MjEwNjE5NTQzNH0.d7yBrXwhE66IbKLFXBnKrDISeMdYO-sA30J73LIPuvU', table: 'catalogo' };
+const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
 const KEY = 'catalogo_roupas_v6';
 const DAY = 864e5;
 const PATH = (typeof location !== 'undefined' ? decodeURIComponent(location.pathname) : '');
@@ -837,7 +838,7 @@ class Component extends DCLogic {
     draft: null, errors: [], uploading: 0, confirm: null, toast: '', toastErr: false,
     newCat: '', editCat: null, editCatName: '',
     uForm: { name: '', username: '', password: '', role: 'editor' }, uErr: '', pwFor: null, pwNew: '', pwCur: '', pwNext: '',
-    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbStatus: '', exporting: false,
+    sbUrl: SB_CONFIG.url, sbKey: SB_CONFIG.key, sbTable: SB_CONFIG.table, sbStatus: '', exporting: false,
     pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false
   };
 
@@ -862,7 +863,7 @@ class Component extends DCLogic {
       if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
       else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
       if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
-      this.setState({ sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo' });
+      this.setState({ sbUrl: s.sbUrl || SB_CONFIG.url, sbKey: s.sbKey || SB_CONFIG.key, sbTable: s.sbTable || SB_CONFIG.table });
     }
     if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
     const rv = s ? (s.rv || 0) : 0;
@@ -1723,7 +1724,7 @@ Object.assign(Component.prototype, {
           remove: () => this.setDraft(x => { const s2 = Object.assign({}, x.stock); delete s2[c.id]; return { colors: x.colors.filter(k => k.id !== c.id), stock: s2, images: x.images.map(m => (m.color === c.id ? Object.assign({}, m, { color: '' }) : m)) }; })
         })),
         addColor: () => this.setDraft(x => { const id = uid(); const row = {}; SIZES.concat(['U']).forEach(s => { row[s] = '0'; }); return { colors: x.colors.concat([{ id, name: '', hex: '#b9a58a' }]), stock: Object.assign({}, x.stock, { [id]: row }) }; }),
-        colorsHelp: hasColors ? 'Cada cor tem o próprio estoque. Marque nas fotos qual cor aparece nelas.' : 'Opcional. Sem cores, o estoque é controlado só por tamanho.',
+        colorsHelp: hasColors ? 'Cada cor tem o próprio estoque. Marque nas fotos qual cor aparece nelas.' : 'Opcional. Sem cores, o estoque é controlled só por tamanho.',
         sizeToggles: SIZES.map(s => ({ size: s, style: this.chip(d.sizesOn[s], 'min-width:52px;'), toggle: () => this.setDraft(x => ({ sizesOn: Object.assign({}, x.sizesOn, { [s]: !x.sizesOn[s] }) })) })),
         hasStockBlocks: true,
         stockBlocks: hasColors
