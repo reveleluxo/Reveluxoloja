@@ -251,7 +251,7 @@
       t.innerText = msg;
       t.className = `toast-msg ${isErr ? 'error' : ''}`;
       t.classList.remove('hidden');
-      setTimeout(() => t.classList.add('hidden'), 3000);
+      setTimeout(() => t.classList.add('hidden'), 3500);
     }
 
     function checkAuth() {
@@ -381,19 +381,17 @@
           const compressedBase64 = await compressImage(file);
           currentPhotos.push(compressedBase64);
         } catch (err) {
-          showToast('Erro ao carregar imagem: ' + err.message, true);
+          console.error("Erro na imagem:", err);
+          showToast('Aviso: Alguma imagem não pôde ser lida.', true);
         }
       }
       renderPhotoPreview();
       e.target.value = '';
     }
 
-    // Otimizador de foto para garantir limite do Firebase
-    function compressImage(file, maxDimension = 800, quality = 0.70) {
+    // COMPRESSOR SUPER LEVE E ULTRA RÁPIDO PARA FOTOS DA GALERIA / PRINT
+    function compressImage(file, maxDimension = 500, quality = 0.55) {
       return new Promise((resolve, reject) => {
-        if (!file.type.startsWith('image/')) {
-          return reject(new Error('Formato não suportado'));
-        }
         const reader = new FileReader();
         reader.onload = (event) => {
           const img = new Image();
@@ -419,10 +417,10 @@
 
             resolve(canvas.toDataURL('image/jpeg', quality));
           };
-          img.onerror = () => reject(new Error('Imagem corrompida'));
+          img.onerror = () => reject(new Error('Imagem não carregou'));
           img.src = event.target.result;
         };
-        reader.onerror = () => reject(new Error('Falha ao ler arquivo'));
+        reader.onerror = () => reject(new Error('Erro ao ler'));
         reader.readAsDataURL(file);
       });
     }
@@ -594,7 +592,7 @@
         if (res.ok) {
           status.innerText = "Enviado com sucesso!";
         } else {
-          status.innerText = "Erro ao enviar ao Firebase (Verifique tamanho das fotos).";
+          status.innerText = "Erro ao enviar ao Firebase.";
         }
       } catch (err) {
         status.innerText = "Falha de conexão.";
