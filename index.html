@@ -753,7 +753,9 @@
   </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSizesOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;showPriceOnCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;},&quot;enableSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vitrine&quot;}}">
+const SB_CONFIG = { url: '', key: '', table: 'catalogo' };
+const SIZES = ['P', 'M', 'G', 'GG', 'XG'];
 const KEY = 'catalogo_roupas_v6';
 const DAY = 864e5;
 const PATH = (typeof location !== 'undefined' ? decodeURIComponent(location.pathname) : '');
@@ -836,7 +838,7 @@ class Component extends DCLogic {
     draft: null, errors: [], uploading: 0, confirm: null, toast: '', toastErr: false,
     newCat: '', editCat: null, editCatName: '',
     uForm: { name: '', username: '', password: '', role: 'editor' }, uErr: '', pwFor: null, pwNew: '', pwCur: '', pwNext: '',
-    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbStatus: '', exporting: false,
+    sbUrl: SB_CONFIG.url, sbKey: SB_CONFIG.key, sbTable: SB_CONFIG.table, sbStatus: '', exporting: false,
     pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false
   };
 
@@ -861,7 +863,7 @@ class Component extends DCLogic {
       if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
       else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
       if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
-      this.setState({ sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo' });
+      this.setState({ sbUrl: s.sbUrl || SB_CONFIG.url, sbKey: s.sbKey || SB_CONFIG.key, sbTable: s.sbTable || SB_CONFIG.table });
     }
     if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
     const rv = s ? (s.rv || 0) : 0;
