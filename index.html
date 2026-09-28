@@ -1011,7 +1011,7 @@ class Component extends DCLogic {
     try {
       localStorage.setItem(KEY, JSON.stringify({ v: 7, rv: 5, cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg, sbUrl: s.sbUrl, sbKey: s.sbKey, sbTable: s.sbTable }));
     } catch (e) { this.flash('Armazenamento do aparelho cheio. Remova fotos antigas ou use o Supabase.', true); }
-    if (IS_ADMIN_PAGE && this.state.sbUrl && this.state.sbKey) {
+    if (this.state.me && this.state.sbUrl && this.state.sbKey) {
       clearTimeout(this._sbAuto);
       this._sbAuto = setTimeout(() => this.sbPush(true), 900);
     }
