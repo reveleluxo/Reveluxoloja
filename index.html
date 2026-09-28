@@ -10,15 +10,9 @@
   <meta property="og:title" content="Reveluxo — Moda Feminina" />
   <meta property="og:description" content="Vestidos, blusas, calças e casacos. Peça pelo WhatsApp (85) 98583-6214 · @reveluxo" />
   <meta property="og:image" content="logo-reveluxo.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="logo-reveluxo.png" />
   <link rel="icon" href="icon-192.png" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#000000" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <meta name="apple-mobile-web-app-title" content="Reveluxo" />
-  <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -40,6 +34,23 @@
     /* Modal e Detalhes */
     .modal-overlay { position: fixed; inset: 0; z-index: 60; background: #000000; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .grid-detail { max-width: 1240px; margin: 0 auto; padding: 8px 32px 64px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 80px; align-items: start; }
+
+    /* Setas do Carrossel */
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 9999px; background: rgba(0,0,0,0.75); border: 1px solid rgba(201, 164, 76, 0.4); color: #ffffff; font-size: 22px; line-height: 1; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; user-select: none; }
+    .carousel-btn:active { background: #c9a44c; color: #000; }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    /* Indicadores de foto (Bolinhas) */
+    .dots-row { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; }
+    .dot.active { background: #c9a44c; width: 18px; border-radius: 4px; }
+
+    /* Thumbnails */
+    .thumbs-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .thumb-item { width: 68px; height: 86px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 2px solid transparent; opacity: 0.5; transition: all 0.2s; }
+    .thumb-item.active { border-color: #c9a44c; opacity: 1; }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
 
     @media (max-width: 860px) {
       .grid-detail { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; padding-bottom: 48px !important; }
@@ -114,35 +125,47 @@
     </div>
   </footer>
 
-  <!-- MODAL DE DETALHES DO PRODUTO -->
+  <!-- MODAL DE DETALHES DO PRODUTO (COM PASSAR FOTOS PARA O LADO E TOUCH) -->
   <div id="modal-detail" class="modal-overlay hidden">
     <div style="position: sticky; top: 0; z-index: 2; background: #000000; display: flex; align-items: center; gap: 16px; padding: 18px 32px;">
       <button onclick="closeDetail()" style="display: flex; align-items: center; gap: 12px; background: transparent; border: none; padding: 6px 0; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #ffffff; cursor: pointer;">
-        <span style="font-size: 18px; line-height: 1;">‹</span><span>Vitrine</span>
+        <span style="font-size: 18px; line-height: 1;">‹</span><span>Voltar à Vitrine</span>
       </button>
     </div>
+
     <div class="grid-detail">
       <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0;">
-        <div style="position: relative; width: 100%; aspect-ratio: 9 / 10; border-radius: 20px; overflow: hidden; background: #151515; display: flex; align-items: center; justify-content: center;">
-          <img id="detail-img" src="" alt="" style="width: 100%; height: 100%; object-fit: contain;" />
+        <!-- CONTAINER DA IMAGEM E CONTROLES -->
+        <div id="image-container" style="position: relative; width: 100%; aspect-ratio: 3 / 4; border-radius: 20px; overflow: hidden; background: #151515; display: flex; align-items: center; justify-content: center; touch-action: pan-y;">
+          <img id="detail-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover; user-select: none;" />
+          
+          <!-- SETAS DE NAVEGAÇÃO DA FOTO -->
+          <button id="btn-prev-photo" class="carousel-btn prev hidden" onclick="changePhoto(-1)">‹</button>
+          <button id="btn-next-photo" class="carousel-btn next hidden" onclick="changePhoto(1)">›</button>
+
+          <!-- BOLINHAS INDICADORAS -->
+          <div id="photo-dots" class="dots-row"></div>
         </div>
+
+        <!-- THUMBNAILS DE FOTOS DA PEÇA -->
+        <div id="detail-thumbs" class="thumbs-row"></div>
       </div>
+
       <div style="display: flex; flex-direction: column; gap: 22px; padding-top: 8px; max-width: 460px;">
         <div id="detail-cat" style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #b3ac9e;"></div>
-        <div id="detail-name" style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 58px; font-weight: 400; line-height: 1.05; color: #ffffff;"></div>
-        <div id="detail-price" style="font-size: 20px; font-weight: 500; color: #ffffff;"></div>
+        <div id="detail-name" style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 48px; font-weight: 400; line-height: 1.05; color: #ffffff;"></div>
+        <div id="detail-price" style="font-size: 22px; font-weight: 500; color: #e3c684;"></div>
         <div id="detail-desc" style="font-size: 15px; line-height: 1.7; color: #d4cfc3;"></div>
         
-        <a id="detail-buy-btn" href="#" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; background: #c9a44c; color: #000000; border-radius: 9999px; padding: 20px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; margin-top: 20px;">Tenho interesse</a>
+        <a id="detail-buy-btn" href="#" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; background: #c9a44c; color: #000000; border-radius: 9999px; padding: 18px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; margin-top: 14px;">Tenho interesse</a>
       </div>
     </div>
   </div>
 
   <script>
-    // CONFIGURAÇÕES PADRÃO DO FIREBASE (Sincronizado com o seu projeto reveluxo)
     const FIREBASE_CONFIG = {
       fbProjectId: 'reveluxo',
-      fbApiKey: 'AIzaSyDWSw_gtqBjONiqw3pCCLZ',
+      fbApiKey: 'AIzaSyDWSw_gtqBjONiqw3pCCLZf5LWmrLeSS90',
       fbCollection: 'catalogo'
     };
 
@@ -162,10 +185,43 @@
       search: ''
     };
 
+    let activeProduct = null;
+    let currentPhotoIdx = 0;
+    let activePhotosList = [];
+
+    // Suporte ao gesto no Celular (Touch Swipe)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
     window.addEventListener('DOMContentLoaded', () => {
       loadLocalStorage();
       fetchFirebaseData();
+      setupTouchEvents();
     });
+
+    function setupTouchEvents() {
+      const container = document.getElementById('image-container');
+      if (!container) return;
+
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+    }
+
+    function handleSwipe() {
+      if (activePhotosList.length <= 1) return;
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance < -40) {
+        changePhoto(1);  // Deslizou para esquerda -> próxima foto
+      } else if (swipeDistance > 40) {
+        changePhoto(-1); // Deslizou para direita -> foto anterior
+      }
+    }
 
     function loadLocalStorage() {
       const data = localStorage.getItem(STORAGE_KEY);
@@ -215,7 +271,6 @@
     }
 
     function renderCatalog() {
-      // Categorias Nav
       const navContainer = document.getElementById('cat-nav');
       navContainer.innerHTML = '';
       
@@ -233,19 +288,16 @@
         navContainer.appendChild(btn);
       });
 
-      // Filtragem
       const filtered = state.prods.filter(p => {
         const matchCat = state.activeCat === 'all' || p.cat === state.activeCat;
         const matchSearch = !state.search || p.name.toLowerCase().includes(state.search) || (p.desc && p.desc.toLowerCase().includes(state.search));
         return matchCat && matchSearch;
       });
 
-      // Título e Total
       const activeCatObj = state.cats.find(c => c.id === state.activeCat);
       document.getElementById('shop-title').innerText = activeCatObj ? activeCatObj.name.toUpperCase() : 'COLEÇÃO';
       document.getElementById('shop-count').innerText = `${filtered.length} ${filtered.length === 1 ? 'PEÇA' : 'PEÇAS'}`;
 
-      // Cards
       const grid = document.getElementById('products-grid');
       const emptyMsg = document.getElementById('empty-msg');
       grid.innerHTML = '';
@@ -257,18 +309,22 @@
         filtered.forEach(p => {
           const cat = state.cats.find(c => c.id === p.cat);
           const catName = cat ? cat.name : 'Geral';
-          const imgUrl = p.img || (p.images && p.images[0] ? p.images[0].url : 'https://via.placeholder.com/300x400?text=Sem+Foto');
+          const imgUrl = p.img || (p.images && p.images[0] ? (p.images[0].url || p.images[0]) : 'https://via.placeholder.com/300x400?text=Sem+Foto');
+          
+          // Verifica número de fotos da peça
+          const totalPics = p.images && p.images.length > 0 ? p.images.length : (p.img ? 1 : 0);
 
           const card = document.createElement('div');
           card.style.cursor = 'pointer';
           card.onclick = () => openDetail(p.id);
           card.innerHTML = `
-            <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #151515; display: flex; align-items: center; justify-content: center;">
+            <div style="position: relative; width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: #151515; display: flex; align-items: center; justify-content: center; border-radius: 12px;">
               <img src="${imgUrl}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/300x400?text=Sem+Foto'" />
+              ${totalPics > 1 ? `<div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 999px; letter-spacing: 0.1em; border: 1px solid rgba(255,255,255,0.2);">📷 ${totalPics} fotos</div>` : ''}
             </div>
-            <div style="padding: 20px 2px 0; display: flex; flex-direction: column; gap: 8px; text-align: center;">
+            <div style="padding: 16px 2px 0; display: flex; flex-direction: column; gap: 6px; text-align: center;">
               <div style="font-size: 9px; letter-spacing: 0.34em; text-transform: uppercase; color: #a49c8c;">${catName}</div>
-              <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 27px; font-weight: 500; color: #ffffff;">${p.name}</div>
+              <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 500; color: #ffffff;">${p.name}</div>
               <div style="font-size: 15px; letter-spacing: 0.16em; color: #e3c684;">R$ ${p.price}</div>
             </div>
           `;
@@ -278,22 +334,83 @@
     }
 
     function openDetail(id) {
-      const p = state.prods.find(x => x.id === id);
-      if (!p) return;
+      activeProduct = state.prods.find(x => x.id === id);
+      if (!activeProduct) return;
 
-      const cat = state.cats.find(c => c.id === p.cat);
-      const imgUrl = p.img || (p.images && p.images[0] ? p.images[0].url : 'https://via.placeholder.com/300x400?text=Sem+Foto');
+      const cat = state.cats.find(c => c.id === activeProduct.cat);
+      
+      // Extrai lista de fotos garantindo compatibilidade com formatos antigos/novos
+      if (activeProduct.images && activeProduct.images.length > 0) {
+        activePhotosList = activeProduct.images.map(i => typeof i === 'string' ? i : (i.url || i));
+      } else if (activeProduct.img) {
+        activePhotosList = [activeProduct.img];
+      } else {
+        activePhotosList = ['https://via.placeholder.com/300x400?text=Sem+Foto'];
+      }
 
-      document.getElementById('detail-img').src = imgUrl;
+      currentPhotoIdx = 0;
+
       document.getElementById('detail-cat').innerText = cat ? cat.name : 'Geral';
-      document.getElementById('detail-name').innerText = p.name;
-      document.getElementById('detail-price').innerText = `R$ ${p.price}`;
-      document.getElementById('detail-desc').innerText = p.desc || '';
+      document.getElementById('detail-name').innerText = activeProduct.name;
+      document.getElementById('detail-price').innerText = `R$ ${activeProduct.price}`;
+      document.getElementById('detail-desc').innerText = activeProduct.desc || '';
 
-      const msg = `Olá! Tenho interesse nesta peça: ${p.name}\nValor: R$ ${p.price}`;
+      const msg = `Olá! Tenho interesse nesta peça: ${activeProduct.name}\nValor: R$ ${activeProduct.price}`;
       document.getElementById('detail-buy-btn').href = `https://wa.me/5585985836214?text=${encodeURIComponent(msg)}`;
 
+      updatePhotoDisplay();
       document.getElementById('modal-detail').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function updatePhotoDisplay() {
+      document.getElementById('detail-img').src = activePhotosList[currentPhotoIdx];
+
+      const prevBtn = document.getElementById('btn-prev-photo');
+      const nextBtn = document.getElementById('btn-next-photo');
+      const dotsContainer = document.getElementById('photo-dots');
+      const thumbsContainer = document.getElementById('detail-thumbs');
+
+      dotsContainer.innerHTML = '';
+      thumbsContainer.innerHTML = '';
+
+      if (activePhotosList.length > 1) {
+        prevBtn.classList.remove('hidden');
+        nextBtn.classList.remove('hidden');
+
+        // Cria bolinhas indicadoras sobre a foto
+        activePhotosList.forEach((_, i) => {
+          const dot = document.createElement('div');
+          dot.className = `dot ${i === currentPhotoIdx ? 'active' : ''}`;
+          dot.onclick = () => {
+            currentPhotoIdx = i;
+            updatePhotoDisplay();
+          };
+          dotsContainer.appendChild(dot);
+        });
+
+        // Cria miniaturas abaixo da foto
+        activePhotosList.forEach((url, i) => {
+          const t = document.createElement('div');
+          t.className = `thumb-item ${i === currentPhotoIdx ? 'active' : ''}`;
+          t.onclick = () => {
+            currentPhotoIdx = i;
+            updatePhotoDisplay();
+          };
+          t.innerHTML = `<img src="${url}" />`;
+          thumbsContainer.appendChild(t);
+        });
+      } else {
+        prevBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
+      }
+    }
+
+    function changePhoto(step) {
+      currentPhotoIdx += step;
+      if (currentPhotoIdx < 0) currentPhotoIdx = activePhotosList.length - 1;
+      if (currentPhotoIdx >= activePhotosList.length) currentPhotoIdx = 0;
+      updatePhotoDisplay();
     }
 
     function closeDetail() {
