@@ -224,7 +224,6 @@
       const key = FIREBASE_CONFIG.fbApiKey;
       const col = FIREBASE_CONFIG.fbCollection;
 
-      // Adiciona timestamp para evitar cache no navegador
       const endpoint = `https://firestore.googleapis.com/v1/projects/${proj}/databases/(default)/documents/${col}?key=${key}&t=${Date.now()}`;
 
       try {
@@ -232,7 +231,8 @@
         const doc = await response.json();
         
         if (doc && doc.documents) {
-          const loadedProds = [];
+          const prodsMap = new Map();
+
           doc.documents.forEach(d => {
             const docName = d.name.split('/').pop();
             if (d.fields && d.fields.data && d.fields.data.stringValue) {
@@ -241,25 +241,26 @@
                 if (docName === '_categorias') {
                   state.cats = parsed;
                 } else if (docName === 'loja') {
-                  // Suporte ao formato antigo se houver
                   if (Array.isArray(parsed.prods)) {
-                    parsed.prods.forEach(p => loadedProds.push(p));
+                    parsed.prods.forEach(p => { if (p && p.id) prodsMap.set(p.id, p); });
                   }
                 } else {
-                  loadedProds.push(parsed);
+                  if (parsed && parsed.id) prodsMap.set(parsed.id, parsed);
                 }
               } catch(e) {}
             }
           });
           
-          if (loadedProds.length > 0) {
-            state.prods = loadedProds;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ prods: state.prods, cats: state.cats }));
-            renderCatalog();
-          }
+          state.prods = Array.from(prodsMap.values());
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ prods: state.prods, cats: state.cats }));
+          renderCatalog();
+        } else if (doc && !doc.documents) {
+          state.prods = [];
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ prods: [], cats: state.cats }));
+          renderCatalog();
         }
       } catch (err) {
-        console.log("Modo offline ou erro ao carregar do Firebase:", err);
+        console.log("Erro ao carregar do Firebase:", err);
       }
     }
 
@@ -293,7 +294,7 @@
 
       const filtered = state.prods.filter(p => {
         const matchCat = state.activeCat === 'all' || p.cat === state.activeCat;
-        const matchSearch = !state.search || p.name.toLowerCase().includes(state.search) || (p.desc && p.desc.toLowerCase().includes(state.search));
+        const matchSearch = !state.search || (p.name && p.name.toLowerCase().includes(state.search)) || (p.desc && p.desc.toLowerCase().includes(state.search));
         return matchCat && matchSearch;
       });
 
