@@ -334,6 +334,11 @@
                 </label>
               </div>
               <p style="margin: 0; font: 500 12.5px Manrope, sans-serif; color: #6b6358;">JPG, PNG ou WEBP até 12 MB. As fotos são ajustadas sem deformar. A foto marcada com ★ é a capa; sem capa marcada, a primeira é usada.</p>
+              <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; border-top: 1px solid #f0ebe0; padding-top: 12px;">
+                <input type="text" value="{{ linkUrl }}" onChange="{{ onLinkUrl }}" placeholder="Colar link da foto (ex.: da pasta fotos/ no GitHub)" style="flex: 1; min-width: 220px; height: 40px; border: 1px solid #ddd6ca; border-radius: 8px; padding: 0 12px; font: 500 13px Manrope, sans-serif; color: #1b1814;" />
+                <button onClick="{{ onAddLink }}" style="height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid #1b1814; background: #1b1814; color: #f4f1eb; font: 700 12.5px Manrope, sans-serif; cursor: pointer;">Adicionar por link</button>
+              </div>
+              <p style="margin: 0; font: 500 12px Manrope, sans-serif; color: #6b6358;">Fotos por link não ocupam espaço no armazenamento nem no Supabase — ideal para muitas peças.</p>
             </section>
 
             <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
@@ -605,10 +610,27 @@
               <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Tabela
                 <input value="{{ sbTable }}" onChange="{{ onSbTable }}" placeholder="catalogo" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
               </label>
+              <label style="display: flex; flex-direction: column; gap: 6px; font: 600 12px Manrope, sans-serif; color: #4a443c;">Bucket de fotos (Storage)
+                <input value="{{ sbBucket }}" onChange="{{ onSbBucket }}" placeholder="fotos" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
+              </label>
+              <p style="margin: 0; grid-column: 1 / -1; font: 500 12.5px Manrope, sans-serif; color: #6b6358;">Com o bucket preenchido, as fotos enviadas no cadastro de peças vão para o Storage do Supabase em vez de ficarem salvas no aparelho — evita o aviso de armazenamento cheio.</p>
               <div style="grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                 <button onClick="{{ sbPush }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Enviar catálogo</button>
                 <button onClick="{{ sbPull }}" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Baixar catálogo</button>
                 <span style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;">{{ sbStatus }}</span>
+              </div>
+            </section>
+
+            <section style="background: #fff; border: 1px solid #e6e0d5; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+              <h2 style="margin: 0; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #8a6a2c;">Backup dos dados</h2>
+              <p style="margin: 0; font: 500 13px/1.6 Manrope, sans-serif; color: #6b6358;">Salva peças, categorias, usuários e configurações num arquivo. Guarde-o antes de qualquer mudança grande, ou para levar os dados a outro aparelho.</p>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <button onClick="{{ exportBackup }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Exportar dados</button>
+                <label style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer; display: inline-flex; align-items: center; position: relative;">
+                  Importar dados
+                  <input type="file" accept="application/json" onChange="{{ onImportBackup }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;" />
+                </label>
+                <span style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;">{{ backupStatus }}</span>
               </div>
             </section>
 
@@ -838,7 +860,7 @@ class Component extends DCLogic {
     draft: null, errors: [], uploading: 0, confirm: null, toast: '', toastErr: false,
     newCat: '', editCat: null, editCatName: '',
     uForm: { name: '', username: '', password: '', role: 'editor' }, uErr: '', pwFor: null, pwNew: '', pwCur: '', pwNext: '',
-    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbStatus: '', exporting: false,
+    sbUrl: '', sbKey: '', sbTable: 'catalogo', sbBucket: '', sbStatus: '', exporting: false,
     pickSize: '', pickColor: '', pickPhoto: 0, shareLabel: 'Compartilhar', zoom: false
   };
 
@@ -871,7 +893,7 @@ class Component extends DCLogic {
       if (cfg.storeDesc === 'Peças de autoria limitada, produzidas em pequena escala.') cfg.storeDesc = DEFAULT_CFG.storeDesc;
       else if (s.whats) cfg.whats = String(s.whats).replace(/\D/g, '');
       if (!users) users = [{ id: 'u1', name: 'Administradora', username: String(s.credUser || 'admin').toLowerCase(), password: s.credPass || 'capivara2026', role: 'owner', active: true }];
-      this.setState({ sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo' });
+      this.setState({ sbUrl: s.sbUrl || '', sbKey: s.sbKey || '', sbTable: s.sbTable || 'catalogo', sbBucket: s.sbBucket || '' });
     }
     if (!users) users = [{ id: 'u1', name: 'Administradora', username: 'admin', password: 'capivara2026', role: 'owner', active: true }];
     const rv = s ? (s.rv || 0) : 0;
@@ -1009,7 +1031,7 @@ class Component extends DCLogic {
   persist = () => {
     const s = this.state;
     try {
-      localStorage.setItem(KEY, JSON.stringify({ v: 7, rv: 5, cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg, sbUrl: s.sbUrl, sbKey: s.sbKey, sbTable: s.sbTable }));
+      localStorage.setItem(KEY, JSON.stringify({ v: 7, rv: 5, cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg, sbUrl: s.sbUrl, sbKey: s.sbKey, sbTable: s.sbTable, sbBucket: s.sbBucket }));
     } catch (e) { this.flash('Armazenamento do aparelho cheio. Remova fotos antigas ou use o Supabase.', true); }
     if (this.state.me && this.state.sbUrl && this.state.sbKey) {
       clearTimeout(this._sbAuto);
@@ -1256,6 +1278,25 @@ class Component extends DCLogic {
 Object.assign(Component.prototype, {
   sbHeaders() { return { apikey: this.state.sbKey, Authorization: 'Bearer ' + this.state.sbKey, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates' }; },
   sbEndpoint() { return String(this.state.sbUrl || '').replace(/\/+$/, '') + '/rest/v1/' + (this.state.sbTable || 'catalogo'); },
+  async sbUploadPhoto(dataUrl, fileName) {
+    const s = this.state;
+    if (!s.sbUrl || !s.sbKey || !s.sbBucket) return dataUrl;
+    const m = /^data:(.+?);base64,(.*)$/.exec(dataUrl);
+    if (!m) return dataUrl;
+    const mime = m[1];
+    const bin = atob(m[2]);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    const base = String(s.sbUrl).replace(/\/+$/, '');
+    const path = 'p' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '-' + (fileName || 'foto').replace(/[^a-z0-9.]+/gi, '-');
+    const r = await fetch(base + '/storage/v1/object/' + encodeURIComponent(s.sbBucket) + '/' + path, {
+      method: 'POST',
+      headers: { apikey: s.sbKey, Authorization: 'Bearer ' + s.sbKey, 'Content-Type': mime },
+      body: bytes
+    });
+    if (!r.ok) throw new Error('Storage: erro ' + r.status);
+    return base + '/storage/v1/object/public/' + encodeURIComponent(s.sbBucket) + '/' + path;
+  },
   async sbPush(auto) {
     if (!this.state.sbUrl || !this.state.sbKey) return auto ? null : this.setState({ sbStatus: 'Preencha URL e anon key.' });
     this.setState({ sbStatus: auto ? 'Sincronizando…' : 'Enviando…' });
@@ -1429,6 +1470,33 @@ Object.assign(Component.prototype, {
     return out;
   },
 
+  exportBackup() {
+    const s = this.state;
+    const payload = { kind: 'reveluxo-backup', v: 7, exportedAt: new Date().toISOString(), cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg };
+    const stamp = new Date().toISOString().slice(0, 10);
+    this.download(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }), 'reveluxo-backup-' + stamp + '.json');
+    this.setState({ backupStatus: 'Backup exportado.' });
+  },
+  importBackup(file) {
+    const fr = new FileReader();
+    fr.onerror = () => this.setState({ backupStatus: 'Não foi possível ler o arquivo.' });
+    fr.onload = () => {
+      let data;
+      try { data = JSON.parse(fr.result); } catch (e) { return this.setState({ backupStatus: 'Arquivo inválido.' }); }
+      if (!data || !Array.isArray(data.prods) || !Array.isArray(data.cats)) return this.setState({ backupStatus: 'Arquivo não é um backup válido.' });
+      this.ask('Importar backup', 'Isso substitui todas as peças, categorias e configurações atuais por este arquivo (' + data.prods.length + ' peça(s)). Não pode ser desfeito.', [
+        { label: 'Cancelar', run: () => {} },
+        { label: 'Importar e substituir', bg: '#a2342a', run: () => {
+          const cats = data.cats.map((c, i) => ({ id: c.id, name: c.name, active: c.active !== false, order: typeof c.order === 'number' ? c.order : i }));
+          const prods = data.prods.map((p, i) => this.migrate(p, i));
+          const users = Array.isArray(data.users) && data.users.length ? data.users : this.state.users;
+          const cfg = data.cfg ? Object.assign({}, this.state.cfg, data.cfg) : this.state.cfg;
+          this.setState({ cats, prods, users, cfg, backupStatus: 'Backup importado.' }, this.persist);
+        } }
+      ]);
+    };
+    fr.readAsText(file);
+  },
   download(blob, name) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a'); a.href = url; a.download = name; a.click();
@@ -1583,7 +1651,8 @@ Object.assign(Component.prototype, {
     this.setState({ uploading: list.length });
     for (const f of list) {
       try {
-        const url = await this.compressImage(f);
+        let url = await this.compressImage(f);
+        try { url = await this.sbUploadPhoto(url, f.name); } catch (er) { this.flash(f.name + ': foto salva neste aparelho (Storage falhou: ' + er.message + ').', true); }
         this.setDraft(d => ({ images: d.images.concat([{ id: uid(), url, primary: false, color: '' }]) }));
       } catch (e) { this.flash(f.name + ': ' + e.message, true); }
       this.setState(s => ({ uploading: s.uploading - 1 }));
@@ -1729,6 +1798,15 @@ Object.assign(Component.prototype, {
         }),
         uploadLabel: st.uploading > 0 ? 'Enviando ' + st.uploading + '…' : 'Adicionar fotos',
         onFiles: e => { const fl = e.target.files; if (fl && fl.length) this.addFiles(fl); e.target.value = ''; },
+        linkUrl: st.linkUrl || '',
+        onLinkUrl: e => this.setState({ linkUrl: e.target.value }),
+        onAddLink: () => {
+          const url = (st.linkUrl || '').trim();
+          if (!url) return;
+          if (!/^https?:\/\//i.test(url)) return this.flash('Cole um link http(s) válido.', true);
+          this.setDraft(d => ({ images: d.images.concat([{ id: uid(), url, primary: false, color: '' }]) }));
+          this.setState({ linkUrl: '' });
+        },
         colorRows: d.colors.map(c => ({
           name: c.name, hex: c.hex,
           onName: e => { const v = e.target.value; setColor(c.id, { name: v, hex: c.hexTouched ? c.hex : (this.colorHex(v) !== '#b9a58a' ? this.colorHex(v) : c.hex) }); },
@@ -1859,7 +1937,11 @@ Object.assign(Component.prototype, {
         onSbUrl: e => this.setState({ sbUrl: e.target.value }, this.persist),
         onSbKey: e => this.setState({ sbKey: e.target.value }, this.persist),
         onSbTable: e => this.setState({ sbTable: e.target.value }, this.persist),
+        sbBucket: st.sbBucket, onSbBucket: e => this.setState({ sbBucket: e.target.value }, this.persist),
         sbPush: () => this.sbPush(), sbPull: () => this.sbPull(),
+        backupStatus: st.backupStatus || '',
+        exportBackup: () => this.exportBackup(),
+        onImportBackup: e => { const f = e.target.files && e.target.files[0]; e.target.value = ''; if (f) this.importBackup(f); },
         pwCur: st.pwCur, pwNext: st.pwNext, onPwCur: e => this.setState({ pwCur: e.target.value }), onPwNext: e => this.setState({ pwNext: e.target.value }),
         changePw: () => {
           if (st.pwNext.length < 8) return this.flash('A nova senha precisa ter pelo menos 8 caracteres.', true);

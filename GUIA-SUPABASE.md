@@ -119,6 +119,19 @@ Isso vale **só para aquele navegador**. As clientes não recebem essa configura
 
 Se for cadastrar em **outro aparelho**, clique antes em **Baixar catálogo**. O envio sempre substitui o catálogo inteiro pelo que está naquele aparelho.
 
+Desde a versão atual, salvar uma peça já envia o catálogo ao Supabase automaticamente — não é mais preciso clicar em Enviar catálogo depois de cada cadastro.
+
+## Fotos por link (evita encher o armazenamento)
+
+Fotos por upload ficam em base64 dentro dos dados da peça — poucas peças enchem o armazenamento do navegador e deixam o catálogo pesado no Supabase. Para catálogos grandes, use fotos por link:
+
+1. No repositório do site, no GitHub, entre na pasta `fotos/`.
+2. Clique em **Add file → Upload files** e envie a foto. Faça **Commit changes**.
+3. Clique na foto enviada → botão **⋯** ou clique direito na imagem → copie a URL "raw" dela (algo como `https://raw.githubusercontent.com/SEU-USUARIO/SEU-REPO/main/fotos/vestido.jpg`). No GitHub Pages, a URL do próprio site também funciona: `https://SEU-USUARIO.github.io/SEU-REPO/fotos/vestido.jpg`.
+4. No painel, ao cadastrar a peça, cole esse link no campo **"Colar link da foto"** (abaixo dos botões de upload) e clique em **Adicionar por link**.
+
+Fotos por link não ocupam espaço no armazenamento do navegador nem no Supabase — só o texto do link é salvo. Dá para misturar fotos por upload e por link na mesma peça.
+
 ## Problemas comuns
 
 | Mensagem | Causa provável | Solução |
@@ -134,7 +147,7 @@ Se for cadastrar em **outro aparelho**, clique antes em **Baixar catálogo**. O 
 
 ## Sobre as fotos
 
-As fotos vão junto com os dados, na mesma linha da tabela. O plano gratuito tem 500 MB de banco, suficiente para um catálogo normal. Para não pesar, use fotos normais de celular e remova peças que não serão mais vendidas.
+Fotos por upload vão junto com os dados, na mesma linha da tabela — o plano gratuito tem 500 MB, suficiente para um catálogo pequeno/médio. Para catálogos maiores, prefira fotos por link (veja a seção acima): elas não entram no Supabase, só o link de texto.
 
 ## Sobre segurança
 
