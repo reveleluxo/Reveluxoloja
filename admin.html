@@ -615,6 +615,14 @@
                 <input value="{{ sbBucket }}" onChange="{{ onSbBucket }}" placeholder="fotos" style="height: 46px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;" />
               </label>
               <p style="margin: 0; grid-column: 1 / -1; font: 500 12.5px Manrope, sans-serif; color: #6b6358;">Com o bucket preenchido, as fotos enviadas no cadastro de peças vão para o Storage do Supabase em vez de ficarem salvas no aparelho — evita o aviso de armazenamento cheio.</p>
+              <div style="grid-column: 1 / -1; display: flex; gap: 10px; align-items: center;">
+                <button onClick="{{ testStorage }}" style="height: 40px; padding: 0 16px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Testar Storage</button>
+                <span style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;">{{ storageTestMsg }}</span>
+              </div>
+              <div style="grid-column: 1 / -1; display: flex; gap: 10px; align-items: center;">
+                <button onClick="{{ migratePhotos }}" style="height: 40px; padding: 0 16px; border: 1px solid #a2342a; border-radius: 999px; background: #fff; color: #a2342a; font: 700 12px Manrope, sans-serif; cursor: pointer;">Mover fotos salvas no aparelho para o Storage</button>
+                <span style="font: 600 12.5px Manrope, sans-serif; color: #6b6358;">{{ migrateMsg }}</span>
+              </div>
               <div style="grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                 <button onClick="{{ sbPush }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 12px Manrope, sans-serif; cursor: pointer;">Enviar catálogo</button>
                 <button onClick="{{ sbPull }}" style="height: 46px; padding: 0 20px; border: 1px solid #1b1814; border-radius: 999px; background: #fff; color: #1b1814; font: 700 12px Manrope, sans-serif; cursor: pointer;">Baixar catálogo</button>
@@ -1295,7 +1303,7 @@ Object.assign(Component.prototype, {
       headers: { apikey: s.sbKey, Authorization: 'Bearer ' + s.sbKey, 'Content-Type': mime },
       body: bytes
     });
-    if (!r.ok) throw new Error('Storage: erro ' + r.status);
+    if (!r.ok) { let msg = ''; try { msg = (await r.json()).message || ''; } catch (er) {} throw new Error('Storage: erro ' + r.status + (msg ? ' — ' + msg : '')); }
     return base + '/storage/v1/object/public/' + encodeURIComponent(s.sbBucket) + '/' + path;
   },
   async sbPush(auto) {
@@ -1471,6 +1479,37 @@ Object.assign(Component.prototype, {
     return out;
   },
 
+  async testStorage() {
+    const s = this.state;
+    if (!s.sbUrl || !s.sbKey) return this.setState({ storageTestMsg: 'Preencha URL e anon key primeiro.' });
+    if (!s.sbBucket) return this.setState({ storageTestMsg: 'Preencha o nome do bucket primeiro.' });
+    this.setState({ storageTestMsg: 'Testando…' });
+    const px = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+    try {
+      const url = await this.sbUploadPhoto(px, 'teste.png');
+      this.setState({ storageTestMsg: 'Funcionando! Foto de teste enviada: ' + url });
+    } catch (e) {
+      this.setState({ storageTestMsg: 'Falhou: ' + e.message });
+    }
+  },
+  async migratePhotos() {
+    const s = this.state;
+    if (!s.sbUrl || !s.sbKey || !s.sbBucket) return this.setState({ migrateMsg: 'Preencha URL, anon key e bucket primeiro.' });
+    const targets = [];
+    s.prods.forEach(p => (p.images || []).forEach(img => { if (img.url && img.url.startsWith('data:')) targets.push(img); }));
+    if (!targets.length) return this.setState({ migrateMsg: 'Nenhuma foto local para mover — tudo já está no Storage.' });
+    this.setState({ migrateMsg: 'Movendo 0/' + targets.length + '…' });
+    let done = 0, failed = 0;
+    for (const img of targets) {
+      try {
+        const newUrl = await this.sbUploadPhoto(img.url, 'migrada.jpg');
+        img.url = newUrl;
+        done++;
+      } catch (e) { failed++; }
+      this.setState({ migrateMsg: 'Movendo ' + (done + failed) + '/' + targets.length + '…' });
+    }
+    this.setState(s2 => ({ prods: s2.prods.slice(), migrateMsg: 'Concluído: ' + done + ' movida(s), ' + failed + ' falhas.' }), this.persist);
+  },
   exportBackup() {
     const s = this.state;
     const payload = { kind: 'reveluxo-backup', v: 7, exportedAt: new Date().toISOString(), cats: s.cats, prods: s.prods, users: s.users, cfg: s.cfg };
@@ -1939,6 +1978,10 @@ Object.assign(Component.prototype, {
         onSbKey: e => this.setState({ sbKey: e.target.value }, this.persist),
         onSbTable: e => this.setState({ sbTable: e.target.value }, this.persist),
         sbBucket: st.sbBucket, onSbBucket: e => this.setState({ sbBucket: e.target.value }, this.persist),
+        storageTestMsg: st.storageTestMsg || '',
+        testStorage: () => this.testStorage(),
+        migrateMsg: st.migrateMsg || '',
+        migratePhotos: () => this.migratePhotos(),
         sbPush: () => this.sbPush(), sbPull: () => this.sbPull(),
         backupStatus: st.backupStatus || '',
         exportBackup: () => this.exportBackup(),
