@@ -778,6 +778,25 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ hasPdfPick }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" style="position: fixed; inset: 0; z-index: 90; background: rgba(12,11,10,.5); display: grid; place-items: center; padding: 20px; font-family: Manrope, system-ui, sans-serif;">
+      <div style="background: #fff; color: #1b1814; border-radius: 22px; padding: 26px; max-width: 420px; width: 100%; display: flex; flex-direction: column; gap: 14px;">
+        <h2 style="margin: 0; font: 600 30px/1.1 'Cormorant Garamond', serif;">Gerar catálogo PDF</h2>
+        <p style="margin: 0; font: 500 14.5px/1.6 Manrope, sans-serif; color: #4a443c;">Escolha quais peças entram no PDF.</p>
+        <select value="{{ pdfCatPick }}" onChange="{{ onPdfCatPick }}" style="height: 48px; border: 1px solid #ddd6ca; border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif; background: #fff; color: #1b1814;">
+          <option value="all">Todas as categorias</option>
+          <sc-for list="{{ pdfCatOptions }}" as="co" hint-placeholder-count="3">
+            <option value="{{ co.v }}">{{ co.l }}</option>
+          </sc-for>
+        </select>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; margin-top: 6px;">
+          <button onClick="{{ closePdfPick }}" style="height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; color: #6b6358; font: 600 13px Manrope, sans-serif; cursor: pointer;">Cancelar</button>
+          <button onClick="{{ confirmPdfPick }}" style="height: 44px; padding: 0 22px; border: 0; border-radius: 999px; background: #1b1814; color: #f4f1eb; font: 700 13px Manrope, sans-serif; cursor: pointer;">Gerar PDF</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
     <div role="status" style="{{ toastStyle }}">{{ toast }}</div>
   </sc-if>
@@ -1360,8 +1379,8 @@ Object.assign(Component.prototype, {
     return lines;
   },
 
-  async buildPages() {
-    const list = this.shopList();
+  async buildPages(catFilter) {
+    const list = this.shopList().filter(p => !catFilter || catFilter === 'all' || p.cat === catFilter);
     if (!list.length) return [];
     try { await Promise.all(['400 100px "Cormorant Garamond"', '500 100px "Cormorant Garamond"', '400 40px Jost', '500 40px Jost'].map(f => document.fonts.load(f))); } catch (e) {}
     const cfg = this.state.cfg;
@@ -1542,11 +1561,14 @@ Object.assign(Component.prototype, {
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   },
 
-  async exportPdf() {
+  exportPdf() {
     if (this.state.exporting) return;
-    this.setState({ exporting: true });
+    this.setState({ pdfCatPick: this.state.activeCat && this.state.activeCat !== 'all' ? this.state.activeCat : 'all' });
+  },
+  async runExportPdf(catFilter) {
+    this.setState({ exporting: true, pdfCatPick: null });
     try {
-      const pages = await this.buildPages();
+      const pages = await this.buildPages(catFilter);
       if (!pages.length) { this.flash('Nenhuma peça publicada para o catálogo.', true); return; }
       const PW = 595.28, PH = 841.89, enc = new TextEncoder(), objects = [], jpegs = [];
       for (const cv of pages) { const b = await new Promise(r => cv.toBlob(r, 'image/jpeg', 0.95)); jpegs.push(new Uint8Array(await b.arrayBuffer())); }
@@ -1736,6 +1758,11 @@ Object.assign(Component.prototype, {
       },
       newProduct: () => this.openEditor(null),
       exportPdf: () => this.exportPdf(), pdfLabel: st.exporting ? 'Gerando PDF…' : 'Gerar catálogo PDF',
+      hasPdfPick: st.pdfCatPick != null, pdfCatPick: st.pdfCatPick || 'all',
+      pdfCatOptions: cats.map(c => ({ v: c.id, l: c.name })),
+      onPdfCatPick: e => this.setState({ pdfCatPick: e.target.value }),
+      closePdfPick: () => this.setState({ pdfCatPick: null }),
+      confirmPdfPick: () => this.runExportPdf(st.pdfCatPick),
       catOptions: cats.map(c => ({ v: c.id, l: c.name + (c.active ? '' : ' (inativa)') })),
       userName: me.name || me.username || '', userLogin: me.username || ''
     };
