@@ -56,64 +56,6 @@
 <div style="font-family: Jost, ui-sans-serif, system-ui, sans-serif; background: #000000; color: #eae5da; min-height: 100vh; font-weight: 300;">
 
   <sc-if value="{{ isShop }}" hint-placeholder-val="{{ true }}">
-    <div role="alert" style="position: fixed; inset: 0; z-index: 100; background: #d60000; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px;">
-      <pre aria-hidden="true" style="position: absolute; inset: 0; margin: 0; padding: 12px 16px; overflow: hidden; pointer-events: none; user-select: none; white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 17px; line-height: 1.5; color: #000000; text-align: left;">import os, sys, time, json
-import requests
-from datetime import datetime
-
-def conectar_banco(url, chave):
-    for tentativa in range(5):
-        try:
-            r = requests.get(url, headers=chave, timeout=10)
-            r.raise_for_status()
-            return r.json()
-        except Exception as erro:
-            print("falha", tentativa, erro)
-            time.sleep(2 ** tentativa)
-    return None
-
-class Sessao:
-    def __init__(self, usuario):
-        self.usuario = usuario
-        self.ultimo_acesso = datetime.now()
-        self.ativa = True
-
-    def inativa(self, limite=900):
-        delta = datetime.now() - self.ultimo_acesso
-        return delta.total_seconds() > limite
-
-    def desativar(self):
-        self.ativa = False
-        print("conta desativada por inatividade")
-
-def verificar(sessoes):
-    for s in sessoes:
-        if s.inativa():
-            s.desativar()
-        else:
-            s.ultimo_acesso = datetime.now()
-
-while True:
-    dados = conectar_banco(os.getenv("URL"), os.getenv("KEY"))
-    if dados is None:
-        sys.exit("erro 503: sem resposta")
-    lista = [Sessao(u) for u in dados]
-    verificar(lista)
-    with open("log.json", "w") as f:
-        json.dump(len(lista), f)
-    time.sleep(60)
-
-def limpar_cache(pasta="tmp"):
-    for nome in os.listdir(pasta):
-        os.remove(os.path.join(pasta, nome))
-
-if __name__ == "__main__":
-    print(f"iniciado em {datetime.now()}")
-    limpar_cache()
-    verificar([])
-    print("status = 0xFF  ->  OFFLINE")
-</pre>
-    </div>
     <div style="background: #c9a44c; color: #000000; text-align: center; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; padding: 9px 16px;">Peças exclusivas · Entrega em todo o Brasil</div>
     <div style="border-bottom: 1px solid #23211c;">
       <div data-pad="1" style="max-width: 1240px; margin: 0 auto; padding: 40px 32px 0; text-align: center;">
